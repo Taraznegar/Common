@@ -1,0 +1,631 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{BCA5EAB7-B455-4394-A9F4-BD77C04FDE14}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>AppFrameworkCommonErpPlugin</RootNamespace>
+    <AssemblyName>AppFrameworkCommonErpPlugin</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AppFramework.AppServer, Version=1.1.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\AppFramework.AppServer.dll</HintPath>
+    </Reference>
+    <Reference Include="AppFramework.DataAccess">
+      <HintPath>bin\AppFramework.DataAccess.dll</HintPath>
+    </Reference>
+    <Reference Include="AppFramework.Server.Shared">
+      <HintPath>bin\AppFramework.Server.Shared.dll</HintPath>
+    </Reference>
+    <Reference Include="Stimulsoft.Base, Version=2014.1.1900.0, Culture=neutral, PublicKeyToken=ebe6666cba19647a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\Stimulsoft.Base.dll</HintPath>
+    </Reference>
+    <Reference Include="Stimulsoft.Report, Version=2014.1.1900.0, Culture=neutral, PublicKeyToken=ebe6666cba19647a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\Stimulsoft Reports.Net 2016.1\Bin\Stimulsoft.Report.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ServerPlugins\acc\acc.cs" />
+    <Compile Include="ServerPlugins\acc\AccConfigBL.cs" />
+    <Compile Include="ServerPlugins\acc\AccDocItemBL.cs" />
+    <Compile Include="ServerPlugins\acc\DocKindBL.cs" />
+    <Compile Include="ServerPlugins\cmn\StuffBOMBL.cs" />
+    <Compile Include="ServerPlugins\cmn\DiscountAccSettingBL.cs" />
+    <Compile Include="ServerPlugins\cmn\ServiceAccSettingBL.cs" />
+    <Compile Include="ServerPlugins\cmn\StuffLabelBL.cs" />
+    <Compile Include="ServerPlugins\cmn\SuffLocationAccSettingBL.cs" />
+    <Compile Include="ServerPlugins\cmn\WorkflowDefBL.cs" />
+    <Compile Include="ServerPlugins\cmn\WorkflowStageOrgPostionBL.cs" />
+    <Compile Include="ServerPlugins\cmn\WorkflowStageBL.cs" />
+    <Compile Include="ServerPlugins\EntityBL.cs" />
+    <Compile Include="ServerPlugins\ISubsystem.cs" />
+    <Compile Include="ServerPlugins\acc\NoteBL.cs" />
+    <Compile Include="ServerPlugins\acc\AccDocBL.cs" />
+    <Compile Include="ServerPlugins\acc\AccountBL.cs" />
+    <Compile Include="ServerPlugins\acc\AccountReportsBL.cs" />
+    <Compile Include="ServerPlugins\cmn\BankAccountBL.cs" />
+    <Compile Include="ServerPlugins\cmn\FinancialGroupBL.cs" />
+    <Compile Include="ServerPlugins\cmn\FinancialYearBL.cs" />
+    <Compile Include="ServerPlugins\cmn\CostCenterBL.cs" />
+    <Compile Include="ServerPlugins\cmn\ForeignCurrencyBL.cs" />
+    <Compile Include="ServerPlugins\cmn\CustomTextFieldInfoBL.cs" />
+    <Compile Include="ServerPlugins\cmn\PersonConnectedPersonBL.cs" />
+    <Compile Include="ServerPlugins\cmn\ProjectBL.cs" />
+    <Compile Include="ServerPlugins\cmn\SiteTransactionBL.cs" />
+    <Compile Include="ServerPlugins\cmn\FloatPriorityBL.cs" />
+    <Compile Include="ServerPlugins\cmn\ForeignCurrencyGroupBL.cs" />
+    <Compile Include="ServerPlugins\cmn\ProjectGroupBL.cs" />
+    <Compile Include="ServerPlugins\cmn\CostCenterGroupBL.cs" />
+    <Compile Include="ServerPlugins\cmn\PersonGroupBL.cs" />
+    <Compile Include="ServerPlugins\cmn\ReminderBL.cs" />
+    <Compile Include="ServerPlugins\cmn\cmn.cs" />
+    <Compile Include="ServerPlugins\cmn\OrganizationInformationBL.cs" />
+    <Compile Include="ServerPlugins\cmn\StuffBL.cs" />
+    <Compile Include="ServerPlugins\cmn\StuffSubCategoryBL.cs" />
+    <Compile Include="ServerPlugins\cmn\StuffMainCategoryBL.cs" />
+    <Compile Include="ServerPlugins\cmn\StuffDefBL.cs" />
+    <Compile Include="ServerPlugins\cmn\PersonBL.cs" />
+    <Compile Include="ServerPlugins\cmn\PhoneNumberBL.cs" />
+    <Compile Include="ServerPlugins\cmn\ReceivedCallBL.cs" />
+    <Compile Include="ServerPlugins\cmn\WorkflowBL.cs" />
+    <Compile Include="ServerPlugins\crm\LeadBL.cs" />
+    <Compile Include="ServerPlugins\crm\WarningPopupBL.cs" />
+    <Compile Include="ServerPlugins\FinancialOpBaseBL.cs" />
+    <Compile Include="ServerPlugins\crm\SalesCaseAttachedFileBL.cs" />
+    <Compile Include="ServerPlugins\crm\SalesCaseConnectedPersonBL.cs" />
+    <Compile Include="ServerPlugins\crm\SalesCaseRequestedStuffBL.cs" />
+    <Compile Include="ServerPlugins\crm\SalesCaseRequestedServiceBL.cs" />
+    <Compile Include="ServerPlugins\crm\SalesCaseNoteBL.cs" />
+    <Compile Include="ServerPlugins\crm\crm.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ServerPlugins\cmn\ActivityBL.cs" />
+    <Compile Include="ServerPlugins\crm\SalesCaseLoseInfoBL.cs" />
+    <Compile Include="ServerPlugins\crm\SalesCaseBL.cs" />
+    <Compile Include="ServerPlugins\ps\BuyInvoiceBL.cs" />
+    <Compile Include="ServerPlugins\ps\BuyInvoiceItemBL.cs" />
+    <Compile Include="ServerPlugins\ps\CanceledSalesInvoiceInfoBL.cs" />
+    <Compile Include="ServerPlugins\ps\PriceListServiceItemBL.cs" />
+    <Compile Include="ServerPlugins\ps\PriceListStuffItemBL.cs" />
+    <Compile Include="ServerPlugins\ps\PsConfigBL.cs" />
+    <Compile Include="ServerPlugins\ps\PriceListBL.cs" />
+    <Compile Include="ServerPlugins\ps\PSReportsBL.cs" />
+    <Compile Include="ServerPlugins\ps\ReturnFromBuyBL.cs" />
+    <Compile Include="ServerPlugins\ps\ReturnFromSalesBL.cs" />
+    <Compile Include="ServerPlugins\ps\SalesInvoiceItemBL.cs" />
+    <Compile Include="ServerPlugins\ps\SalesInvoiceBL.cs" />
+    <Compile Include="ServerPlugins\ps\StuffRequestBL.cs" />
+    <Compile Include="ServerPlugins\ps\TaxAndTollPercentBL.cs" />
+    <Compile Include="ServerPlugins\ps\ps.cs" />
+    <Compile Include="ServerPlugins\rp\AllowedBankAccountBL.cs" />
+    <Compile Include="ServerPlugins\rp\AllowedCashBL.cs" />
+    <Compile Include="ServerPlugins\rp\AllowedPosDeviceBL.cs" />
+    <Compile Include="ServerPlugins\rp\QuickSettlementHavaleItemBL.cs" />
+    <Compile Include="ServerPlugins\rp\QuickSettlementPosItemBL.cs" />
+    <Compile Include="ServerPlugins\rp\QuickSettlementCashItemBL.cs" />
+    <Compile Include="ServerPlugins\rp\ChekeZemanateDaryaftiBL.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ServerPlugins\rp\ChequeStatusChangeAccSettingBL.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ServerPlugins\rp\FinancialOpKindAccSettingBL.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ServerPlugins\rp\HavaleDaryaftiBL.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ServerPlugins\rp\HavalePardakhtiBL.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ServerPlugins\rp\PaidChequeBL.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ServerPlugins\rp\PaidChequeStatusChangeBL.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ServerPlugins\rp\PayReceiptBL.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ServerPlugins\rp\PayReceiptItemBL.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ServerPlugins\rp\PayTypeBL.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ServerPlugins\rp\PayTypeOpKindBL.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ServerPlugins\rp\ReceivedChequeBL.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ServerPlugins\rp\ReceivedChequeStatusChangeBL.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ServerPlugins\rp\ReceiveReceiptBL.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ServerPlugins\rp\ReceiveReceiptItemBL.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ServerPlugins\rp\ReceiveTypeBL.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ServerPlugins\rp\ReceiveTypeOpKindBL.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ServerPlugins\rp\rp.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ServerPlugins\rp\SafteDaryaftiBL.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ServerPlugins\rp\SettingBL.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ServerPlugins\rp\TankhahItemBL.cs" />
+    <Compile Include="ServerPlugins\rp\TankhahGardanAccSettingBL.cs" />
+    <Compile Include="ServerPlugins\rp\TarafHesabeTankhahAccSettingBL.cs" />
+    <Compile Include="ServerPlugins\rp\TankhahBL.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ServerPlugins\wm\ArzeshRialiEstandardKalaBL.cs" />
+    <Compile Include="ServerPlugins\wm\AuthorizedSystemUserBL.cs" />
+    <Compile Include="ServerPlugins\wm\GhabzOrHavaleItemBL.cs" />
+    <Compile Include="ServerPlugins\wm\InventoryValuationBL.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ServerPlugins\wm\MontageOrDemontageBL.cs" />
+    <Compile Include="ServerPlugins\wm\OnTheWayStuffReceiveInfoBL.cs" />
+    <Compile Include="ServerPlugins\wm\OnTheWayStuffInfoBL.cs" />
+    <Compile Include="ServerPlugins\wm\GhabzOrHavaleBL.cs" />
+    <Compile Include="ServerPlugins\wm\GhabzOrHavaleTypeBL.cs" />
+    <Compile Include="ServerPlugins\wm\GhetehBardariAzKalaBL.cs" />
+    <Compile Include="ServerPlugins\wm\SefareshBL.cs" />
+    <Compile Include="ServerPlugins\wm\SefareshItemBL.cs" />
+    <Compile Include="ServerPlugins\wm\StuffSerialNumberBL.cs" />
+    <Compile Include="ServerPlugins\wm\StuffStatusChangeAndTransferBL.cs" />
+    <Compile Include="ServerPlugins\wm\WarehouseDocsAccSettingsBL.cs" />
+    <Compile Include="ServerPlugins\wm\WarehouseHybridOperationBL.cs" />
+    <Compile Include="ServerPlugins\wm\WarehouseInventoryReserveListItemBL.cs" />
+    <Compile Include="ServerPlugins\wm\wm.cs" />
+    <Compile Include="ServerPlugins\wm\WMReportsBL.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Readme\Elmah.txt" />
+    <Content Include="DbScripts\ps.sql" />
+    <Content Include="DbScripts\rp.sql" />
+    <Content Include="DbScripts\acc.sql" />
+    <Content Include="DbScripts\cmn.sql" />
+    <Content Include="DbScripts\crm.sql" />
+    <Content Include="DbScripts\wm.sql" />
+    <Content Include="JavaScript\acc\acc.AccDocAtachedFileEditForm.js" />
+    <Content Include="JavaScript\acc\acc.AccDocAtachedFilesControl.js" />
+    <Content Include="JavaScript\acc\acc.AccDocEditForm.js" />
+    <Content Include="JavaScript\acc\acc.AccDocForeignCurrencyPopupForm.js" />
+    <Content Include="JavaScript\acc\acc.AccDocGenerateForm.js" />
+    <Content Include="JavaScript\acc\acc.AccDocItemEditForm.js" />
+    <Content Include="JavaScript\acc\acc.AccDocItemFilteringControl.js" />
+    <Content Include="JavaScript\acc\acc.AccDocItemForm.js" />
+    <Content Include="JavaScript\acc\acc.AccDocItemsControl.js" />
+    <Content Include="JavaScript\acc\acc.AccDocItemsGridControl.js" />
+    <Content Include="JavaScript\acc\acc.AccDocItemsGridRowControl.js" />
+    <Content Include="JavaScript\acc\acc.AccDocManagmentDashboardForm.js" />
+    <Content Include="JavaScript\acc\acc.AccDocOneItemsControl.js" />
+    <Content Include="JavaScript\acc\acc.AccDocsCheckingForm.js" />
+    <Content Include="JavaScript\acc\acc.AccDocsControl.js" />
+    <Content Include="JavaScript\acc\acc.AccDocSearchFrom.js" />
+    <Content Include="JavaScript\acc\acc.AccountAllLevelReportForm.js" />
+    <Content Include="JavaScript\acc\acc.AccountCodeTreePrintForm.js" />
+    <Content Include="JavaScript\acc\acc.AccountEditForm.js" />
+    <Content Include="JavaScript\acc\acc.AccountFloatGroupsForm.js" />
+    <Content Include="JavaScript\acc\acc.AccountForm.js" />
+    <Content Include="JavaScript\acc\acc.AccountGroupsControl.js" />
+    <Content Include="JavaScript\acc\acc.AccountReviewControl.js" />
+    <Content Include="JavaScript\acc\acc.AccountReviewFilterControl.js" />
+    <Content Include="JavaScript\acc\acc.AccountReviewForm.js" />
+    <Content Include="JavaScript\acc\acc.AccountReviewShenavarControl.js" />
+    <Content Include="JavaScript\acc\acc.AccountsHierarchyControl.js" />
+    <Content Include="JavaScript\acc\acc.BeforeExitPopup.js" />
+    <Content Include="JavaScript\acc\acc.ConfigEditForm.js" />
+    <Content Include="JavaScript\acc\acc.ConfigsControl.js" />
+    <Content Include="JavaScript\acc\acc.ConnecetedAccouns.js" />
+    <Content Include="JavaScript\acc\acc.CostAndBenefitReportForm.js" />
+    <Content Include="JavaScript\acc\acc.CostAndBenefitReport_ReportParametersForm.js" />
+    <Content Include="JavaScript\acc\acc.CostCenterGroupEditForm.js" />
+    <Content Include="JavaScript\acc\acc.DafaterForm.js" />
+    <Content Include="JavaScript\acc\acc.DaftarRoznameReportForm.js" />
+    <Content Include="JavaScript\acc\acc.DocCopyAdditionalInfoForm.js" />
+    <Content Include="JavaScript\acc\acc.FloatAccountsSelectionControl.js" />
+    <Content Include="JavaScript\acc\acc.ForeignCurrencyGroupEditForm.js" />
+    <Content Include="JavaScript\acc\acc.GhateiYaMovaghatNemodaneAsnadFormFilterControl.js" />
+    <Content Include="JavaScript\acc\acc.js" />
+    <Content Include="JavaScript\acc\acc.GhabzOrHavaleOfOneAccDocForm.js" />
+    <Content Include="JavaScript\acc\acc.PersonGroupEditForm.js" />
+    <Content Include="JavaScript\acc\acc.PreDefinedNoteEditForm.js" />
+    <Content Include="JavaScript\acc\acc.PreDefinedNotesControl.js" />
+    <Content Include="JavaScript\acc\acc.ProjectGroupEditForm.js" />
+    <Content Include="JavaScript\acc\acc.ShenavarhaReportForm.js" />
+    <Content Include="JavaScript\acc\acc.TarazAzmayeshiForm.js" />
+    <Content Include="JavaScript\acc\acc.TarazAzmayeshiListControl.js" />
+    <Content Include="JavaScript\cmn\cmn.CustomTextFieldInfoEditForm.js" />
+    <Content Include="JavaScript\cmn\cmn.CustomTextFieldInfoListControl.js" />
+    <Content Include="JavaScript\cmn\cmn.DataListAdvancedFilterControl.js" />
+    <Content Include="JavaScript\cmn\cmn.DiscountAccSettingEditForm.js" />
+    <Content Include="JavaScript\cmn\cmn.DiscountEditForm.js" />
+    <Content Include="JavaScript\cmn\cmn.MessageTemplateEditForm.js" />
+    <Content Include="JavaScript\cmn\cmn.PersonConnectedPersonsControl.js" />
+    <Content Include="JavaScript\cmn\cmn.ConnectedPersonQuickInsertForm.js" />
+    <Content Include="JavaScript\cmn\cmn.PersonPreviewControl2.js" />
+    <Content Include="JavaScript\cmn\cmn.PersonPreviewControl1.js" />
+    <Content Include="JavaScript\cmn\cmn.ReminderManager.js" />
+    <Content Include="JavaScript\cmn\cmn.js" />
+    <Content Include="JavaScript\cmn\cmn.ActivitiesControl.js" />
+    <Content Include="JavaScript\cmn\cmn.FloatPrioritiesControl.js" />
+    <Content Include="JavaScript\cmn\cmn.MarketersControl.js" />
+    <Content Include="JavaScript\cmn\cmn.CustomersControl.js" />
+    <Content Include="JavaScript\cmn\cmn.OutGoingCallsControl.js" />
+    <Content Include="JavaScript\cmn\cmn.PersonsControl.js" />
+    <Content Include="JavaScript\cmn\cmn.ServiceAccSettingEditForm.js" />
+    <Content Include="JavaScript\cmn\cmn.ServicesControl.js" />
+    <Content Include="JavaScript\cmn\cmn.StuffBOMEditForm.js" />
+    <Content Include="JavaScript\cmn\cmn.StuffDefsControl.js" />
+    <Content Include="JavaScript\cmn\cmn.StuffLocationAccSettingEditForm.js" />
+    <Content Include="JavaScript\cmn\cmn.StuffsBOMListControl.js" />
+    <Content Include="JavaScript\cmn\cmn.StuffsControl.js" />
+    <Content Include="JavaScript\cmn\cmn.WorkfolwSystemActionsControl.js" />
+    <Content Include="JavaScript\cmn\cmn.BarCodePrintForm.js" />
+    <Content Include="JavaScript\cmn\cmn.CustomerCategoryEditForm.js" />
+    <Content Include="JavaScript\cmn\cmn.CustomerCategorySelectControl.js" />
+    <Content Include="JavaScript\cmn\cmn.CustomerGroupingEditForm.js" />
+    <Content Include="JavaScript\cmn\cmn.CustomersCategoriesDefControl.js" />
+    <Content Include="JavaScript\cmn\cmn.CustomerSubGroup1EditForm.js" />
+    <Content Include="JavaScript\cmn\cmn.Filtering2Control.js" />
+    <Content Include="JavaScript\cmn\cmn.FilteringControl.js" />
+    <Content Include="JavaScript\cmn\cmn.FinancialGroupEditForm.js" />
+    <Content Include="JavaScript\cmn\cmn.FinancialYearEditForm.js" />
+    <Content Include="JavaScript\cmn\cmn.ForeignCurrencyEditForm.js" />
+    <Content Include="JavaScript\cmn\cmn.ProjectEditForm.js" />
+    <Content Include="JavaScript\cmn\cmn.CostCenterEditForm.js" />
+    <Content Include="JavaScript\cmn\cmn.OrganizationInformationEditForm.js" />
+    <Content Include="JavaScript\cmn\cmn.FloatPriorityEditForm.js" />
+    <Content Include="JavaScript\cmn\cmn.ReceivePaySettingsForm.js" />
+    <Content Include="JavaScript\cmn\cmn.ServiceEditForm.js" />
+    <Content Include="JavaScript\cmn\cmn.CmnUserSettingsForm.js" />
+    <Content Include="JavaScript\cmn\cmn.PersonsFilterControl.js" />
+    <Content Include="JavaScript\cmn\cmn.ReminderWindow.js" />
+    <Content Include="JavaScript\cmn\cmn.PersonConnectedPersonEditForm.js" />
+    <Content Include="JavaScript\cmn\cmn.ContractEditForm.js" />
+    <Content Include="JavaScript\cmn\cmn.ActivityEditForm.js" />
+    <Content Include="JavaScript\cmn\cmn.PersonEditForm.js" />
+    <Content Include="JavaScript\cmn\cmn.ReminderItemControl.js" />
+    <Content Include="JavaScript\cmn\cmn.SettingsForm.js" />
+    <Content Include="JavaScript\cmn\cmn.StuffLabelEditForm.js" />
+    <Content Include="JavaScript\cmn\cmn.StuffPossibleLocationEditForm.js" />
+    <Content Include="JavaScript\cmn\cmn.WorkflowDashboard.js" />
+    <Content Include="JavaScript\cmn\cmn.WorkflowDefEditForm.js" />
+    <Content Include="JavaScript\cmn\cmn.WorkflowEditForm.js" />
+    <Content Include="JavaScript\cmn\cmn.WorkflowStageEditForm.js" />
+    <Content Include="JavaScript\cmn\cmn.WorkflowStageOrgPostionEditForm.js" />
+    <Content Include="JavaScript\cmn\cmn.WorkflowSystemActionEditForm.js" />
+    <Content Include="JavaScript\cmn\cmn.StuffBOM_StuffComponentsGridControl.js" />
+    <Content Include="JavaScript\cmn\cmn.StuffBOM_StuffComponentsGridRowControl.js" />
+    <Content Include="JavaScript\crm\crm.LeadDisqualifyInfoEditForm.js" />
+    <Content Include="JavaScript\crm\crm.LeadEditForm.js" />
+    <Content Include="JavaScript\crm\crm.LeadsControl.js" />
+    <Content Include="JavaScript\crm\crm.LeadsFilterControl.js" />
+    <Content Include="JavaScript\crm\crm.WarningsMenuItem.js" />
+    <Content Include="JavaScript\crm\crm.SalesCasesControl.js" />
+    <Content Include="JavaScript\crm\crm.SalesCaseStageEditForm.js" />
+    <Content Include="JavaScript\crm\crm.SalesCaseRequestTypeEditForm.js" />
+    <Content Include="JavaScript\crm\crm.SalesCasesFilterControl.js" />
+    <Content Include="JavaScript\crm\crm.SalesCaseConnectedPersonEditForm.js" />
+    <Content Include="JavaScript\ps\ps.MegaModavemSalesDashboardDataListControl.js" />
+    <Content Include="JavaScript\ps\ps.MegaModavemSalesDashBoardForm.js" />
+    <Content Include="JavaScript\ps\ps.CanceledSalesInvoiceInfoEditForm.js" />
+    <Content Include="JavaScript\ps\ps.CanceledSalesInvoiceInfosControl.js" />
+    <Content Include="JavaScript\ps\ps.NotReturnedAmaniStuffsListControl.js" />
+    <Content Include="JavaScript\ps\ps.ReturnFromBuyEditForm.js" />
+    <Content Include="JavaScript\ps\ps.ReturnFromBuyItemsGridControl.js" />
+    <Content Include="JavaScript\ps\ps.ReturnFromBuyItemsGridRowControl.js" />
+    <Content Include="JavaScript\ps\ps.ReturnFromBuyListControl.js" />
+    <Content Include="JavaScript\ps\ps.SalesInvoicesFilterControl.js" />
+    <Content Include="JavaScript\ps\ps.GardesheKalahayeMoshtariForm.js" />
+    <Content Include="JavaScript\ps\ps.BuyInvoiceEditForm.js" />
+    <Content Include="JavaScript\ps\ps.BuyInvoiceItemsGridControl.js" />
+    <Content Include="JavaScript\ps\ps.BuyInvoiceItemsGridRowControl.js" />
+    <Content Include="JavaScript\ps\ps.BuyInvoiceListControl.js" />
+    <Content Include="JavaScript\ps\ps.ConfigEditForm.js" />
+    <Content Include="JavaScript\ps\ps.ConfigListControl.js" />
+    <Content Include="JavaScript\ps\ps.KarteksTedadiRialiKalaReportForm.js" />
+    <Content Include="JavaScript\ps\ps.KartksNumberOfStuffReportForm.js" />
+    <Content Include="JavaScript\ps\ps.ReturnFromSaleItemsGridControl.js" />
+    <Content Include="JavaScript\ps\ps.ReturnFromSaleItemsGridRowControl.js" />
+    <Content Include="JavaScript\ps\ps.ReturnFromSaleListControl.js" />
+    <Content Include="JavaScript\ps\ps.ReturnFromSalesEditForm.js" />
+    <Content Include="JavaScript\ps\ps.SaleInvoiceVosolMotalebatEditForm.js" />
+    <Content Include="JavaScript\ps\ps.InvoiceConversionPopupForm.js" />
+    <Content Include="JavaScript\ps\ps.SalesAndBuyInvoiceReportForm.js" />
+    <Content Include="JavaScript\ps\ps.SalesInvoicePayPlanItemsGridRowControl.js" />
+    <Content Include="JavaScript\ps\ps.SalesInvoicePayPlanItemsGridControl.js" />
+    <Content Include="JavaScript\ps\ps.SalesInvoicesControl.js" />
+    <Content Include="JavaScript\ps\ps.SalesProformaInvoicesControl.js" />
+    <Content Include="JavaScript\ps\ps.js" />
+    <Content Include="JavaScript\ps\ps.SalesInvoiceItemsGridControl.js" />
+    <Content Include="JavaScript\ps\ps.SalesInvoiceItemsGridRowControl.js" />
+    <Content Include="JavaScript\ps\ps.SalesInvoiceEditForm.js" />
+    <Content Include="JavaScript\ps\ps.SeasonalPurchaseAndSalesReportForm.js" />
+    <Content Include="JavaScript\ps\ps.StuffsAndServicesControl.js" />
+    <Content Include="JavaScript\ps\ps.InvoiceDetailedReportControl.js" />
+    <Content Include="JavaScript\ps\ps.StuffRequestEditForm.js" />
+    <Content Include="JavaScript\ps\ps.StuffRequestItemsGridControl.js" />
+    <Content Include="JavaScript\ps\ps.StuffRequestItemsGridRowControl.js" />
+    <Content Include="JavaScript\ps\ps.StuffRequestsControl.js" />
+    <Content Include="JavaScript\rf\rf.js" />
+    <Content Include="JavaScript\cmn\cmn.BankAccountAccSettingEditForm.js" />
+    <Content Include="JavaScript\rp\rp.QuickSettlementHavaleItemEditForm.js" />
+    <Content Include="JavaScript\rp\rp.QuickSettlementCashItemEditForm.js" />
+    <Content Include="JavaScript\rp\rp.QuickSettlementPosItemEditForm.js" />
+    <Content Include="JavaScript\rp\rp.CashAccSettingEditForm.js" />
+    <Content Include="JavaScript\rp\rp.CashEditForm.js" />
+    <Content Include="JavaScript\rp\rp.FinancialOpKindAccSettingEditForm.js" />
+    <Content Include="JavaScript\rp\rp.FinancialOpKindAccSettingsControl.js" />
+    <Content Include="JavaScript\rp\rp.PaidChequeStatusChangesControl.js" />
+    <Content Include="JavaScript\rp\rp.PosPaymentStatusForm.js" />
+    <Content Include="JavaScript\rp\rp.QuickSettlement_Cheqe.js" />
+    <Content Include="JavaScript\rp\rp.QuickSettlement_Pos.js" />
+    <Content Include="JavaScript\rp\rp.QuickSettlement_Havale.js" />
+    <Content Include="JavaScript\rp\rp.QuickSettlement_Naqd.js" />
+    <Content Include="JavaScript\rp\rp.ReceivedChequeStatusChangesControl.js" />
+    <Content Include="JavaScript\rp\rp.ReceivedPosEditForm.js" />
+    <Content Include="JavaScript\rp\rp.ChekeZemanateDaryaftiEditForm.js" />
+    <Content Include="JavaScript\rp\rp.ChekeZemanatePardakhtiEditForm.js" />
+    <Content Include="JavaScript\rp\rp.ChequesStatusChangeSearchForm.js" />
+    <Content Include="JavaScript\rp\rp.ChequesStatusChangeSearchForm_PaidFilter.js" />
+    <Content Include="JavaScript\rp\rp.ChequesStatusChangeSearchForm_ReceivedFilter.js" />
+    <Content Include="JavaScript\rp\rp.ChequeStatusChangeAccSettingEditForm.js" />
+    <Content Include="JavaScript\rp\rp.HavaleDaryaftiEditForm.js" />
+    <Content Include="JavaScript\rp\rp.HavalePardakhtiEditForm.js" />
+    <Content Include="JavaScript\rp\rp.NaghdeDaryaftiEditForm.js" />
+    <Content Include="JavaScript\rp\rp.NaghdePardakhtiEditForm.js" />
+    <Content Include="JavaScript\rp\rp.PaidChequeEditForm.js" />
+    <Content Include="JavaScript\rp\rp.PaidChequeHistoryCheckForm.js" />
+    <Content Include="JavaScript\rp\rp.PayReceiptEditForm.js" />
+    <Content Include="JavaScript\rp\rp.PayReceiptItemEditForm.js" />
+    <Content Include="JavaScript\rp\rp.ChequeStatusChangeAccSettingsControl.js" />
+    <Content Include="JavaScript\rp\rp.PayReceiptItemsControl.js" />
+    <Content Include="JavaScript\rp\rp.PayReceiptsControl.js" />
+    <Content Include="JavaScript\rp\rp.PayReportForm.js" />
+    <Content Include="JavaScript\rp\rp.QuickSettlementForm.js" />
+    <Content Include="JavaScript\rp\rp.ReceivedChequeEditForm.js" />
+    <Content Include="JavaScript\rp\rp.ReceivedChequeHistoryCheckForm.js" />
+    <Content Include="JavaScript\rp\rp.ReceivedChequesControl.js" />
+    <Content Include="JavaScript\rp\rp.ReceivedChequeStatusChangeEditForm.js" />
+    <Content Include="JavaScript\rp\rp.ReceivedReceiptFilterControl.js" />
+    <Content Include="JavaScript\rp\rp.ReceiveReceiptItemEditForm.js" />
+    <Content Include="JavaScript\rp\rp.ReceiveReceiptItemsControl.js" />
+    <Content Include="JavaScript\rp\rp.ChequesStatusChangeForm.js" />
+    <Content Include="JavaScript\rp\rp.js" />
+    <Content Include="JavaScript\rp\rp.ReceiveReceiptEditForm.js" />
+    <Content Include="JavaScript\rp\rp.ReceiveReceiptsControl.js" />
+    <Content Include="JavaScript\rp\rp.PayReportListControl.js" />
+    <Content Include="JavaScript\rp\rp.ReceiveReportForm.js" />
+    <Content Include="JavaScript\rp\rp.ReceiveReportListControl.js" />
+    <Content Include="JavaScript\rp\rp.SafteDaryaftiEditForm.js" />
+    <Content Include="JavaScript\rp\rp.TankhahDefEditForm.js" />
+    <Content Include="JavaScript\rp\rp.TankhahGardanAccSettingEditForm.js" />
+    <Content Include="JavaScript\rp\rp.TankhahGardanEditForm.js" />
+    <Content Include="JavaScript\rp\rp.TankhahItemEditForm.js" />
+    <Content Include="JavaScript\rp\rp.TankhahItemsListControl.js" />
+    <Content Include="JavaScript\rp\rp.TankhahEditForm.js" />
+    <Content Include="JavaScript\rp\rp.TankhahListControl.js" />
+    <Content Include="JavaScript\rp\rp.TankhahListItemsSearchDataListControl.js" />
+    <Content Include="JavaScript\rp\rp.TarafHesabeTankhahAccSettingEditForm.js" />
+    <Content Include="JavaScript\rp\rp.TashimEditForm.js" />
+    <Content Include="JavaScript\rp\rp.FinancialOpKindEditForm.js" />
+    <Content Include="JavaScript\rp\rp.FinancialOpKindsControl.js" />
+    <Content Include="JavaScript\cmn\cmn.BankAccountEditForm.js" />
+    <Content Include="JavaScript\cmn\cmn.ReceivedCallEditForm.js" />
+    <Content Include="JavaScript\cmn\cmn.StuffDefEditForm.js" />
+    <Content Include="JavaScript\cmn\cmn.StuffLocationEditForm.js" />
+    <Content Include="JavaScript\cmn\cmn.StuffEditForm.js" />
+    <Content Include="JavaScript\cmn\cmn.StuffMainCategoryEditForm.js" />
+    <Content Include="JavaScript\cmn\cmn.StuffSubCategoryEditForm.js" />
+    <Content Include="JavaScript\cmn\cmn.ReceivedCallContractSelectWindow.js" />
+    <Content Include="JavaScript\cmn\cmn.ReceivedCallSalesCaseSelectWindow.js" />
+    <Content Include="JavaScript\crm\crm.DailyCalendar_CurrentTimeIndicatorControl.js" />
+    <Content Include="JavaScript\crm\crm.DailyCalendarItemControl.js" />
+    <Content Include="JavaScript\crm\crm.DailyCalendarControl.js" />
+    <Content Include="JavaScript\crm\crm.SalesCaseEditForm.js" />
+    <Content Include="JavaScript\crm\crm.SalesCaseLoseInfoEditForm.js" />
+    <Content Include="JavaScript\crm\crm.SalesCaseNoteEditForm.js" />
+    <Content Include="JavaScript\cmn\cmn.ReceivedCallsControl.js" />
+    <Content Include="JavaScript\crm\crm.SalesCaseHistoryControl.js" />
+    <Content Include="JavaScript\crm\crm.js" />
+    <Content Include="JavaScript\crm\crm.SalesDashboard.js" />
+    <Content Include="JavaScript\crm\crm.SalesCasesPipelineViewControl.js" />
+    <Content Include="JavaScript\crm\crm.SalesCasesPipelineViewItemControl.js" />
+    <Content Include="Import Data and other\Insert into person.sql" />
+    <Content Include="JavaScript\cmn\cmn.DataEntryGridControlBase.js" />
+    <Content Include="JavaScript\wm\wm.MontageOrDemontageEditForm.js" />
+    <Content Include="JavaScript\wm\wm.MontageOrDemontageStuffComponentsGridRowControl.js" />
+    <Content Include="JavaScript\wm\wm.MontageOrDemontageStuffComponentsGridControl.js" />
+    <Content Include="JavaScript\wm\wm.MontageOrDemontageListControl.js" />
+    <Content Include="JavaScript\wm\wm.KarteksTedadiKalaForm.js" />
+    <Content Include="JavaScript\wm\wm.KarteksTedadiRialiKalaForm.js" />
+    <Content Include="JavaScript\wm\wm.ResolveWareHouseDocsConflictsForm.js" />
+    <Content Include="JavaScript\wm\wm.WarehouseDocsAccSettingCopyAdditionalInfoForm.js" />
+    <Content Include="JavaScript\wm\wm.ItemsOfGhabzOrHavaleControl.js" />
+    <Content Include="JavaScript\wm\wm.GhabzOrHavaleItemForm.js" />
+    <Content Include="JavaScript\wm\wm.GhetehBardariAzKalaListControl.js" />
+    <Content Include="JavaScript\wm\wm.RialiNemodanAsnadAnbarForm.js" />
+    <Content Include="JavaScript\wm\wm.RialiNemodanAsnadAnbarListControl.js" />
+    <Content Include="JavaScript\wm\wm.SetRialiAmountManuallyListControl.js" />
+    <Content Include="JavaScript\wm\wm.GhabzOrHavalehaListControl.js" />
+    <Content Include="JavaScript\wm\wm.SetRialiAmountManuallyForm.js" />
+    <Content Include="JavaScript\wm\wm.ExternalSefareshListControl.js" />
+    <Content Include="JavaScript\wm\wm.GhabzListControl.js" />
+    <Content Include="JavaScript\wm\wm.GhabzOrHavaleEditForm.js" />
+    <Content Include="JavaScript\wm\wm.GhabzOrHavaleItemsGridControl.js" />
+    <Content Include="JavaScript\wm\wm.GhabzOrHavaleItemsGridRowControl.js" />
+    <Content Include="JavaScript\wm\wm.GhabzOrHavaleTypeEditForm.js" />
+    <Content Include="JavaScript\wm\wm.GhabzOrHavaleTypeListControl.js" />
+    <Content Include="JavaScript\wm\wm.GhetehBardariAzKalaEditForm.js" />
+    <Content Include="JavaScript\wm\wm.GhetehBardariAzKalaItemsGridControl.js" />
+    <Content Include="JavaScript\wm\wm.GhetehBardariAzKalaItemsGridRowControl.js" />
+    <Content Include="JavaScript\wm\wm.GroupInsertEditForm.js" />
+    <Content Include="JavaScript\wm\wm.HavaleListControl.js" />
+    <Content Include="JavaScript\wm\wm.HavaleRequestItemsControl.js" />
+    <Content Include="JavaScript\wm\wm.js" />
+    <Content Include="JavaScript\wm\wm.OnTheWayStuffInfoEditForm.js" />
+    <Content Include="JavaScript\wm\wm.OnTheWayStuffReceiveInfoEditForm.js" />
+    <Content Include="JavaScript\wm\wm.ReferenceDocTypeEditForm.js" />
+    <Content Include="JavaScript\wm\wm.ReferenceDocTypeListControl.js" />
+    <Content Include="JavaScript\wm\wm.SefareshEditForm.js" />
+    <Content Include="JavaScript\wm\wm.SefareshItemsGridControl.js" />
+    <Content Include="JavaScript\wm\wm.SefareshItemsGridRowControl.js" />
+    <Content Include="JavaScript\wm\wm.SettingEditForm.js" />
+    <Content Include="JavaScript\wm\wm.StuffsCirculationReportControl.js" />
+    <Content Include="JavaScript\wm\wm.StuffsSerialNumberListControl.js" />
+    <Content Include="JavaScript\wm\wm.StuffsStockReportControl.js" />
+    <Content Include="JavaScript\wm\wm.StuffsSerialNumberEditForm.js" />
+    <Content Include="JavaScript\wm\wm.StuffStatusChangeAndTransferEditForm.js" />
+    <Content Include="JavaScript\wm\wm.StuffStatusChangeAndTransferItemsGridControl.js" />
+    <Content Include="JavaScript\wm\wm.StuffStatusChangeAndTransferItemsGridRowControl.js" />
+    <Content Include="JavaScript\wm\wm.StuffStatusChangeAndTransferListControl.js" />
+    <Content Include="JavaScript\wm\wm.StuffStatusChangeAndTransferTypeEditForm.js" />
+    <Content Include="JavaScript\wm\wm.TarafHesabeAnbarEditForm.js" />
+    <Content Include="JavaScript\wm\wm.TarafHesabeAnbarListControl.js" />
+    <Content Include="JavaScript\wm\wm.WarehouseDocsAccSettingsControl.js" />
+    <Content Include="JavaScript\wm\wm.WarehouseDocsAccSettingsEditForm.js" />
+    <Content Include="JavaScript\wm\wm.WarehouseHybridOperationEditForm.js" />
+    <Content Include="JavaScript\wm\wm.WarehouseHybridOperationItemsGridControl.js" />
+    <Content Include="JavaScript\wm\wm.WarehouseHybridOperationItemsGridRowControl.js" />
+    <Content Include="JavaScript\wm\wm.WarehouseInventoryReserveDataListControl.js" />
+    <Content Include="JavaScript\wm\wm.WarehouseHybridOperationsControl.js" />
+    <Content Include="JavaScript\wm\wm.WarehouseInventoryReserveListItemEditForm.js" />
+    <Content Include="Misc\_SampleCodes.js" />
+    <Content Include="Misc\_WebUi Codes Documentation.txt" />
+    <Content Include="JavaScript\wm\wm.VarianceGhabzOrHavaleStuffsReportControl.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="bin\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+    <None Include="Reports\acc\acc.AccDocOfficialWithFloatReport.mrt" />
+    <None Include="Reports\acc\acc.AccDocOfficialWithDetailAndFloatReport.mrt" />
+    <None Include="Reports\acc\acc.AccDocPrintWithOutFloatReport.mrt" />
+    <None Include="Reports\acc\acc.AccDocsCheckingReport.mrt" />
+    <None Include="Reports\acc\acc.AccountAllLevelReport.mrt" />
+    <None Include="Reports\acc\acc.AccountCodeTreeReport.mrt" />
+    <None Include="Reports\acc\acc.AccountCodeTreeWithFloatGroupsReport.mrt" />
+    <None Include="Reports\acc\acc.AccountReviewReport.mrt">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Reports\acc\acc.AccountReviewShenavar.mrt">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Reports\acc\acc.ConnectedAccountsReport.mrt" />
+    <None Include="Reports\acc\acc.CostAndBenefitReport.mrt" />
+    <None Include="Reports\acc\acc.DateBaseDaftarRoznameReport.mrt">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Reports\acc\acc.DocNoBaseDaftarRoznameReport.mrt" />
+    <None Include="Reports\acc\acc.DafaterReport.mrt">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Reports\acc\acc.ShenavarhaReports.mrt">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Reports\acc\accTarazAzmayeshiFourColumnsReport.mrt" />
+    <None Include="Reports\acc\accTarazAzmayeshiTwoColumnsReport.mrt" />
+    <None Include="Reports\acc\ShenavarhatempReport.mrt" />
+    <None Include="Reports\cmn\cmn.BarCodePrintReport.mrt" />
+    <None Include="Reports\cmn\cmn.InvoicesStuffBarCodePrintReport.mrt" />
+    <None Include="Reports\CRM\crm.LeadsReport.mrt" />
+    <None Include="Reports\CRM\crm.SalesCaseReport.mrt" />
+    <None Include="Reports\ps\ps.GozaresheFactoreTajmii.mrt" />
+    <None Include="Reports\ps\ps.HavaleFactorForoosh.mrt" />
+    <None Include="Reports\ps\ps.KarteksNumberOfStuffReport.mrt" />
+    <None Include="Reports\ps\ps.KarteksTedadiRialiKala.mrt" />
+    <None Include="Reports\ps\ps.PersonalizationInvoiceReport.mrt">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Reports\ps\ps.SalesAndBuyInvoicesReport.mrt" />
+    <None Include="Reports\ps\ps.SalesInvoice1.mrt" />
+    <None Include="Reports\ps\ps.SalesInvoice2.mrt" />
+    <None Include="Reports\ps\ps.SalesInvoiceBill.mrt" />
+    <None Include="Reports\ps\ps.SalesInvoiceOfficial.mrt" />
+    <None Include="Reports\ps\ps.SalesInvoiceOfficialLandscape.mrt" />
+    <None Include="Reports\ps\ps.SalesInvoiceOfficialLandscapeTypeTwo.mrt" />
+    <None Include="Reports\ps\ps.SeasonalPurchaseAndSalesReport.mrt" />
+    <None Include="Reports\ps\ps.ServiceInvoiceOfficial.mrt" />
+    <None Include="Reports\ps\ps.ServiceInvoiceOfficialLandscape.mrt" />
+    <None Include="Reports\ps\ps.ServiceInvoiceOfficialLandscapeTypeTwo.mrt" />
+    <None Include="Reports\rp\rp.PaidChequeHistoryReport.mrt" />
+    <None Include="Reports\rp\rp.PayReceipt.mrt" />
+    <None Include="Reports\rp\rp.PayReport.mrt" />
+    <None Include="Reports\rp\rp.ReceivedChequeHistoryReport.mrt" />
+    <None Include="Reports\rp\rp.ReceiveReceipt.mrt" />
+    <None Include="Reports\rp\rp.ReceiveReport.mrt" />
+    <None Include="Reports\rp\rp.TankhahReport.mrt" />
+    <None Include="Reports\wm\wm.HavaleReport.mrt" />
+    <None Include="Reports\wm\wm.HavaleRequestItemsReport.mrt" />
+    <None Include="Reports\wm\wm.KarteksTedadiKala.mrt" />
+    <None Include="Reports\wm\wm.KarteksTedadiRialiKala.mrt" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

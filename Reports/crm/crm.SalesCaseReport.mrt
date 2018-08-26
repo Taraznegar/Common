@@ -1,0 +1,452 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<StiSerializer version="1.01" type="Net" application="StiReport">
+  <Dictionary Ref="1" type="Dictionary" isKey="true">
+    <BusinessObjects isList="true" count="0" />
+    <Databases isList="true" count="1">
+      <Connection Ref="2" type="Stimulsoft.Report.Dictionary.StiSqlDatabase" isKey="true">
+        <Alias>Connection</Alias>
+        <ConnectionString>Integrated Security=False;Data Source=server\Taraz2008;Initial Catalog=AppFrameworkDB;Password=Champion1;User ID=sa</ConnectionString>
+        <Name>Connection</Name>
+      </Connection>
+    </Databases>
+    <DataSources isList="true" count="1">
+      <SalesCaseReport Ref="3" type="Stimulsoft.Report.Dictionary.StiSqlSource" isKey="true">
+        <Alias>SalesCaseReport</Alias>
+        <Columns isList="true" count="10">
+          <value>ID,System.Guid</value>
+          <value>SalesCaseTitle,System.String</value>
+          <value>RealStartDate,System.String</value>
+          <value>Request_Text,System.String</value>
+          <value>Stage_Text,System.String</value>
+          <value>Status_Text,System.String</value>
+          <value>FullName,System.String</value>
+          <value>Source_Text,System.String</value>
+          <value>Customer_RecognitionMethod_Text,System.String</value>
+          <value>Name,System.String</value>
+        </Columns>
+        <CommandTimeout>30</CommandTimeout>
+        <Dictionary isRef="1" />
+        <Name>SalesCaseReport</Name>
+        <NameInSource>Connection</NameInSource>
+        <Parameters isList="true" count="0" />
+        <SqlCommand>select SC.ID, SC.Title SalesCaseTitle,afw.GregorianToPersian(Sc.RealStartDate) RealStartDate, ReqType.Title Request_Text, 
+	SCStage.Title Stage_Text, Status.Title Status_Text, P.Name + ' ' + isnull(p.LastName,'') FullName, 
+	SRC.Title Source_Text, RecMethod.Title Customer_RecognitionMethod_Text, SysUser.Name 
+from crm_SalesCases SC 
+	inner join cmn_Persons P on SC.Customer = P.ID
+	inner join crm_SalesCaseRequestTypes ReqType on SC.RequestType = ReqType.ID 
+	inner join crm_SalesCaseStages SCStage on SC.SalesCaseStage = SCStage.ID
+	inner join afw_OptionSetItems Status on Status.ID = SC.Status
+	inner join afw_SystemUsers SysUser on SC.CreatorUser = SysUser.ID 
+	left join crm_SalesCaseSources SRC on SC.salesCaseSource = SRC.ID 
+	left join crm_RecognitionMethods RecMethod on P.RecognitionMethod = RecMethod.ID
+	where (Status.ID = isnull({Status}, Status.ID)) and (SRC.ID = isnull({SalesCaseSource}, SRC.ID)) 
+			and (RecMethod.ID = isnull({RecognitionMethod}, RecMethod.ID)) </SqlCommand>
+      </SalesCaseReport>
+    </DataSources>
+    <Relations isList="true" count="0" />
+    <Report isRef="0" />
+    <Variables isList="true" count="4">
+      <value>,RecognitionMethod,RecognitionMethod,System.String,null,False,False</value>
+      <value>,UserName,UserName,System.String,null,False,False</value>
+      <value>,Status,Status,System.String,null,False,False</value>
+      <value>,SalesCaseSource,SalesCaseSource,System.String,null,False,False</value>
+    </Variables>
+  </Dictionary>
+  <EngineVersion>EngineV1</EngineVersion>
+  <GlobalizationStrings isList="true" count="0" />
+  <MetaTags isList="true" count="0" />
+  <Pages isList="true" count="1">
+    <Page1 Ref="4" type="Page" isKey="true">
+      <Border>None;Silver;2;Solid;False;4;Black</Border>
+      <Brush>Transparent</Brush>
+      <Components isList="true" count="2">
+        <Header11 Ref="5" type="HeaderBand" isKey="true">
+          <Brush>Transparent</Brush>
+          <ClientRectangle>0,0.4,20,5</ClientRectangle>
+          <Components isList="true" count="10">
+            <Text11 Ref="6" type="Text" isKey="true">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>LightGray</Brush>
+              <ClientRectangle>19.2,4.2,0.8,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>B Lotus,10,Bold</Font>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text11</Name>
+              <Page isRef="4" />
+              <Parent isRef="5" />
+              <Text>ردیف</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text11>
+            <Text25 Ref="7" type="Text" isKey="true">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>LightGray</Brush>
+              <ClientRectangle>1.6,4.2,3.2,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>B Lotus,10,Bold</Font>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text25</Name>
+              <Page isRef="4" />
+              <Parent isRef="5" />
+              <Text>مبدأ پرونده</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text25>
+            <Text22 Ref="8" type="Text" isKey="true">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>LightGray</Brush>
+              <ClientRectangle>0,4.2,1.6,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>B Lotus,10,Bold</Font>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text22</Name>
+              <Page isRef="4" />
+              <Parent isRef="5" />
+              <Text>نحوه آشنایی</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text22>
+            <Text13 Ref="9" type="Text" isKey="true">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>LightGray</Brush>
+              <ClientRectangle>11.6,4.2,3.6,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>B Lotus,10,Bold</Font>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text13</Name>
+              <Page isRef="4" />
+              <Parent isRef="5" />
+              <Text>عنوان پرونده</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text13>
+            <Text9 Ref="10" type="Text" isKey="true">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>LightGray</Brush>
+              <ClientRectangle>5.8,4.2,1.8,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>B Lotus,10,Bold</Font>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text9</Name>
+              <Page isRef="4" />
+              <Parent isRef="5" />
+              <Text>مرحله</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text9>
+            <Text1 Ref="11" type="Text" isKey="true">
+              <Border>None;Silver;1;Solid;False;4;Black</Border>
+              <Brush>Transparent</Brush>
+              <ClientRectangle>4.6,0.6,12.4,1.4</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>B Lotus,20,Bold</Font>
+              <Guid>decd560930024a8380b13e772a5fda54</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text1</Name>
+              <Page isRef="4" />
+              <Parent isRef="5" />
+              <Text>گزارش پرونده های فروش</Text>
+              <TextBrush>Black</TextBrush>
+              <TextOptions>HotkeyPrefix=None, LineLimit=False, RightToLeft=True, Trimming=None, WordWrap=False, Angle=0, FirstTabOffset=40, DistanceBetweenTabs=20,</TextOptions>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text1>
+            <Text10 Ref="12" type="Text" isKey="true">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>LightGray</Brush>
+              <ClientRectangle>7.6,4.2,1.8,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>B Lotus,10,Bold</Font>
+              <Guid>952e553bcdb54390aadddf898552fe67</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text10</Name>
+              <Page isRef="4" />
+              <Parent isRef="5" />
+              <Text>نوع درخواست</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text10>
+            <Text23 Ref="13" type="Text" isKey="true">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>LightGray</Brush>
+              <ClientRectangle>15.2,4.2,4,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>B Lotus,10,Bold</Font>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text23</Name>
+              <Page isRef="4" />
+              <Parent isRef="5" />
+              <Text>نام مشتری</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text23>
+            <Text21 Ref="14" type="Text" isKey="true">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>LightGray</Brush>
+              <ClientRectangle>9.4,4.2,2.2,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>B Lotus,10,Bold</Font>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text21</Name>
+              <Page isRef="4" />
+              <Parent isRef="5" />
+              <Text>تاریخ شروع پرونده</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text21>
+            <Text15 Ref="15" type="Text" isKey="true">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>LightGray</Brush>
+              <ClientRectangle>4.8,4.2,1,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>B Lotus,10,Bold</Font>
+              <Guid>312d6720bd89486ca0e3152df8e6f15b</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text15</Name>
+              <Page isRef="4" />
+              <Parent isRef="5" />
+              <Text>وضعیت</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text15>
+          </Components>
+          <Conditions isList="true" count="0" />
+          <Name>Header11</Name>
+          <Page isRef="4" />
+          <Parent isRef="4" />
+        </Header11>
+        <DatamadreseDS Ref="16" type="DataBand" isKey="true">
+          <Brush>Transparent</Brush>
+          <BusinessObjectGuid isNull="true" />
+          <ClientRectangle>0,6.2,20,0.8</ClientRectangle>
+          <Components isList="true" count="9">
+            <Text14 Ref="17" type="Text" isKey="true">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>White</Brush>
+              <ClientRectangle>19.2,0,0.8,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>B Lotus,9,Bold</Font>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text14</Name>
+              <Page isRef="4" />
+              <Parent isRef="16" />
+              <Text>{Line}</Text>
+              <TextBrush>Black</TextBrush>
+              <VertAlignment>Center</VertAlignment>
+            </Text14>
+            <Text4 Ref="18" type="Text" isKey="true">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>White</Brush>
+              <ClientRectangle>7.6,0,1.8,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>B Lotus,9,Bold</Font>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text4</Name>
+              <Page isRef="4" />
+              <Parent isRef="16" />
+              <Text>{SalesCaseReport.Request_Text}</Text>
+              <TextBrush>Black</TextBrush>
+              <VertAlignment>Center</VertAlignment>
+            </Text4>
+            <Text5 Ref="19" type="Text" isKey="true">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>White</Brush>
+              <ClientRectangle>5.8,0,1.8,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>B Lotus,9,Bold</Font>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text5</Name>
+              <Page isRef="4" />
+              <Parent isRef="16" />
+              <Text>{SalesCaseReport.Stage_Text}</Text>
+              <TextBrush>Black</TextBrush>
+              <VertAlignment>Center</VertAlignment>
+            </Text5>
+            <Text2 Ref="20" type="Text" isKey="true">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>White</Brush>
+              <ClientRectangle>11.6,0,3.6,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>B Lotus,9,Bold</Font>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text2</Name>
+              <Page isRef="4" />
+              <Parent isRef="16" />
+              <Text>{SalesCaseReport.SalesCaseTitle}</Text>
+              <TextBrush>Black</TextBrush>
+              <VertAlignment>Center</VertAlignment>
+            </Text2>
+            <Text7 Ref="21" type="Text" isKey="true">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>White</Brush>
+              <ClientRectangle>1.6,0,3.2,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>B Lotus,9,Bold</Font>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text7</Name>
+              <Page isRef="4" />
+              <Parent isRef="16" />
+              <Text>{SalesCaseReport.Source_Text}</Text>
+              <TextBrush>Black</TextBrush>
+              <VertAlignment>Center</VertAlignment>
+            </Text7>
+            <Text8 Ref="22" type="Text" isKey="true">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>White</Brush>
+              <ClientRectangle>0,0,1.6,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>B Lotus,9,Bold</Font>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text8</Name>
+              <Page isRef="4" />
+              <Parent isRef="16" />
+              <Text>{SalesCaseReport.Customer_RecognitionMethod_Text}</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text8>
+            <Text6 Ref="23" type="Text" isKey="true">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>White</Brush>
+              <ClientRectangle>15.2,0,4,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>B Lotus,9,Bold</Font>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text6</Name>
+              <Page isRef="4" />
+              <Parent isRef="16" />
+              <Text>{SalesCaseReport.FullName}</Text>
+              <TextBrush>Black</TextBrush>
+              <VertAlignment>Center</VertAlignment>
+            </Text6>
+            <Text3 Ref="24" type="Text" isKey="true">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>White</Brush>
+              <ClientRectangle>9.4,0,2.2,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>B Lotus,9,Bold</Font>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text3</Name>
+              <Page isRef="4" />
+              <Parent isRef="16" />
+              <Text>{SalesCaseReport.RealStartDate}</Text>
+              <TextBrush>Black</TextBrush>
+              <VertAlignment>Center</VertAlignment>
+            </Text3>
+            <Text12 Ref="25" type="Text" isKey="true">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>White</Brush>
+              <ClientRectangle>4.8,0,1,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>B Lotus,9,Bold</Font>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text12</Name>
+              <Page isRef="4" />
+              <Parent isRef="16" />
+              <Text>{SalesCaseReport.Status_Text}</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text12>
+          </Components>
+          <Conditions isList="true" count="0" />
+          <DataSourceName>SalesCaseReport</DataSourceName>
+          <Filters isList="true" count="0" />
+          <Name>DatamadreseDS</Name>
+          <Page isRef="4" />
+          <Parent isRef="4" />
+          <Sort isList="true" count="2">
+            <value>ASC</value>
+            <value>StuffUID</value>
+          </Sort>
+        </DatamadreseDS>
+      </Components>
+      <Conditions isList="true" count="0" />
+      <Guid>d56a41683d73426aa9d89379b3a21ef2</Guid>
+      <Margins>0.5,0.5,1,1</Margins>
+      <Name>Page1</Name>
+      <PageHeight>29.7</PageHeight>
+      <PageWidth>21</PageWidth>
+      <PaperSize>A4</PaperSize>
+      <Report isRef="0" />
+      <Watermark Ref="26" type="Stimulsoft.Report.Components.StiWatermark" isKey="true">
+        <Font>Arial,100</Font>
+        <TextBrush>[50:0:0:0]</TextBrush>
+      </Watermark>
+    </Page1>
+  </Pages>
+  <PrinterSettings Ref="27" type="Stimulsoft.Report.Print.StiPrinterSettings" isKey="true" />
+  <ReferencedAssemblies isList="true" count="8">
+    <value>System.Dll</value>
+    <value>System.Drawing.Dll</value>
+    <value>System.Windows.Forms.Dll</value>
+    <value>System.Data.Dll</value>
+    <value>System.Xml.Dll</value>
+    <value>Stimulsoft.Controls.Dll</value>
+    <value>Stimulsoft.Base.Dll</value>
+    <value>Stimulsoft.Report.Dll</value>
+  </ReferencedAssemblies>
+  <ReportAlias>Report</ReportAlias>
+  <ReportChanged>6/2/2016 12:37:44 PM</ReportChanged>
+  <ReportCreated>11/5/2008 4:44:01 AM</ReportCreated>
+  <ReportFile>D:\All Sources\_AppFramework\SampleServerPlugin\Reports\CRM\SalesCaseReport.mrt</ReportFile>
+  <ReportGuid>33d9f02f6e374fe2988442f85870b73b</ReportGuid>
+  <ReportName>Report</ReportName>
+  <ReportUnit>Centimeters</ReportUnit>
+  <ReportVersion>2011.1.1000</ReportVersion>
+  <Script>using System;
+using System.Drawing;
+using System.Windows.Forms;
+using System.Data;
+using Stimulsoft.Controls;
+using Stimulsoft.Base.Drawing;
+using Stimulsoft.Report;
+using Stimulsoft.Report.Dialogs;
+using Stimulsoft.Report.Components;
+
+namespace Reports
+{
+    
+    public class Report : Stimulsoft.Report.StiReport
+    {
+		string temp1="";
+        
+        public Report()
+        {
+            this.InitializeComponent();
+        }
+        #region StiReport Designer generated code - do not modify#endregion StiReport Designer generated code - do not modify
+    }
+}</Script>
+  <ScriptLanguage>CSharp</ScriptLanguage>
+  <Styles isList="true" count="0" />
+</StiSerializer>

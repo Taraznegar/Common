@@ -1,0 +1,927 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<StiSerializer version="1.02" type="Net" application="StiReport">
+  <Dictionary Ref="1" type="Dictionary" isKey="true">
+    <BusinessObjects isList="true" count="0" />
+    <Databases isList="true" count="1">
+      <Connection Ref="2" type="Stimulsoft.Report.Dictionary.StiSqlDatabase" isKey="true">
+        <Alias>Connection</Alias>
+        <ConnectionStringEncrypted>42DJ60RZQ1npR6HMSwSkTtVS0S9hSEtZ81uxrehx4QvfMPWDZVmpOUVG+b3xXLVn9njZ6k9Pad1DSaxAdw11L4JW18NhSlnlRhPVjetcJUae8tGiXgoZgW0cPaXF</ConnectionStringEncrypted>
+        <Name>Connection</Name>
+      </Connection>
+    </Databases>
+    <DataSources isList="true" count="2">
+      <Tankhah Ref="3" type="Stimulsoft.Report.Dictionary.StiSqlSource" isKey="true">
+        <Alias>Tankhah</Alias>
+        <Columns isList="true" count="14">
+          <value>ID,System.Guid</value>
+          <value>TankhahNo,System.Int64</value>
+          <value>IssueDate,System.String</value>
+          <value>PersonName,System.String</value>
+          <value>CreationTime,System.DateTime</value>
+          <value>RegisterDate,System.String</value>
+          <value>ReceiveAmount,System.Decimal</value>
+          <value>PayAmount,System.Decimal</value>
+          <value>Description,System.String</value>
+          <value>TankhahTypeTitle,System.String</value>
+          <value>TankhahDefTitle,System.String</value>
+          <value>PersonItemName,System.String</value>
+          <value>CostCenterName,System.String</value>
+          <value>ProjectName,System.String</value>
+        </Columns>
+        <CommandTimeout>30</CommandTimeout>
+        <Dictionary isRef="1" />
+        <Name>Tankhah</Name>
+        <NameInSource>Connection</NameInSource>
+        <Parameters isList="true" count="0" />
+        <SqlCommand>select * 
+from (
+	select Tankhah.ID,
+	Tankhah.TankhahNo,
+	afw.GregorianToPersian(Tankhah.IssueDate) IssueDate,
+		Person.StoredDisplayText PersonName,
+		TankhahReceiveItem.CreationTime,
+		afw.GregorianToPersian(TankhahReceiveItem.RegisterDate) RegisterDate,
+		TankhahReceiveItem.Amount ReceiveAmount,
+		0 PayAmount,
+		TankhahReceiveItem.Description,
+		TankhahReceiveType.Title TankhahTypeTitle,
+		TankhahDef.Title TankhahDefTitle,
+		PersonItem.StoredDisplayText PersonItemName,
+		CostCenter.Name CostCenterName,
+		Project.Name ProjectName
+	from rp_TankhahItems TankhahReceiveItem
+		inner join rp_Tankhahha Tankhah on Tankhah.ID = TankhahReceiveItem.Tankhah
+		inner join cmn_Persons Person on Person.ID = Tankhah.Person
+		inner join afw_OptionSetItems TankhahReceiveType on TankhahReceiveType.ID = TankhahReceiveItem.TankhahType  
+		left join rp_TankhahDefs TankhahDef on TankhahDef.ID = TankhahReceiveItem.TankhahDef
+		left join cmn_Persons PersonItem on PersonItem.ID = TankhahReceiveItem.Person
+		left join cmn_CostCenters CostCenter on CostCenter.ID = TankhahReceiveItem.CostCenter
+		left join cmn_Projects Project on Project.ID = TankhahReceiveItem.Project
+	where TankhahReceiveType.Name = 'Received'
+	union
+	select Tankhah.ID,
+	Tankhah.TankhahNo,
+	afw.GregorianToPersian(Tankhah.IssueDate) IssueDate,
+		Person.StoredDisplayText PersonName,
+		TankhahPayItem.CreationTime,
+		afw.GregorianToPersian(TankhahPayItem.RegisterDate) RegisterDate, 
+		0 ReceiveAmount,
+		TankhahPayItem.Amount PayAmount,
+		TankhahPayItem.Description,
+		TankhahPayType.Title TankhahTypeTitle,
+		TankhahDef.Title TankhahDefTitle,
+		PersonItem.StoredDisplayText PersonItemName,
+		CostCenter.Name CostCenterName,
+		Project.Name ProjectName
+	from rp_TankhahItems TankhahPayItem
+		inner join rp_Tankhahha Tankhah on Tankhah.ID = TankhahPayItem.Tankhah
+		inner join cmn_Persons Person on Person.ID = Tankhah.Person
+		inner join afw_OptionSetItems TankhahPayType on TankhahPayType.ID = TankhahPayItem.TankhahType  
+		left join rp_TankhahDefs TankhahDef on TankhahDef.ID = TankhahPayItem.TankhahDef
+		left join cmn_Persons PersonItem on PersonItem.ID = TankhahPayItem.Person
+		left join cmn_CostCenters CostCenter on CostCenter.ID = TankhahPayItem.CostCenter
+		left join cmn_Projects Project on Project.ID = TankhahPayItem.Project
+	where TankhahPayType.Name = 'Paid') TankhahItems
+where ID = {TankhahID}</SqlCommand>
+      </Tankhah>
+      <OrganizationUnit Ref="4" type="Stimulsoft.Report.Dictionary.StiSqlSource" isKey="true">
+        <Alias>OrganizationUnit</Alias>
+        <Columns isList="true" count="23">
+          <value>ID,System.Guid</value>
+          <value>CreatorUser,System.Guid</value>
+          <value>CreationTime,System.DateTime</value>
+          <value>LastModifierUser,System.Guid</value>
+          <value>LastModifyTime,System.DateTime</value>
+          <value>OwnerUser,System.Guid</value>
+          <value>Name,System.String</value>
+          <value>Ostan,System.Guid</value>
+          <value>Shahrestan,System.Guid</value>
+          <value>Shahr,System.Guid</value>
+          <value>FullAddress,System.String</value>
+          <value>EconomicNumber,System.String</value>
+          <value>RegistrationNumber,System.String</value>
+          <value>PostCode,System.String</value>
+          <value>NationalNumber,System.String</value>
+          <value>LogoImage,System.Guid</value>
+          <value>PhoneNumber,System.String</value>
+          <value>Fax,System.String</value>
+          <value>Signature1,System.String</value>
+          <value>Signature2,System.String</value>
+          <value>Signature3,System.String</value>
+          <value>Signature4,System.String</value>
+          <value>DateNow,System.String</value>
+        </Columns>
+        <CommandTimeout>30</CommandTimeout>
+        <Dictionary isRef="1" />
+        <Name>OrganizationUnit</Name>
+        <NameInSource>Connection</NameInSource>
+        <Parameters isList="true" count="0" />
+        <SqlCommand>select *, substring(afw.GregorianToPersian(getdate()), 0, 11) DateNow
+from cmn_OrganizationInformations OrgUnit
+	inner join rp_Tankhahha Tankhah on Tankhah.OrganizationUnit = OrgUnit.ID
+where Tankhah.ID = {TankhahID}</SqlCommand>
+      </OrganizationUnit>
+    </DataSources>
+    <Relations isList="true" count="0" />
+    <Report isRef="0" />
+    <Variables isList="true" count="1">
+      <value>,TankhahID,TankhahID,,System.String,_x0027_21E46044-8296-4D0D-8019-D12AD40462AD_x0027_,False,False,False,False</value>
+    </Variables>
+  </Dictionary>
+  <EngineVersion>EngineV1</EngineVersion>
+  <GlobalizationStrings isList="true" count="0" />
+  <MetaTags isList="true" count="0" />
+  <Pages isList="true" count="1">
+    <Page1 Ref="5" type="Page" isKey="true">
+      <Border>None;Silver;2;Solid;False;4;Black</Border>
+      <Brush>Transparent</Brush>
+      <Components isList="true" count="4">
+        <PageHeaderBand1 Ref="6" type="PageHeaderBand" isKey="true">
+          <Brush>Transparent</Brush>
+          <ClientRectangle>0,0.4,20,3.2</ClientRectangle>
+          <Components isList="true" count="8">
+            <Text23 Ref="7" type="Text" isKey="true">
+              <Brush>White</Brush>
+              <ClientRectangle>8,1.2,3.6,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>B Nazanin,14,Bold</Font>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text23</Name>
+              <Page isRef="5" />
+              <Parent isRef="6" />
+              <Text>گزارش تنخواه</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text23>
+            <Text22 Ref="8" type="Text" isKey="true">
+              <Brush>White</Brush>
+              <ClientRectangle>2,0.4,1,0.6</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>B Nazanin,9,Bold</Font>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text22</Name>
+              <Page isRef="5" />
+              <Parent isRef="6" />
+              <Text>: تاریخ</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text22>
+            <Text21 Ref="9" type="Text" isKey="true">
+              <Brush>White</Brush>
+              <ClientRectangle>0.2,0.4,1.8,0.6</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>B Nazanin,9,Bold</Font>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text21</Name>
+              <Page isRef="5" />
+              <Parent isRef="6" />
+              <Text>{OrganizationUnit.DateNow}</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text21>
+            <Text20 Ref="10" type="Text" isKey="true">
+              <Brush>White</Brush>
+              <ClientRectangle>15.8,0.4,2,0.6</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>B Mitra,10,Bold</Font>
+              <HorAlignment>Right</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text20</Name>
+              <Page isRef="5" />
+              <Parent isRef="6" />
+              <Text>{Tankhah.TankhahNo}</Text>
+              <TextBrush>Black</TextBrush>
+              <VertAlignment>Center</VertAlignment>
+            </Text20>
+            <Text25 Ref="11" type="Text" isKey="true">
+              <Brush>White</Brush>
+              <ClientRectangle>17.8,0.4,2,0.6</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>B Mitra,10,Bold</Font>
+              <HorAlignment>Right</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text25</Name>
+              <Page isRef="5" />
+              <Parent isRef="6" />
+              <Text> : شماره تنخواه</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text25>
+            <Text27 Ref="12" type="Text" isKey="true">
+              <Brush>White</Brush>
+              <ClientRectangle>15.8,1,2,0.6</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>B Mitra,10,Bold</Font>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text27</Name>
+              <Page isRef="5" />
+              <Parent isRef="6" />
+              <Text>{Tankhah.IssueDate}</Text>
+              <TextBrush>Black</TextBrush>
+              <VertAlignment>Center</VertAlignment>
+            </Text27>
+            <Text29 Ref="13" type="Text" isKey="true">
+              <Brush>White</Brush>
+              <ClientRectangle>17.8,1,2,0.6</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>B Mitra,10,Bold</Font>
+              <HorAlignment>Right</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text29</Name>
+              <Page isRef="5" />
+              <Parent isRef="6" />
+              <Text> : تاریخ صدور</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text29>
+            <Text74 Ref="14" type="Text" isKey="true">
+              <Brush>White</Brush>
+              <ClientRectangle>5,0.2,9.4,1</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>B Nazanin,17,Bold</Font>
+              <Guid>f8322fea23f142268343594dded7221f</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text74</Name>
+              <Page isRef="5" />
+              <Parent isRef="6" />
+              <Text>{OrganizationUnit.Name}</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text74>
+          </Components>
+          <Conditions isList="true" count="0" />
+          <Name>PageHeaderBand1</Name>
+          <Page isRef="5" />
+          <Parent isRef="5" />
+        </PageHeaderBand1>
+        <GroupHeaderBand1 Ref="15" type="GroupHeaderBand" isKey="true">
+          <Brush>Transparent</Brush>
+          <ClientRectangle>0,4.4,20,2</ClientRectangle>
+          <Components isList="true" count="12">
+            <Text26 Ref="16" type="Text" isKey="true">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>[242:242:242]</Brush>
+              <ClientRectangle>4.4,1,2.8,1</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>B Roya,12,Bold</Font>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text26</Name>
+              <Page isRef="5" />
+              <Parent isRef="15" />
+              <Text>توضیحات</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text26>
+            <Text28 Ref="17" type="Text" isKey="true">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>[242:242:242]</Brush>
+              <ClientRectangle>0,1,2.2,1</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>B Roya,12,Bold</Font>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text28</Name>
+              <Page isRef="5" />
+              <Parent isRef="15" />
+              <Text>مبلغ دریافتی</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text28>
+            <Text30 Ref="18" type="Text" isKey="true">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>[242:242:242]</Brush>
+              <ClientRectangle>11.2,1,2,1</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>B Roya,12,Bold</Font>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text30</Name>
+              <Page isRef="5" />
+              <Parent isRef="15" />
+              <Text>شخص</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text30>
+            <Text3 Ref="19" type="Text" isKey="true">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>[242:242:242]</Brush>
+              <ClientRectangle>17.4,1,1.8,1</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>B Roya,12,Bold</Font>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text3</Name>
+              <Page isRef="5" />
+              <Parent isRef="15" />
+              <Text>تاریخ</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text3>
+            <Text5 Ref="20" type="Text" isKey="true">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>[242:242:242]</Brush>
+              <ClientRectangle>19.2,1,0.8,1</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>B Roya,12,Bold</Font>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text5</Name>
+              <Page isRef="5" />
+              <Parent isRef="15" />
+              <Text>ردیف</Text>
+              <TextBrush>Black</TextBrush>
+              <TextOptions>,,,,,Angle=90</TextOptions>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text5>
+            <Text6 Ref="21" type="Text" isKey="true">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>[242:242:242]</Brush>
+              <ClientRectangle>9.2,1,2,1</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>B Roya,12,Bold</Font>
+              <Guid>644f01a6447e437c8f836834d2e199e6</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text6</Name>
+              <Page isRef="5" />
+              <Parent isRef="15" />
+              <Text>مرکز هزینه</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text6>
+            <Text17 Ref="22" type="Text" isKey="true">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>[242:242:242]</Brush>
+              <ClientRectangle>15.6,1,1.8,1</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>B Roya,12,Bold</Font>
+              <Guid>8c7efc53cd3846818de88b7956efb4ca</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text17</Name>
+              <Page isRef="5" />
+              <Parent isRef="15" />
+              <Text>نوع تنخواه</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text17>
+            <Text18 Ref="23" type="Text" isKey="true">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>[242:242:242]</Brush>
+              <ClientRectangle>13.2,1,2.4,1</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>B Roya,12,Bold</Font>
+              <Guid>cb8943edb7614712802c801d4d8684b6</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text18</Name>
+              <Page isRef="5" />
+              <Parent isRef="15" />
+              <Text>تنخواه</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text18>
+            <Text24 Ref="24" type="Text" isKey="true">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>[242:242:242]</Brush>
+              <ClientRectangle>7.2,1,2,1</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>B Roya,12,Bold</Font>
+              <Guid>8051454c0e7c426a9ecc244cdaa5b0fe</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text24</Name>
+              <Page isRef="5" />
+              <Parent isRef="15" />
+              <Text>پروژه</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text24>
+            <Text15 Ref="25" type="Text" isKey="true">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>[242:242:242]</Brush>
+              <ClientRectangle>17.4,0,2.6,1</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>B Roya,12,Bold</Font>
+              <Guid>2c21515a44354b3398f328b96bef6b88</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text15</Name>
+              <Page isRef="5" />
+              <Parent isRef="15" />
+              <Text>شخص</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text15>
+            <Text1 Ref="26" type="Text" isKey="true">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>[242:242:242]</Brush>
+              <ClientRectangle>0,0,17.4,1</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>B Mitra,11,Bold</Font>
+              <Guid>21d875fd28494305a7417599694bf445</Guid>
+              <HorAlignment>Right</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text1</Name>
+              <Page isRef="5" />
+              <Parent isRef="15" />
+              <Text>{Tankhah.PersonName}</Text>
+              <TextBrush>Black</TextBrush>
+              <TextFormat Ref="27" type="NumberFormat" isKey="true">
+                <DecimalDigits>0</DecimalDigits>
+                <GroupSeparator>,</GroupSeparator>
+                <NegativePattern>1</NegativePattern>
+                <UseLocalSetting>False</UseLocalSetting>
+              </TextFormat>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text1>
+            <Text31 Ref="28" type="Text" isKey="true">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>[242:242:242]</Brush>
+              <ClientRectangle>2.2,1,2.2,1</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>B Roya,12,Bold</Font>
+              <Guid>3bc5951e07314be589c6c4f70f9af7ec</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text31</Name>
+              <Page isRef="5" />
+              <Parent isRef="15" />
+              <Text>مبلغ پرداختی</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text31>
+          </Components>
+          <Condition>{Tankhah.ID}</Condition>
+          <Conditions isList="true" count="0" />
+          <Name>GroupHeaderBand1</Name>
+          <Page isRef="5" />
+          <Parent isRef="5" />
+          <PrintOnAllPages>True</PrintOnAllPages>
+          <ResetPageNumber>True</ResetPageNumber>
+          <StartNewPage>True</StartNewPage>
+        </GroupHeaderBand1>
+        <DatamadreseDS Ref="29" type="DataBand" isKey="true">
+          <Brush>Transparent</Brush>
+          <BusinessObjectGuid isNull="true" />
+          <ClientRectangle>0,7.2,20,1</ClientRectangle>
+          <Components isList="true" count="10">
+            <Text4 Ref="30" type="Text" isKey="true">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>White</Brush>
+              <CanGrow>True</CanGrow>
+              <ClientRectangle>19.2,0,0.8,1</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>B Mitra,9,Bold</Font>
+              <GrowToHeight>True</GrowToHeight>
+              <HideZeros>True</HideZeros>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text4</Name>
+              <Page isRef="5" />
+              <Parent isRef="29" />
+              <Text>{Line}</Text>
+              <TextBrush>Black</TextBrush>
+              <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
+              <VertAlignment>Center</VertAlignment>
+            </Text4>
+            <Text2 Ref="31" type="Text" isKey="true">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>White</Brush>
+              <CanGrow>True</CanGrow>
+              <ClientRectangle>17.4,0,1.8,1</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>B Mitra,9,Bold</Font>
+              <GrowToHeight>True</GrowToHeight>
+              <HideZeros>True</HideZeros>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text2</Name>
+              <Page isRef="5" />
+              <Parent isRef="29" />
+              <Text>{Tankhah.RegisterDate}</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text2>
+            <Text7 Ref="32" type="Text" isKey="true">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>White</Brush>
+              <CanGrow>True</CanGrow>
+              <CanShrink>True</CanShrink>
+              <ClientRectangle>4.4,0,2.8,1</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>A1Tahoma,10</Font>
+              <GrowToHeight>True</GrowToHeight>
+              <HideZeros>True</HideZeros>
+              <HorAlignment>Right</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text7</Name>
+              <Page isRef="5" />
+              <Parent isRef="29" />
+              <Text>{Tankhah.Description}</Text>
+              <TextBrush>Black</TextBrush>
+              <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text7>
+            <Text10 Ref="33" type="Text" isKey="true">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>White</Brush>
+              <CanGrow>True</CanGrow>
+              <ClientRectangle>0,0,2.2,1</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>B Mitra,9,Bold</Font>
+              <GrowToHeight>True</GrowToHeight>
+              <HideZeros>True</HideZeros>
+              <HorAlignment>Right</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text10</Name>
+              <Page isRef="5" />
+              <Parent isRef="29" />
+              <Text>{Tankhah.ReceiveAmount}</Text>
+              <TextBrush>Black</TextBrush>
+              <TextFormat Ref="34" type="NumberFormat" isKey="true">
+                <DecimalDigits>0</DecimalDigits>
+                <GroupSeparator>,</GroupSeparator>
+                <NegativePattern>1</NegativePattern>
+                <UseLocalSetting>False</UseLocalSetting>
+              </TextFormat>
+              <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text10>
+            <Text11 Ref="35" type="Text" isKey="true">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>White</Brush>
+              <CanGrow>True</CanGrow>
+              <CanShrink>True</CanShrink>
+              <ClientRectangle>9.2,0,2,1</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>A1Tahoma,10</Font>
+              <GrowToHeight>True</GrowToHeight>
+              <HideZeros>True</HideZeros>
+              <HorAlignment>Right</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text11</Name>
+              <Page isRef="5" />
+              <Parent isRef="29" />
+              <Text>{Tankhah.CostCenterName}</Text>
+              <TextBrush>Black</TextBrush>
+              <TextFormat Ref="36" type="NumberFormat" isKey="true">
+                <DecimalDigits>0</DecimalDigits>
+                <GroupSeparator>,</GroupSeparator>
+                <NegativePattern>1</NegativePattern>
+                <UseLocalSetting>False</UseLocalSetting>
+              </TextFormat>
+              <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text11>
+            <Text12 Ref="37" type="Text" isKey="true">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>White</Brush>
+              <CanGrow>True</CanGrow>
+              <ClientRectangle>7.2,0,2,1</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>A1Tahoma,10</Font>
+              <GrowToHeight>True</GrowToHeight>
+              <HideZeros>True</HideZeros>
+              <HorAlignment>Right</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text12</Name>
+              <Page isRef="5" />
+              <Parent isRef="29" />
+              <Text>{Tankhah.ProjectName}</Text>
+              <TextBrush>Black</TextBrush>
+              <TextFormat Ref="38" type="NumberFormat" isKey="true">
+                <DecimalDigits>0</DecimalDigits>
+                <GroupSeparator>,</GroupSeparator>
+                <NegativePattern>1</NegativePattern>
+                <UseLocalSetting>False</UseLocalSetting>
+              </TextFormat>
+              <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text12>
+            <Text9 Ref="39" type="Text" isKey="true">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>White</Brush>
+              <CanGrow>True</CanGrow>
+              <CanShrink>True</CanShrink>
+              <ClientRectangle>13.2,0,2.4,1</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>A1Tahoma,10</Font>
+              <GrowToHeight>True</GrowToHeight>
+              <Guid>46b0276c050347a99c00817d161e5e5f</Guid>
+              <HideZeros>True</HideZeros>
+              <HorAlignment>Right</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text9</Name>
+              <Page isRef="5" />
+              <Parent isRef="29" />
+              <Text>{Tankhah.TankhahDefTitle}</Text>
+              <TextBrush>Black</TextBrush>
+              <TextFormat Ref="40" type="NumberFormat" isKey="true">
+                <DecimalDigits>0</DecimalDigits>
+                <GroupSeparator>,</GroupSeparator>
+                <NegativePattern>1</NegativePattern>
+                <UseLocalSetting>False</UseLocalSetting>
+              </TextFormat>
+              <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text9>
+            <Text14 Ref="41" type="Text" isKey="true">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>White</Brush>
+              <CanGrow>True</CanGrow>
+              <ClientRectangle>15.6,0,1.8,1</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>A1Tahoma,10</Font>
+              <GrowToHeight>True</GrowToHeight>
+              <Guid>8e776adff437415fa0704a57e526650c</Guid>
+              <HideZeros>True</HideZeros>
+              <HorAlignment>Right</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text14</Name>
+              <Page isRef="5" />
+              <Parent isRef="29" />
+              <Text>{Tankhah.TankhahTypeTitle}</Text>
+              <TextBrush>Black</TextBrush>
+              <TextFormat Ref="42" type="NumberFormat" isKey="true">
+                <DecimalDigits>0</DecimalDigits>
+                <GroupSeparator>,</GroupSeparator>
+                <NegativePattern>1</NegativePattern>
+                <UseLocalSetting>False</UseLocalSetting>
+              </TextFormat>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text14>
+            <Text19 Ref="43" type="Text" isKey="true">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>White</Brush>
+              <CanGrow>True</CanGrow>
+              <CanShrink>True</CanShrink>
+              <ClientRectangle>11.2,0,2,1</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>A1Tahoma,10</Font>
+              <GrowToHeight>True</GrowToHeight>
+              <Guid>f9a1f280a82f435e81c1f79d6f85acce</Guid>
+              <HideZeros>True</HideZeros>
+              <HorAlignment>Right</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text19</Name>
+              <Page isRef="5" />
+              <Parent isRef="29" />
+              <Text>{Tankhah.PersonItemName}</Text>
+              <TextBrush>Black</TextBrush>
+              <TextFormat Ref="44" type="NumberFormat" isKey="true">
+                <DecimalDigits>0</DecimalDigits>
+                <GroupSeparator>,</GroupSeparator>
+                <NegativePattern>1</NegativePattern>
+                <UseLocalSetting>False</UseLocalSetting>
+              </TextFormat>
+              <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text19>
+            <Text32 Ref="45" type="Text" isKey="true">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>White</Brush>
+              <CanGrow>True</CanGrow>
+              <ClientRectangle>2.2,0,2.2,1</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>B Mitra,9,Bold</Font>
+              <GrowToHeight>True</GrowToHeight>
+              <Guid>8116731008114add96027c117101e65f</Guid>
+              <HideZeros>True</HideZeros>
+              <HorAlignment>Right</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text32</Name>
+              <Page isRef="5" />
+              <Parent isRef="29" />
+              <Text>{Tankhah.PayAmount}</Text>
+              <TextBrush>Black</TextBrush>
+              <TextFormat Ref="46" type="NumberFormat" isKey="true">
+                <DecimalDigits>0</DecimalDigits>
+                <GroupSeparator>,</GroupSeparator>
+                <NegativePattern>1</NegativePattern>
+                <UseLocalSetting>False</UseLocalSetting>
+              </TextFormat>
+              <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text32>
+          </Components>
+          <Conditions isList="true" count="0" />
+          <DataRelationName isNull="true" />
+          <DataSourceName>Tankhah</DataSourceName>
+          <Filters isList="true" count="0" />
+          <Name>DatamadreseDS</Name>
+          <Page isRef="5" />
+          <Parent isRef="5" />
+          <Sort isList="true" count="4">
+            <value>ASC</value>
+            <value>RegisterDate</value>
+            <value>ASC</value>
+            <value>CreationTime</value>
+          </Sort>
+        </DatamadreseDS>
+        <GroupFooterBand1 Ref="47" type="GroupFooterBand" isKey="true">
+          <Brush>Transparent</Brush>
+          <ClientRectangle>0,9,20,2</ClientRectangle>
+          <Components isList="true" count="5">
+            <Text13 Ref="48" type="Text" isKey="true">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>[242:242:242]</Brush>
+              <ClientRectangle>4.4,0,15.6,1</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>B Mitra,10,Bold</Font>
+              <Guid>8a65f6d5ecc445369ae34e9ed192f7c2</Guid>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text13</Name>
+              <Page isRef="5" />
+              <Parent isRef="47" />
+              <Text> جمع کل دریافتی و پرداختی</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text13>
+            <Text16 Ref="49" type="Text" isKey="true">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>[242:242:242]</Brush>
+              <ClientRectangle>0,0,2.2,1</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>B Mitra,9,Bold</Font>
+              <Guid>c978bcb2f4f54d799fd42db949223ea5</Guid>
+              <HorAlignment>Right</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text16</Name>
+              <Page isRef="5" />
+              <Parent isRef="47" />
+              <Text>{Sum(Tankhah.ReceiveAmount)}</Text>
+              <TextBrush>Black</TextBrush>
+              <TextFormat Ref="50" type="NumberFormat" isKey="true">
+                <DecimalDigits>0</DecimalDigits>
+                <GroupSeparator>,</GroupSeparator>
+                <NegativePattern>1</NegativePattern>
+                <UseLocalSetting>False</UseLocalSetting>
+              </TextFormat>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text16>
+            <Text33 Ref="51" type="Text" isKey="true">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>[242:242:242]</Brush>
+              <ClientRectangle>2.2,0,2.2,1</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>B Mitra,9,Bold</Font>
+              <Guid>f9798f6faf8945138359f177d0525a3a</Guid>
+              <HorAlignment>Right</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text33</Name>
+              <Page isRef="5" />
+              <Parent isRef="47" />
+              <Text>{Sum(Tankhah.PayAmount)}</Text>
+              <TextBrush>Black</TextBrush>
+              <TextFormat Ref="52" type="NumberFormat" isKey="true">
+                <DecimalDigits>0</DecimalDigits>
+                <GroupSeparator>,</GroupSeparator>
+                <NegativePattern>1</NegativePattern>
+                <UseLocalSetting>False</UseLocalSetting>
+              </TextFormat>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text33>
+            <Text34 Ref="53" type="Text" isKey="true">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>[242:242:242]</Brush>
+              <ClientRectangle>4.4,1,15.6,1</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>B Mitra,10,Bold</Font>
+              <Guid>1eebccaa3bbc4768a2077a8cbd34230f</Guid>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text34</Name>
+              <Page isRef="5" />
+              <Parent isRef="47" />
+              <Text>مجموع پرداختی پس از کسر دریافتی</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text34>
+            <Text35 Ref="54" type="Text" isKey="true">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>[242:242:242]</Brush>
+              <ClientRectangle>0,1,4.4,1</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>B Mitra,9,Bold</Font>
+              <Guid>0b7925ca14504e49855647331bed480b</Guid>
+              <HorAlignment>Right</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text35</Name>
+              <Page isRef="5" />
+              <Parent isRef="47" />
+              <Text>{Sum(Tankhah.PayAmount) - Sum(Tankhah.ReceiveAmount)}</Text>
+              <TextBrush>Black</TextBrush>
+              <TextFormat Ref="55" type="NumberFormat" isKey="true">
+                <DecimalDigits>0</DecimalDigits>
+                <GroupSeparator>,</GroupSeparator>
+                <NegativePattern>1</NegativePattern>
+                <UseLocalSetting>False</UseLocalSetting>
+              </TextFormat>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text35>
+          </Components>
+          <Conditions isList="true" count="0" />
+          <Name>GroupFooterBand1</Name>
+          <Page isRef="5" />
+          <Parent isRef="5" />
+        </GroupFooterBand1>
+      </Components>
+      <Conditions isList="true" count="0" />
+      <Guid>d56a41683d73426aa9d89379b3a21ef2</Guid>
+      <LargeHeight>True</LargeHeight>
+      <Margins>0.5,0.5,1,1</Margins>
+      <Name>Page1</Name>
+      <PageHeight>29.7</PageHeight>
+      <PageWidth>21</PageWidth>
+      <PaperSize>A4</PaperSize>
+      <Report isRef="0" />
+      <Watermark Ref="56" type="Stimulsoft.Report.Components.StiWatermark" isKey="true">
+        <Font>Microsoft Sans Serif,6</Font>
+        <TextBrush>[50:0:0:0]</TextBrush>
+      </Watermark>
+    </Page1>
+  </Pages>
+  <PrinterSettings Ref="57" type="Stimulsoft.Report.Print.StiPrinterSettings" isKey="true" />
+  <ReferencedAssemblies isList="true" count="8">
+    <value>System.Dll</value>
+    <value>System.Drawing.Dll</value>
+    <value>System.Windows.Forms.Dll</value>
+    <value>System.Data.Dll</value>
+    <value>System.Xml.Dll</value>
+    <value>Stimulsoft.Controls.Dll</value>
+    <value>Stimulsoft.Base.Dll</value>
+    <value>Stimulsoft.Report.Dll</value>
+  </ReferencedAssemblies>
+  <ReportAlias>Report</ReportAlias>
+  <ReportChanged>10/12/2017 12:31:06 PM</ReportChanged>
+  <ReportCreated>11/5/2008 4:44:01 AM</ReportCreated>
+  <ReportFile>E:\TarazNegar\AppFramework\TarazNegarAppFrameworkPlugin\Reports\rp\rp.TankhahReport.mrt</ReportFile>
+  <ReportGuid>4bb2500ee7b74108b538c62ae8cf2e21</ReportGuid>
+  <ReportName>Report</ReportName>
+  <ReportUnit>Centimeters</ReportUnit>
+  <ReportVersion>2016.1.0</ReportVersion>
+  <Script>using System;
+using System.Drawing;
+using System.Windows.Forms;
+using System.Data;
+using Stimulsoft.Controls;
+using Stimulsoft.Base.Drawing;
+using Stimulsoft.Report;
+using Stimulsoft.Report.Dialogs;
+using Stimulsoft.Report.Components;
+
+namespace Reports
+{
+    
+    public class Report : Stimulsoft.Report.StiReport
+    {
+		string temp1="";
+        
+        public Report()
+        {
+            this.InitializeComponent();
+        }
+        #region StiReport Designer generated code - do not modify
+		#endregion StiReport Designer generated code - do not modify
+    }
+}</Script>
+  <ScriptLanguage>CSharp</ScriptLanguage>
+  <Styles isList="true" count="0" />
+</StiSerializer>

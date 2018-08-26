@@ -1,0 +1,718 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<StiSerializer version="1.02" type="Net" application="StiReport">
+  <Dictionary Ref="1" type="Dictionary" isKey="true">
+    <BusinessObjects isList="true" count="0" />
+    <Databases isList="true" count="1">
+      <MainDBConnection Ref="2" type="Stimulsoft.Report.Dictionary.StiSqlDatabase" isKey="true">
+        <Alias>MainDBConnection</Alias>
+        <ConnectionStringEncrypted>42D960RdQ93pR6G9xEzhTtVW0YlISEkJ6hmxjfEp9T/zUpcCTX6pzUVF7UxhALcvwlRxAkZWUfVxUtClYwH0j4BWw8JJbFnl+RGwzOgYoEbDOvUuxhhbpA==</ConnectionStringEncrypted>
+        <Name>MainDBConnection</Name>
+      </MainDBConnection>
+    </Databases>
+    <DataSources isList="true" count="1">
+      <PayReport Ref="3" type="Stimulsoft.Report.Dictionary.StiSqlSource" isKey="true">
+        <Alias>PayReport</Alias>
+        <Columns isList="true" count="21">
+          <value>PayType,System.Int64</value>
+          <value>PayType_Title,System.String</value>
+          <value>PayReceipt_ID,System.Int64</value>
+          <value>PayReceipt_Number,System.Int64</value>
+          <value>PayReceipt_Date,System.DateTime</value>
+          <value>PayReceipt_TotalAmount,System.Int64</value>
+          <value>AccDoc_No,System.Int64</value>
+          <value>PayReceipt_PersianDate,System.String</value>
+          <value>PayReceipt_PayeeFullName,System.String</value>
+          <value>Payee,System.Int64</value>
+          <value>Payee_FullName,System.String</value>
+          <value>ItemNo,System.String</value>
+          <value>DueDate,System.DateTime</value>
+          <value>DueDate_Persian,System.String</value>
+          <value>ChequeStatus,System.Int64</value>
+          <value>BankAccount,System.Int64</value>
+          <value>BankAccount_Text,System.String</value>
+          <value>Cash_Code,System.Int64</value>
+          <value>Cash_Title,System.String</value>
+          <value>Amount,System.Int64</value>
+          <value>PayDocDescription,System.String</value>
+        </Columns>
+        <CommandTimeout>30</CommandTimeout>
+        <Dictionary isRef="1" />
+        <Name>PayReport</Name>
+        <NameInSource>MainDBConnection</NameInSource>
+        <Parameters isList="true" count="0" />
+        <SqlCommand>select * from rp_PayReportView
+where 
+PayReceipt_ID = {PayReceiptID}</SqlCommand>
+      </PayReport>
+    </DataSources>
+    <Relations isList="true" count="0" />
+    <Report isRef="0" />
+    <Variables isList="true" count="3">
+      <value>,PayReceiptID,PayReceiptID,,System.String,Null,False,False,False,False</value>
+      <value>,OrganizationName,OrganizationName,,System.String,Null,False,False,False,False</value>
+      <value>,TotalAmount_Word,TotalAmount_Word,,System.String,Null,False,False,False,False</value>
+    </Variables>
+  </Dictionary>
+  <EngineVersion>EngineV1</EngineVersion>
+  <GlobalizationStrings isList="true" count="0" />
+  <MetaTags isList="true" count="0" />
+  <Pages isList="true" count="1">
+    <Page1 Ref="4" type="Page" isKey="true">
+      <Border>None;Black;2;Solid;False;4;Black</Border>
+      <Brush>Transparent</Brush>
+      <Components isList="true" count="10">
+        <PageHeaderBand1 Ref="5" type="PageHeaderBand" isKey="true">
+          <Brush>Transparent</Brush>
+          <ClientRectangle>0,0.4,19,3.8</ClientRectangle>
+          <Components isList="true" count="13">
+            <Text1 Ref="6" type="Text" isKey="true">
+              <Brush>Transparent</Brush>
+              <ClientRectangle>8.4,1.2,3,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>B Mitra,14,Bold</Font>
+              <Guid>6079cf8ed4c04e81a588b36ea4ce4769</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text1</Name>
+              <Page isRef="4" />
+              <Parent isRef="5" />
+              <Text>رسید پرداخت</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text1>
+            <Text33 Ref="7" type="Text" isKey="true">
+              <Brush>Transparent</Brush>
+              <ClientRectangle>16.6,2.4,2,0.6</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>B Mitra,9,Bold</Font>
+              <Guid>444a01123314406fb125d63acfc7094f</Guid>
+              <HorAlignment>Right</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text33</Name>
+              <Page isRef="4" />
+              <Parent isRef="5" />
+              <Text>بدین وسیله مبلغ</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text33>
+            <Text41 Ref="8" type="Text" isKey="true">
+              <Brush>White</Brush>
+              <ClientRectangle>0.4,2.4,7.4,0.6</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>B Mitra,8,Bold</Font>
+              <Guid>b87fb25c6b23496fa706093baf0eb616</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text41</Name>
+              <Page isRef="4" />
+              <Parent isRef="5" />
+              <Text>{PayReport.PayReceipt_PayeeFullName}</Text>
+              <TextBrush>Black</TextBrush>
+              <TextOptions>,,RightToLeft=True,,,A=0</TextOptions>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text41>
+            <Text14 Ref="9" type="Text" isKey="true">
+              <Border>None;Black;1;Dot;False;4;Black</Border>
+              <Brush>White</Brush>
+              <ClientRectangle>0.8,0.2,2.6,0.6</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>B Roya,8,Bold</Font>
+              <Guid>8ba7d787eb0a470ca880408822f7c333</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text14</Name>
+              <Page isRef="4" />
+              <Parent isRef="5" />
+              <Text>{PayReport.PayReceipt_Number}</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text14>
+            <Text7 Ref="10" type="Text" isKey="true">
+              <Brush>Transparent</Brush>
+              <ClientRectangle>8,2.4,5,0.6</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>B Mitra,9,Bold</Font>
+              <Guid>f2480dee30d643aa9a51f1c90183f024</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text7</Name>
+              <Page isRef="4" />
+              <Parent isRef="5" />
+              <Text>ریال نقدی/چک/ضمانت/حواله به شرح ذیل به </Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text7>
+            <Text10 Ref="11" type="Text" isKey="true">
+              <Brush>White</Brush>
+              <ClientRectangle>0.8,1.2,2.6,0.6</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>B Mitra,8,Bold</Font>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text10</Name>
+              <Page isRef="4" />
+              <Parent isRef="5" />
+              <Text>{PayReport.PayReceipt_PersianDate}</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text10>
+            <Text11 Ref="12" type="Text" isKey="true">
+              <Brush>White</Brush>
+              <ClientRectangle>13.2,2.4,3.4,0.6</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>B Mitra,8,Bold</Font>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text11</Name>
+              <Page isRef="4" />
+              <Parent isRef="5" />
+              <Text>{PayReport.PayReceipt_TotalAmount}</Text>
+              <TextBrush>Black</TextBrush>
+              <TextFormat Ref="13" type="NumberFormat" isKey="true">
+                <DecimalDigits>0</DecimalDigits>
+                <GroupSeparator>,</GroupSeparator>
+                <NegativePattern>1</NegativePattern>
+                <State>DecimalDigits</State>
+              </TextFormat>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text11>
+            <Text4 Ref="14" type="Text" isKey="true">
+              <Border>None;Black;1;Dot;False;4;Black</Border>
+              <Brush>White</Brush>
+              <ClientRectangle>5.8,0.2,8.2,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>B Mitra,14,Bold</Font>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text4</Name>
+              <Page isRef="4" />
+              <Parent isRef="5" />
+              <Text>{OrganizationName}</Text>
+              <TextBrush>Black</TextBrush>
+              <VertAlignment>Center</VertAlignment>
+            </Text4>
+            <Text9 Ref="15" type="Text" isKey="true">
+              <Brush>Transparent</Brush>
+              <ClientRectangle>3.4,1.2,2,0.6</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>B Mitra,9,Bold</Font>
+              <Guid>073d10b380e84cbc8a8b93b47131e92e</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text9</Name>
+              <Page isRef="4" />
+              <Parent isRef="5" />
+              <Text>تاریخ</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text9>
+            <Text13 Ref="16" type="Text" isKey="true">
+              <Brush>Transparent</Brush>
+              <ClientRectangle>3.4,0.2,2,0.6</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>B Mitra,9,Bold</Font>
+              <Guid>3ad34032205544cdb66d27b0635729be</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text13</Name>
+              <Page isRef="4" />
+              <Parent isRef="5" />
+              <Text>شماره</Text>
+              <TextBrush>Black</TextBrush>
+              <TextOptions>,,RightToLeft=True,,,A=0</TextOptions>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text13>
+            <Text2 Ref="17" type="Text" isKey="true">
+              <Brush>Transparent</Brush>
+              <ClientRectangle>16.6,3,2,0.6</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>B Mitra,9,Bold</Font>
+              <Guid>3ce819d56c6444249af7a3020330f268</Guid>
+              <HorAlignment>Right</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text2</Name>
+              <Page isRef="4" />
+              <Parent isRef="5" />
+              <Text>پرداخت گردید.</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text2>
+            <StartPointPrimitive2 Ref="18" type="Stimulsoft.Report.Components.StiStartPointPrimitive" isKey="true">
+              <ClientRectangle>0,-0.4,0,0</ClientRectangle>
+              <Name>StartPointPrimitive2</Name>
+              <Page isRef="4" />
+              <Parent isRef="5" />
+              <ReferenceToGuid>6b240a99cc164e2682553bf230560400</ReferenceToGuid>
+            </StartPointPrimitive2>
+            <HorizontalLinePrimitive1 Ref="19" type="HorizontalLinePrimitive" isKey="true">
+              <ClientRectangle>0,2.2,19,0.0254</ClientRectangle>
+              <Color>Black</Color>
+              <EndCap Ref="20" type="Cap" isKey="true">
+                <Color>Black</Color>
+              </EndCap>
+              <Guid>8e58705f641c487ebc0fb2bfe84706b1</Guid>
+              <Name>HorizontalLinePrimitive1</Name>
+              <Page isRef="4" />
+              <Parent isRef="5" />
+              <StartCap Ref="21" type="Cap" isKey="true">
+                <Color>Black</Color>
+              </StartCap>
+            </HorizontalLinePrimitive1>
+          </Components>
+          <Conditions isList="true" count="0" />
+          <Name>PageHeaderBand1</Name>
+          <Page isRef="4" />
+          <Parent isRef="4" />
+        </PageHeaderBand1>
+        <Text3 Ref="22" type="Text" isKey="true">
+          <Brush>Transparent</Brush>
+          <ClientRectangle>36.2,3.8,1.2,0.8</ClientRectangle>
+          <Conditions isList="true" count="0" />
+          <Font>B Mitra,12,Bold</Font>
+          <HorAlignment>Center</HorAlignment>
+          <Margins>0,0,0,0</Margins>
+          <Name>Text3</Name>
+          <Page isRef="4" />
+          <Parent isRef="4" />
+          <Text>رسید</Text>
+          <TextBrush>Black</TextBrush>
+          <Type>Expression</Type>
+          <VertAlignment>Center</VertAlignment>
+        </Text3>
+        <Text31 Ref="23" type="Text" isKey="true">
+          <Brush>[224:224:224]</Brush>
+          <ClientRectangle>30,2.6,1.6,0.8</ClientRectangle>
+          <Conditions isList="true" count="0" />
+          <Font>B Mitra,10,Bold</Font>
+          <HorAlignment>Center</HorAlignment>
+          <Margins>0,0,0,0</Margins>
+          <Name>Text31</Name>
+          <Page isRef="4" />
+          <Parent isRef="4" />
+          <Text>نوع دریافت</Text>
+          <TextBrush>Black</TextBrush>
+          <Type>Expression</Type>
+          <VertAlignment>Center</VertAlignment>
+        </Text31>
+        <Header1 Ref="24" type="HeaderBand" isKey="true">
+          <Brush>Transparent</Brush>
+          <ClientRectangle>0,5,19,0.8</ClientRectangle>
+          <Components isList="true" count="7">
+            <Text5 Ref="25" type="Text" isKey="true">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>[224:224:224]</Brush>
+              <ClientRectangle>13.2,0,4.2,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>B Mitra,8,Bold</Font>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text5</Name>
+              <Page isRef="4" />
+              <Parent isRef="24" />
+              <Text>شماره حساب</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text5>
+            <Text6 Ref="26" type="Text" isKey="true">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>[224:224:224]</Brush>
+              <ClientRectangle>9.4,0,3.8,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>B Mitra,8,Bold</Font>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text6</Name>
+              <Page isRef="4" />
+              <Parent isRef="24" />
+              <Text>شماره</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text6>
+            <Text8 Ref="27" type="Text" isKey="true">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>[224:224:224]</Brush>
+              <ClientRectangle>0,0,5.2,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>B Mitra,8,Bold</Font>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text8</Name>
+              <Page isRef="4" />
+              <Parent isRef="24" />
+              <Text>مبلغ</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text8>
+            <Text32 Ref="28" type="Text" isKey="true">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>[224:224:224]</Brush>
+              <ClientRectangle>5.2,0,4.2,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>B Mitra,8,Bold</Font>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text32</Name>
+              <Page isRef="4" />
+              <Parent isRef="24" />
+              <Text>تاریخ سررسید</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text32>
+            <Text43 Ref="29" type="Text" isKey="true">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>[224:224:224]</Brush>
+              <ClientRectangle>17.4,0,1.6,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>B Mitra,8,Bold</Font>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text43</Name>
+              <Page isRef="4" />
+              <Parent isRef="24" />
+              <Text>ردیف</Text>
+              <TextBrush>Black</TextBrush>
+              <VertAlignment>Center</VertAlignment>
+            </Text43>
+            <EndPointPrimitive1 Ref="30" type="Stimulsoft.Report.Components.StiEndPointPrimitive" isKey="true">
+              <ClientRectangle>19,0.8,0,0</ClientRectangle>
+              <Name>EndPointPrimitive1</Name>
+              <Page isRef="4" />
+              <Parent isRef="24" />
+              <ReferenceToGuid>1dc52540805846759720e6f8cfa2f33c</ReferenceToGuid>
+            </EndPointPrimitive1>
+            <StartPointPrimitive1 Ref="31" type="Stimulsoft.Report.Components.StiStartPointPrimitive" isKey="true">
+              <ClientRectangle>0,0,0,0</ClientRectangle>
+              <Name>StartPointPrimitive1</Name>
+              <Page isRef="4" />
+              <Parent isRef="24" />
+              <ReferenceToGuid>1dc52540805846759720e6f8cfa2f33c</ReferenceToGuid>
+            </StartPointPrimitive1>
+          </Components>
+          <Conditions isList="true" count="0" />
+          <Name>Header1</Name>
+          <Page isRef="4" />
+          <Parent isRef="4" />
+        </Header1>
+        <Data1 Ref="32" type="DataBand" isKey="true">
+          <Brush>Transparent</Brush>
+          <BusinessObjectGuid isNull="true" />
+          <ClientRectangle>0,6.6,19,0.8</ClientRectangle>
+          <Components isList="true" count="5">
+            <Text42 Ref="33" type="Text" isKey="true">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>Transparent</Brush>
+              <ClientRectangle>17.4,0,1.6,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>B Mitra,8,Bold</Font>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text42</Name>
+              <Page isRef="4" />
+              <Parent isRef="32" />
+              <Text>{Line}</Text>
+              <TextBrush>Black</TextBrush>
+              <VertAlignment>Center</VertAlignment>
+            </Text42>
+            <Text18 Ref="34" type="Text" isKey="true">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>Transparent</Brush>
+              <ClientRectangle>13.2,0,4.2,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>B Mitra,8,Bold</Font>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text18</Name>
+              <Page isRef="4" />
+              <Parent isRef="32" />
+              <Text>{PayReport.BankAccount_Text}</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>DataColumn</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text18>
+            <Text19 Ref="35" type="Text" isKey="true">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>Transparent</Brush>
+              <ClientRectangle>9.4,0,3.8,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>B Mitra,8,Bold</Font>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text19</Name>
+              <Page isRef="4" />
+              <Parent isRef="32" />
+              <Text>{PayReport.ItemNo}</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text19>
+            <Text20 Ref="36" type="Text" isKey="true">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>Transparent</Brush>
+              <ClientRectangle>5.2,0,4.2,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>B Mitra,8,Bold</Font>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text20</Name>
+              <Page isRef="4" />
+              <Parent isRef="32" />
+              <Text>{PayReport.DueDate_Persian}</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text20>
+            <Text21 Ref="37" type="Text" isKey="true">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>Transparent</Brush>
+              <ClientRectangle>0,0,5.2,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>B Mitra,8,Bold</Font>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text21</Name>
+              <Page isRef="4" />
+              <Parent isRef="32" />
+              <Text>{PayReport.Amount}</Text>
+              <TextBrush>Black</TextBrush>
+              <TextFormat Ref="38" type="NumberFormat" isKey="true">
+                <DecimalDigits>0</DecimalDigits>
+                <GroupSeparator>,</GroupSeparator>
+                <NegativePattern>1</NegativePattern>
+                <State>DecimalDigits</State>
+              </TextFormat>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text21>
+          </Components>
+          <Conditions isList="true" count="0" />
+          <DataRelationName isNull="true" />
+          <DataSourceName>PayReport</DataSourceName>
+          <Filters isList="true" count="0" />
+          <Name>Data1</Name>
+          <Page isRef="4" />
+          <Parent isRef="4" />
+          <Sort isList="true" count="0" />
+        </Data1>
+        <FooterBand1 Ref="39" type="FooterBand" isKey="true">
+          <Brush>Transparent</Brush>
+          <ClientRectangle>0,8.2,19,0.8</ClientRectangle>
+          <Components isList="true" count="4">
+            <Text15 Ref="40" type="Text" isKey="true">
+              <Border>Top;Black;1;Solid;False;4;Black</Border>
+              <Brush>White</Brush>
+              <ClientRectangle>5.4,0,11.8,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>B Mitra,14,Bold</Font>
+              <HorAlignment>Right</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text15</Name>
+              <Page isRef="4" />
+              <Parent isRef="39" />
+              <Text>{TotalAmount_Word}</Text>
+              <TextBrush>Black</TextBrush>
+              <VertAlignment>Center</VertAlignment>
+            </Text15>
+            <Text12 Ref="41" type="Text" isKey="true">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>[224:224:224]</Brush>
+              <ClientRectangle>17.4,0,1.6,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>B Mitra,8,Bold</Font>
+              <Guid>0e0b69a2277b423b9b6ed6ce78485bcf</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text12</Name>
+              <Page isRef="4" />
+              <Parent isRef="39" />
+              <Text>جمع به حروف</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text12>
+            <Text16 Ref="42" type="Text" isKey="true">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>Transparent</Brush>
+              <ClientRectangle>0,0,5.2,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>B Mitra,8,Bold</Font>
+              <Guid>cfc7a02896b34c4ab68e2d840b1643af</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text16</Name>
+              <Page isRef="4" />
+              <Parent isRef="39" />
+              <Text>{Sum(PayReport.Amount)}</Text>
+              <TextBrush>Black</TextBrush>
+              <TextFormat Ref="43" type="NumberFormat" isKey="true">
+                <DecimalDigits>0</DecimalDigits>
+                <GroupSeparator>,</GroupSeparator>
+                <NegativePattern>1</NegativePattern>
+                <State>DecimalDigits</State>
+              </TextFormat>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text16>
+            <HorizontalLinePrimitive2 Ref="44" type="HorizontalLinePrimitive" isKey="true">
+              <ClientRectangle>0,0.8,19,0.0254</ClientRectangle>
+              <Color>Black</Color>
+              <EndCap Ref="45" type="Cap" isKey="true">
+                <Color>Black</Color>
+              </EndCap>
+              <Guid>dd66698482f649bb8fbf04709ba9bf25</Guid>
+              <Name>HorizontalLinePrimitive2</Name>
+              <Page isRef="4" />
+              <Parent isRef="39" />
+              <StartCap Ref="46" type="Cap" isKey="true">
+                <Color>Black</Color>
+              </StartCap>
+            </HorizontalLinePrimitive2>
+          </Components>
+          <Conditions isList="true" count="0" />
+          <Name>FooterBand1</Name>
+          <Page isRef="4" />
+          <Parent isRef="4" />
+        </FooterBand1>
+        <FooterBand2 Ref="47" type="FooterBand" isKey="true">
+          <Brush>Transparent</Brush>
+          <ClientRectangle>0,9.8,19,1.8</ClientRectangle>
+          <Components isList="true" count="2">
+            <Text17 Ref="48" type="Text" isKey="true">
+              <Brush>Transparent</Brush>
+              <ClientRectangle>13,0.2,2,1.2</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>B Mitra,9,Bold</Font>
+              <Guid>9af8c9b502024f22af80bed3f2137ed9</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text17</Name>
+              <Page isRef="4" />
+              <Parent isRef="47" />
+              <Text>مهر و امضا
+تحویل دهنده</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text17>
+            <Text22 Ref="49" type="Text" isKey="true">
+              <Brush>Transparent</Brush>
+              <ClientRectangle>4,0.2,2,1.2</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>B Mitra,9,Bold</Font>
+              <Guid>70baf5765a4740dd97931f05550e2d06</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text22</Name>
+              <Page isRef="4" />
+              <Parent isRef="47" />
+              <Text>مهر و امضا
+تحویل گیرنده</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text22>
+          </Components>
+          <Conditions isList="true" count="0" />
+          <Name>FooterBand2</Name>
+          <Page isRef="4" />
+          <Parent isRef="4" />
+          <PrintAtBottom>True</PrintAtBottom>
+        </FooterBand2>
+        <Rectangle1 Ref="50" type="RectanglePrimitive" isKey="true">
+          <ClientRectangle>0,5,19,0.8</ClientRectangle>
+          <Color>Black</Color>
+          <Guid>1dc52540805846759720e6f8cfa2f33c</Guid>
+          <Name>Rectangle1</Name>
+          <Page isRef="4" />
+          <Parent isRef="4" />
+        </Rectangle1>
+        <RoundedRectanglePrimitive6 Ref="51" type="Stimulsoft.Report.Components.StiRoundedRectanglePrimitive" isKey="true">
+          <ClientRectangle>0,0,19,27.6</ClientRectangle>
+          <Color>Black</Color>
+          <Guid>6b240a99cc164e2682553bf230560400</Guid>
+          <Name>RoundedRectanglePrimitive6</Name>
+          <Page isRef="4" />
+          <Parent isRef="4" />
+          <Round>0.2</Round>
+        </RoundedRectanglePrimitive6>
+        <EndPointPrimitive2 Ref="52" type="Stimulsoft.Report.Components.StiEndPointPrimitive" isKey="true">
+          <ClientRectangle>19,27.6,0,0</ClientRectangle>
+          <Name>EndPointPrimitive2</Name>
+          <Page isRef="4" />
+          <Parent isRef="4" />
+          <ReferenceToGuid>6b240a99cc164e2682553bf230560400</ReferenceToGuid>
+        </EndPointPrimitive2>
+      </Components>
+      <Conditions isList="true" count="0" />
+      <Guid>1a4b7dbf32044d56b3a6c3fb4f2d3514</Guid>
+      <Margins>1,1,1,1</Margins>
+      <Name>Page1</Name>
+      <PageHeight>29.7</PageHeight>
+      <PageWidth>21</PageWidth>
+      <Report isRef="0" />
+      <Watermark Ref="53" type="Stimulsoft.Report.Components.StiWatermark" isKey="true">
+        <Font>Arial,100</Font>
+        <TextBrush>[50:0:0:0]</TextBrush>
+      </Watermark>
+    </Page1>
+  </Pages>
+  <PrinterSettings Ref="54" type="Stimulsoft.Report.Print.StiPrinterSettings" isKey="true" />
+  <ReferencedAssemblies isList="true" count="8">
+    <value>System.Dll</value>
+    <value>System.Drawing.Dll</value>
+    <value>System.Windows.Forms.Dll</value>
+    <value>System.Data.Dll</value>
+    <value>System.Xml.Dll</value>
+    <value>Stimulsoft.Controls.Dll</value>
+    <value>Stimulsoft.Base.Dll</value>
+    <value>Stimulsoft.Report.Dll</value>
+  </ReferencedAssemblies>
+  <ReportAlias>Report</ReportAlias>
+  <ReportChanged>10/25/2017 1:56:55 PM</ReportChanged>
+  <ReportCreated>9/23/2010 5:03:31 AM</ReportCreated>
+  <ReportFile>E:\Taraznegar\MegaModavemApp_Web\Reports\rp.PayReceipt.mrt</ReportFile>
+  <ReportGuid>666e2bbf980d45cdb37a5a179796a325</ReportGuid>
+  <ReportName>Report</ReportName>
+  <ReportUnit>Centimeters</ReportUnit>
+  <ReportVersion>2016.1.0</ReportVersion>
+  <Script>using System;
+using System.Drawing;
+using System.Windows.Forms;
+using System.Data;
+using Stimulsoft.Controls;
+using Stimulsoft.Base.Drawing;
+using Stimulsoft.Report;
+using Stimulsoft.Report.Dialogs;
+using Stimulsoft.Report.Components;
+
+namespace Reports
+{
+    
+    public class Report : Stimulsoft.Report.StiReport
+    {
+        
+        public Report()
+        {
+            this.InitializeComponent();
+        }
+        #region StiReport Designer generated code - do not modify
+		#endregion StiReport Designer generated code - do not modify
+    }
+}
+</Script>
+  <ScriptLanguage>CSharp</ScriptLanguage>
+  <Styles isList="true" count="0" />
+</StiSerializer>

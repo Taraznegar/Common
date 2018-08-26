@@ -1,0 +1,571 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<StiSerializer version="1.02" type="Net" application="StiReport">
+  <Dictionary Ref="1" type="Dictionary" isKey="true">
+    <BusinessObjects isList="true" count="0" />
+    <Databases isList="true" count="1">
+      <MSSQLConnection Ref="2" type="Stimulsoft.Report.Dictionary.StiSqlDatabase" isKey="true">
+        <Alias>MSSQLConnection</Alias>
+        <ConnectionStringEncrypted>42DJ60RZQ1npR6HMSwSkTtVS0S9hSEtZ81uxrehx4QvfMPWDZVmpOUVG+b3xXLVn9njZ6k9Pad1DSaxAdw11L4JW18NhSlnlRhPVjetcJUae8tGiXgoZgW0cPaXF</ConnectionStringEncrypted>
+        <Name>MSSQLConnection</Name>
+      </MSSQLConnection>
+    </Databases>
+    <DataSources isList="true" count="6">
+      <MoinAccountsDS Ref="3" type="Stimulsoft.Report.Dictionary.StiSqlSource" isKey="true">
+        <Alias>MoinAccountsDS</Alias>
+        <Columns isList="true" count="3">
+          <value>ID,System.Guid</value>
+          <value>PID,System.Guid</value>
+          <value>CodeAndName,System.String</value>
+        </Columns>
+        <CommandTimeout>30</CommandTimeout>
+        <Dictionary isRef="1" />
+        <Name>MoinAccountsDS</Name>
+        <NameInSource>MSSQLConnection</NameInSource>
+        <Parameters isList="true" count="0" />
+        <SqlCommand>
+select Moin.ID,
+	Moin.KolID PID,
+	Moin.CodeAndName
+from acc_AccountsView Moin 	
+where Moin.AccountLevel_Name = 'Moin'  
+	and Moin.FinancialYear = isnull({FinancialYearID} , Moin.FinancialYear)
+	and acc.ToComparableAccountFullCodeWithGroupCode(Moin.FullCodeWithGroupCode) &gt;= isnull(acc.ToComparableAccountFullCodeWithGroupCode({FromMoinFullCode}) , acc.ToComparableAccountFullCodeWithGroupCode(Moin.FullCodeWithGroupCode))
+	and acc.ToComparableAccountFullCodeWithGroupCode(Moin.FullCodeWithGroupCode) &lt;= isnull(acc.ToComparableAccountFullCodeWithGroupCode({ToMoinFullCode}) , acc.ToComparableAccountFullCodeWithGroupCode(Moin.FullCodeWithGroupCode))
+order by cast(Moin.Code as int)</SqlCommand>
+      </MoinAccountsDS>
+      <KolAccountsDS Ref="4" type="Stimulsoft.Report.Dictionary.StiSqlSource" isKey="true">
+        <Alias>KolAccountsDS</Alias>
+        <Columns isList="true" count="3">
+          <value>ID,System.Guid</value>
+          <value>GID,System.Guid</value>
+          <value>CodeAndName,System.String</value>
+        </Columns>
+        <CommandTimeout>30</CommandTimeout>
+        <Dictionary isRef="1" />
+        <Name>KolAccountsDS</Name>
+        <NameInSource>MSSQLConnection</NameInSource>
+        <Parameters isList="true" count="0" />
+        <SqlCommand>select Kol.ID,
+	Kol.AccountGroup GID, 
+	Kol.CodeAndName
+from acc_AccountsView Kol
+where Kol.AccountLevel_Name = 'Kol' and 
+	Kol.FinancialYear = isnull({FinancialYearID} , Kol.FinancialYear)
+	and acc.ToComparableAccountFullCodeWithGroupCode(Kol.FullCodeWithGroupCode) &gt;= isnull(acc.ToComparableAccountFullCodeWithGroupCode({FromKolFullCode}) , acc.ToComparableAccountFullCodeWithGroupCode(Kol.FullCodeWithGroupCode))
+	and acc.ToComparableAccountFullCodeWithGroupCode(Kol.FullCodeWithGroupCode) &lt;= isnull(acc.ToComparableAccountFullCodeWithGroupCode({ToKolFullCode}) , acc.ToComparableAccountFullCodeWithGroupCode(Kol.FullCodeWithGroupCode))
+order by cast(Kol.Code as int)
+
+</SqlCommand>
+      </KolAccountsDS>
+      <TafsiliAccountsDS Ref="5" type="Stimulsoft.Report.Dictionary.StiSqlSource" isKey="true">
+        <Alias>TafsiliAccountsDS</Alias>
+        <Columns isList="true" count="3">
+          <value>ID,System.Guid</value>
+          <value>PID,System.Guid</value>
+          <value>CodeAndName,System.String</value>
+        </Columns>
+        <CommandTimeout>30</CommandTimeout>
+        <Dictionary isRef="1" />
+        <Name>TafsiliAccountsDS</Name>
+        <NameInSource>MSSQLConnection</NameInSource>
+        <Parameters isList="true" count="0" />
+        <SqlCommand>select  Tafsili.ID, 
+	Tafsili.MoinID PID,
+	Tafsili.CodeAndName
+from acc_AccountsView Tafsili
+where Tafsili.AccountLevel_Name = 'Tafsili' and
+	Tafsili.FinancialYear = isnull({FinancialYearID} , Tafsili.FinancialYear)
+	and acc.ToComparableAccountFullCodeWithGroupCode(Tafsili.FullCodeWithGroupCode) &gt;= isnull(acc.ToComparableAccountFullCodeWithGroupCode({FromTafsiliFullCode}) , acc.ToComparableAccountFullCodeWithGroupCode(Tafsili.FullCodeWithGroupCode))
+	and acc.ToComparableAccountFullCodeWithGroupCode(Tafsili.FullCodeWithGroupCode) &lt;= isnull(acc.ToComparableAccountFullCodeWithGroupCode({ToTafsiliFullCode}) , acc.ToComparableAccountFullCodeWithGroupCode(Tafsili.FullCodeWithGroupCode))
+order by cast(Tafsili.Code as int)
+
+</SqlCommand>
+      </TafsiliAccountsDS>
+      <AccountGroupsDS Ref="6" type="Stimulsoft.Report.Dictionary.StiSqlSource" isKey="true">
+        <Alias>AccountGroupsDS</Alias>
+        <Columns isList="true" count="2">
+          <value>ID,System.Guid</value>
+          <value>Title,System.String</value>
+        </Columns>
+        <CommandTimeout>30</CommandTimeout>
+        <Dictionary isRef="1" />
+        <Name>AccountGroupsDS</Name>
+        <NameInSource>MSSQLConnection</NameInSource>
+        <Parameters isList="true" count="0" />
+        <SqlCommand>select ID,
+	Title
+	from acc_AccountGroups
+	where GroupCode between isnull({FromGroupCode}, GroupCode) and isnull({ToGroupCode}, GroupCode) 
+order by cast(GroupCode as int)</SqlCommand>
+      </AccountGroupsDS>
+      <FinancialYearNoDS Ref="7" type="Stimulsoft.Report.Dictionary.StiSqlSource" isKey="true">
+        <Alias>FinancialYearNoDS</Alias>
+        <Columns isList="true" count="1">
+          <value>YearNo,System.String</value>
+        </Columns>
+        <CommandTimeout>30</CommandTimeout>
+        <Dictionary isRef="1" />
+        <Name>FinancialYearNoDS</Name>
+        <NameInSource>MSSQLConnection</NameInSource>
+        <Parameters isList="true" count="0" />
+        <SqlCommand>select YearNo
+	from cmn_FinancialYears
+	where ID = {FinancialYearID}  </SqlCommand>
+      </FinancialYearNoDS>
+      <OrganizationInformationDS Ref="8" type="Stimulsoft.Report.Dictionary.StiSqlSource" isKey="true">
+        <Alias>OrganizationInformationDS</Alias>
+        <Columns isList="true" count="1">
+          <value>OrganizationName,System.String</value>
+        </Columns>
+        <CommandTimeout>30</CommandTimeout>
+        <Dictionary isRef="1" />
+        <Name>OrganizationInformationDS</Name>
+        <NameInSource>MSSQLConnection</NameInSource>
+        <Parameters isList="true" count="0" />
+        <SqlCommand>select Name OrganizationName 
+from cmn_OrganizationInformations
+where ID = '{OrganizationUnitID}'</SqlCommand>
+      </OrganizationInformationDS>
+    </DataSources>
+    <Relations isList="true" count="3">
+      <KolGroup Ref="9" type="DataRelation" isKey="true">
+        <Alias>KolGroup</Alias>
+        <ChildColumns isList="true" count="1">
+          <value>GID</value>
+        </ChildColumns>
+        <ChildSource isRef="4" />
+        <Dictionary isRef="1" />
+        <Name>KolGroup</Name>
+        <NameInSource>KolGroup</NameInSource>
+        <ParentColumns isList="true" count="1">
+          <value>ID</value>
+        </ParentColumns>
+        <ParentSource isRef="6" />
+      </KolGroup>
+      <MoinParent Ref="10" type="DataRelation" isKey="true">
+        <Alias>MoinParent</Alias>
+        <ChildColumns isList="true" count="1">
+          <value>PID</value>
+        </ChildColumns>
+        <ChildSource isRef="3" />
+        <Dictionary isRef="1" />
+        <Name>MoinParent</Name>
+        <NameInSource>Relation</NameInSource>
+        <ParentColumns isList="true" count="1">
+          <value>ID</value>
+        </ParentColumns>
+        <ParentSource isRef="4" />
+      </MoinParent>
+      <TafsiliParent Ref="11" type="DataRelation" isKey="true">
+        <Alias>TafsiliParent</Alias>
+        <ChildColumns isList="true" count="1">
+          <value>PID</value>
+        </ChildColumns>
+        <ChildSource isRef="5" />
+        <Dictionary isRef="1" />
+        <Name>TafsiliParent</Name>
+        <NameInSource>TafsiliParent</NameInSource>
+        <ParentColumns isList="true" count="1">
+          <value>ID</value>
+        </ParentColumns>
+        <ParentSource isRef="3" />
+      </TafsiliParent>
+    </Relations>
+    <Report isRef="0" />
+    <Variables isList="true" count="13">
+      <value>,FinancialYearID,FinancialYearID,FinancialYearID,System.String,_x0027_81a14478-ba8e-4015-ba7d-c8039b8c36b0_x0027_,False,False,False,False</value>
+      <value>,PrintDateTime,PrintDateTime,,System.String,,False,False,False,False</value>
+      <value>,FromKolFullCode,FromKolFullCode,,System.String,_x0027_1_x0020_-_x0020_10_x0027_,False,False,False,False</value>
+      <value>,ToKolFullCode,ToKolFullCode,,System.String,null,False,False,False,False</value>
+      <value>,OrganizationUnitID,OrganizationUnitID,,System.String,_x0038_1a14478-ba8e-4015-ba7d-c8039b8c36b0,False,False,False,False</value>
+      <value>,FromMoinFullCode,FromMoinFullCode,,System.String,_x0027_1_x0020_-_x0020_10_x0020_-_x0020_3_x0027_,False,False,False,False</value>
+      <value>,ToMoinFullCode,ToMoinFullCode,,System.String,null,False,False,False,False</value>
+      <value>,FromTafsiliFullCode,FromTafsiliFullCode,,System.String,_x0027_1_x0020_-_x0020_10_x0020_-_x0020_3_x0020_-_x0020_5_x0027_,False,False,False,False</value>
+      <value>,ToTafsiliFullCode,ToTafsiliFullCode,,System.String,null,False,False,False,False</value>
+      <value>,FromGroupCode,FromGroupCode,,System.String,_x0027_1_x0027_,False,False,False,False</value>
+      <value>,ToGroupCode,ToGroupCode,,System.String,_x0027_5_x0027_,False,False,False,False</value>
+      <value>,ToAccountCode,ToAccountCode,,System.String,,False,False,False,False</value>
+      <value>,FromAccountCode,FromAccountCode,,System.String,,False,False,False,False</value>
+    </Variables>
+  </Dictionary>
+  <EngineVersion>EngineV2</EngineVersion>
+  <GlobalizationStrings isList="true" count="0" />
+  <MetaTags isList="true" count="0" />
+  <Pages isList="true" count="1">
+    <Page1 Ref="12" type="Page" isKey="true">
+      <Border>None;Black;2;Dash;False;4;Black</Border>
+      <Brush>Transparent</Brush>
+      <Components isList="true" count="6">
+        <PageFooterBand1 Ref="13" type="PageFooterBand" isKey="true">
+          <Brush>Transparent</Brush>
+          <ClientRectangle>0,9.92,7.72,0.3</ClientRectangle>
+          <Components isList="true" count="2">
+            <Text24 Ref="14" type="Text" isKey="true">
+              <Border>None;[105:105:105];1;Solid;False;4;[105:105:105]</Border>
+              <Brush>Transparent</Brush>
+              <ClientRectangle>0.1,0.14,2.6,0.2</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>A1Tahoma,9</Font>
+              <Guid>e997b2db127f40acbf6825052bc41e0e</Guid>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text24</Name>
+              <Page isRef="12" />
+              <Parent isRef="13" />
+              <Text>صفحه {PageNumber} از {TotalPageCount}</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+            </Text24>
+            <HorizontalLinePrimitive3 Ref="15" type="HorizontalLinePrimitive" isKey="true">
+              <ClientRectangle>0,0.04,7.7,0.01</ClientRectangle>
+              <Color>DimGray</Color>
+              <EndCap Ref="16" type="Cap" isKey="true">
+                <Color>Black</Color>
+              </EndCap>
+              <Name>HorizontalLinePrimitive3</Name>
+              <Page isRef="12" />
+              <Parent isRef="13" />
+              <StartCap Ref="17" type="Cap" isKey="true">
+                <Color>Black</Color>
+              </StartCap>
+            </HorizontalLinePrimitive3>
+          </Components>
+          <Conditions isList="true" count="0" />
+          <Name>PageFooterBand1</Name>
+          <Page isRef="12" />
+          <Parent isRef="12" />
+        </PageFooterBand1>
+        <HeaderBand3 Ref="18" type="HeaderBand" isKey="true">
+          <Border>Bottom;Black;1;Solid;False;4;Black</Border>
+          <Brush>Transparent</Brush>
+          <ClientRectangle>0,0.2,7.72,1.3</ClientRectangle>
+          <Components isList="true" count="6">
+            <Text21 Ref="19" type="Text" isKey="true">
+              <Border>None;[105:105:105];1;Solid;False;4;[105:105:105]</Border>
+              <Brush>Transparent</Brush>
+              <ClientRectangle>2.2,0.3,3,0.3</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>B Mitra,14,Bold</Font>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text21</Name>
+              <Page isRef="12" />
+              <Parent isRef="18" />
+              <Text> درخت کدینگ حساب ها
+</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text21>
+            <Text22 Ref="20" type="Text" isKey="true">
+              <Border>None;[105:105:105];1;Solid;False;4;[105:105:105]</Border>
+              <Brush>Transparent</Brush>
+              <ClientRectangle>2.1,0,3.4,0.3</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>B Mitra,12,Bold</Font>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text22</Name>
+              <Page isRef="12" />
+              <Parent isRef="18" />
+              <Text>{OrganizationInformationDS.OrganizationName}</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text22>
+            <Text23 Ref="21" type="Text" isKey="true">
+              <AutoWidth>True</AutoWidth>
+              <Border>None;[105:105:105];1;Solid;False;4;[105:105:105]</Border>
+              <Brush>Transparent</Brush>
+              <CanGrow>True</CanGrow>
+              <ClientRectangle>0,0.6,1.9,0.3</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>B Roya,10</Font>
+              <HorAlignment>Right</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text23</Name>
+              <Page isRef="12" />
+              <Parent isRef="18" />
+              <Text>زمان چاپ : {PrintDateTime}</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text23>
+            <Text25 Ref="22" type="Text" isKey="true">
+              <Border>None;[105:105:105];1;Solid;False;4;[105:105:105]</Border>
+              <Brush>Transparent</Brush>
+              <ClientRectangle>5.8,0.6,1.9,0.3</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>B Roya,10</Font>
+              <Guid>ff46d419128244bf9dde5a9877a18600</Guid>
+              <HorAlignment>Right</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text25</Name>
+              <Page isRef="12" />
+              <Parent isRef="18" />
+              <Text>سال مالی : {FinancialYearNoDS.YearNo}</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text25>
+            <Text26 Ref="23" type="Text" isKey="true">
+              <AutoWidth>True</AutoWidth>
+              <Border>None;[105:105:105];1;Solid;False;4;[105:105:105]</Border>
+              <Brush>Transparent</Brush>
+              <CanShrink>True</CanShrink>
+              <ClientRectangle>4.2,1,3.5,0.2</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>B Roya,10</Font>
+              <Guid>be04ba9e1ba348c3a698331fb9490bc2</Guid>
+              <HorAlignment>Right</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text26</Name>
+              <Page isRef="12" />
+              <Parent isRef="18" />
+              <Text>از {IIF(FromAccountCode == "null", "-",FromAccountCode)}</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text26>
+            <Text27 Ref="24" type="Text" isKey="true">
+              <AutoWidth>True</AutoWidth>
+              <Border>None;[105:105:105];1;Solid;False;4;[105:105:105]</Border>
+              <Brush>Transparent</Brush>
+              <CanShrink>True</CanShrink>
+              <ClientRectangle>0.3,1,3.8,0.2</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>B Roya,10</Font>
+              <Guid>638fc319bf8140acbd6f82065fa54790</Guid>
+              <HorAlignment>Right</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text27</Name>
+              <Page isRef="12" />
+              <Parent isRef="18" />
+              <Text>تا {IIF(ToAccountCode == "null", "-",ToAccountCode)}</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text27>
+          </Components>
+          <Conditions isList="true" count="0" />
+          <Name>HeaderBand3</Name>
+          <Page isRef="12" />
+          <Parent isRef="12" />
+          <PrintOnAllPages>False</PrintOnAllPages>
+        </HeaderBand3>
+        <DataBand1 Ref="25" type="DataBand" isKey="true">
+          <Brush>Transparent</Brush>
+          <BusinessObjectGuid isNull="true" />
+          <CanBreak>True</CanBreak>
+          <ClientRectangle>0,1.9,7.72,0.4</ClientRectangle>
+          <Components isList="true" count="1">
+            <Text1 Ref="26" type="Text" isKey="true">
+              <AutoWidth>True</AutoWidth>
+              <Border>None;[105:105:105];1;Solid;False;4;[105:105:105]</Border>
+              <Brush>Transparent</Brush>
+              <CanBreak>True</CanBreak>
+              <CanGrow>True</CanGrow>
+              <ClientRectangle>0,0.1,7.5,0.3</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>B Roya,11</Font>
+              <HorAlignment>Right</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text1</Name>
+              <Page isRef="12" />
+              <Parent isRef="25" />
+              <Text>{AccountGroupsDS.Title}</Text>
+              <TextBrush>[255:51:0]</TextBrush>
+              <TextOptions>,,RightToLeft=True,,,A=0</TextOptions>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text1>
+          </Components>
+          <Conditions isList="true" count="0" />
+          <DataRelationName isNull="true" />
+          <DataSourceName>AccountGroupsDS</DataSourceName>
+          <Filters isList="true" count="0" />
+          <Name>DataBand1</Name>
+          <Page isRef="12" />
+          <Parent isRef="12" />
+          <PrintIfDetailEmpty>True</PrintIfDetailEmpty>
+          <Sort isList="true" count="0" />
+        </DataBand1>
+        <DataBand2 Ref="27" type="DataBand" isKey="true">
+          <Brush>Transparent</Brush>
+          <BusinessObjectGuid isNull="true" />
+          <CanBreak>True</CanBreak>
+          <ClientRectangle>0,2.7,7.72,0.3</ClientRectangle>
+          <Components isList="true" count="1">
+            <Text2 Ref="28" type="Text" isKey="true">
+              <AutoWidth>True</AutoWidth>
+              <Border>None;[105:105:105];1;Solid;False;4;[105:105:105]</Border>
+              <Brush>Transparent</Brush>
+              <CanBreak>True</CanBreak>
+              <CanGrow>True</CanGrow>
+              <CanShrink>True</CanShrink>
+              <ClientRectangle>0,0,7.1,0.3</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>B Roya,11</Font>
+              <HorAlignment>Right</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text2</Name>
+              <Page isRef="12" />
+              <Parent isRef="27" />
+              <Text>{KolAccountsDS.CodeAndName}</Text>
+              <TextBrush>[0:5:197]</TextBrush>
+              <TextOptions>,,RightToLeft=True,,,A=0</TextOptions>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text2>
+          </Components>
+          <Conditions isList="true" count="0" />
+          <DataRelationName>KolGroup</DataRelationName>
+          <DataSourceName>KolAccountsDS</DataSourceName>
+          <Filters isList="true" count="0" />
+          <MasterComponent isRef="25" />
+          <Name>DataBand2</Name>
+          <Page isRef="12" />
+          <Parent isRef="12" />
+          <PrintIfDetailEmpty>True</PrintIfDetailEmpty>
+          <Sort isList="true" count="0" />
+        </DataBand2>
+        <DataBand3 Ref="29" type="DataBand" isKey="true">
+          <Brush>Transparent</Brush>
+          <BusinessObjectGuid isNull="true" />
+          <CanBreak>True</CanBreak>
+          <ClientRectangle>0,3.4,7.72,0.3</ClientRectangle>
+          <Components isList="true" count="1">
+            <Text3 Ref="30" type="Text" isKey="true">
+              <AutoWidth>True</AutoWidth>
+              <Border>None;[105:105:105];1;Solid;False;4;[105:105:105]</Border>
+              <Brush>Transparent</Brush>
+              <CanBreak>True</CanBreak>
+              <CanGrow>True</CanGrow>
+              <CanShrink>True</CanShrink>
+              <ClientRectangle>0,0,6.7,0.3</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>B Roya,11</Font>
+              <Guid>cb6f5884b34c4d0daa7b9e15f32758c2</Guid>
+              <HorAlignment>Right</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text3</Name>
+              <Page isRef="12" />
+              <Parent isRef="29" />
+              <Text>{MoinAccountsDS.CodeAndName}</Text>
+              <TextBrush>[197:0:192]</TextBrush>
+              <TextOptions>,,RightToLeft=True,,,A=0</TextOptions>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text3>
+          </Components>
+          <Conditions isList="true" count="0" />
+          <DataRelationName>Relation</DataRelationName>
+          <DataSourceName>MoinAccountsDS</DataSourceName>
+          <Filters isList="true" count="0" />
+          <MasterComponent isRef="27" />
+          <Name>DataBand3</Name>
+          <Page isRef="12" />
+          <Parent isRef="12" />
+          <PrintIfDetailEmpty>True</PrintIfDetailEmpty>
+          <Sort isList="true" count="0" />
+        </DataBand3>
+        <DataBand5 Ref="31" type="DataBand" isKey="true">
+          <Brush>Transparent</Brush>
+          <BusinessObjectGuid isNull="true" />
+          <CanBreak>True</CanBreak>
+          <ClientRectangle>0,4.1,7.72,0.3</ClientRectangle>
+          <Components isList="true" count="1">
+            <Text4 Ref="32" type="Text" isKey="true">
+              <AutoWidth>True</AutoWidth>
+              <Border>None;[105:105:105];1;Solid;False;4;[105:105:105]</Border>
+              <Brush>Transparent</Brush>
+              <CanBreak>True</CanBreak>
+              <CanGrow>True</CanGrow>
+              <CanShrink>True</CanShrink>
+              <ClientRectangle>0,0,6.3,0.3</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>B Roya,11</Font>
+              <Guid>716690d4bc314bd682b572fb747798d4</Guid>
+              <HorAlignment>Right</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text4</Name>
+              <Page isRef="12" />
+              <Parent isRef="31" />
+              <Text>{TafsiliAccountsDS.CodeAndName}</Text>
+              <TextBrush>Black</TextBrush>
+              <TextOptions>,,RightToLeft=True,,,A=0</TextOptions>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text4>
+          </Components>
+          <Conditions isList="true" count="0" />
+          <DataRelationName>TafsiliParent</DataRelationName>
+          <DataSourceName>TafsiliAccountsDS</DataSourceName>
+          <Filters isList="true" count="0" />
+          <MasterComponent isRef="29" />
+          <Name>DataBand5</Name>
+          <Page isRef="12" />
+          <Parent isRef="12" />
+          <PrintIfDetailEmpty>True</PrintIfDetailEmpty>
+          <Sort isList="true" count="0" />
+        </DataBand5>
+      </Components>
+      <Conditions isList="true" count="0" />
+      <Guid>a58b0c19ee0941ce9b06773804c50541</Guid>
+      <Margins>0.39,0.39,0.39,0.39</Margins>
+      <Name>Page1</Name>
+      <PageHeight>11</PageHeight>
+      <PageWidth>8.5</PageWidth>
+      <PaperSize>Letter</PaperSize>
+      <Report isRef="0" />
+      <Watermark Ref="33" type="Stimulsoft.Report.Components.StiWatermark" isKey="true">
+        <Font>Arial,100</Font>
+        <TextBrush>[50:0:0:0]</TextBrush>
+      </Watermark>
+    </Page1>
+  </Pages>
+  <PreviewSettings>268435455</PreviewSettings>
+  <PrinterSettings Ref="34" type="Stimulsoft.Report.Print.StiPrinterSettings" isKey="true" />
+  <ReferencedAssemblies isList="true" count="8">
+    <value>System.Dll</value>
+    <value>System.Drawing.Dll</value>
+    <value>System.Windows.Forms.Dll</value>
+    <value>System.Data.Dll</value>
+    <value>System.Xml.Dll</value>
+    <value>Stimulsoft.Controls.Dll</value>
+    <value>Stimulsoft.Base.Dll</value>
+    <value>Stimulsoft.Report.Dll</value>
+  </ReferencedAssemblies>
+  <ReportAlias>Report</ReportAlias>
+  <ReportChanged>1/7/2018 4:20:08 PM</ReportChanged>
+  <ReportCreated>11/4/2017 3:04:06 PM</ReportCreated>
+  <ReportFile />
+  <ReportGuid>689c3c247c37402b923028a866e65b77</ReportGuid>
+  <ReportName>Report</ReportName>
+  <ReportUnit>Inches</ReportUnit>
+  <ReportVersion>2016.1.0</ReportVersion>
+  <Script>using System;
+using System.Drawing;
+using System.Windows.Forms;
+using System.Data;
+using Stimulsoft.Controls;
+using Stimulsoft.Base.Drawing;
+using Stimulsoft.Report;
+using Stimulsoft.Report.Dialogs;
+using Stimulsoft.Report.Components;
+
+namespace Reports
+{
+    public class Report : Stimulsoft.Report.StiReport
+    {
+        public Report()        {
+            this.InitializeComponent();
+        }
+
+        #region StiReport Designer generated code - do not modify
+		#endregion StiReport Designer generated code - do not modify
+    }
+}
+</Script>
+  <ScriptLanguage>CSharp</ScriptLanguage>
+  <Styles isList="true" count="0" />
+</StiSerializer>

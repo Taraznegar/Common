@@ -1,0 +1,8 @@
+H:\RoyalMehr1\AppFramework\AppFrameworkCommonErpPlugin\bin\Debug\AppFrameworkCommonErpPlugin.dll
+H:\RoyalMehr1\AppFramework\AppFrameworkCommonErpPlugin\bin\Debug\AppFrameworkCommonErpPlugin.pdb
+H:\RoyalMehr1\AppFramework\AppFrameworkCommonErpPlugin\bin\Debug\AppFramework.AppServer.dll
+H:\RoyalMehr1\AppFramework\AppFrameworkCommonErpPlugin\bin\Debug\AppFramework.DataAccess.dll
+H:\RoyalMehr1\AppFramework\AppFrameworkCommonErpPlugin\bin\Debug\AppFramework.Server.Shared.dll
+H:\RoyalMehr1\AppFramework\AppFrameworkCommonErpPlugin\obj\Debug\AppFrameworkCommonErpPlugin.csprojResolveAssemblyReference.cache
+H:\RoyalMehr1\AppFramework\AppFrameworkCommonErpPlugin\obj\Debug\AppFrameworkCommonErpPlugin.dll
+H:\RoyalMehr1\AppFramework\AppFrameworkCommonErpPlugin\obj\Debug\AppFrameworkCommonErpPlugin.pdb

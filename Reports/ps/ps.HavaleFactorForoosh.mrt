@@ -1,0 +1,1020 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<StiSerializer version="1.02" type="Net" application="StiReport">
+  <Dictionary Ref="1" type="Dictionary" isKey="true">
+    <BusinessObjects isList="true" count="0" />
+    <Databases isList="true" count="1">
+      <MainDbConnection Ref="2" type="Stimulsoft.Report.Dictionary.StiSqlDatabase" isKey="true">
+        <Alias>MainDbConnection</Alias>
+        <ConnectionStringEncrypted>42DJ60RZQ1npR6HMSwSkTtVS0S9hSEtZ81uxrehx4QvfMPWDZVmpOUVG+b3xXLVn9njZ6k9Pad1DSaxAdw11L4JW18NhSlnlRhPVjetcJUae8tGiXgoZgW0cPaXF</ConnectionStringEncrypted>
+        <Name>MainDbConnection</Name>
+      </MainDbConnection>
+    </Databases>
+    <DataSources isList="true" count="2">
+      <HavaleFactorForoosh Ref="3" type="Stimulsoft.Report.Dictionary.StiSqlSource" isKey="true">
+        <Alias>HavaleFactorForoosh</Alias>
+        <Columns isList="true" count="16">
+          <value>Name,System.String</value>
+          <value>UnitName,System.String</value>
+          <value>Quantity,System.Decimal</value>
+          <value>InvoiceNumber,System.String</value>
+          <value>IssueDate,System.String</value>
+          <value>FullName,System.String</value>
+          <value>OrganName,System.String</value>
+          <value>CodeAnbar,System.String</value>
+          <value>CodeHesabdari,System.String</value>
+          <value>Address1,System.String</value>
+          <value>ToziheAnbardar,System.String</value>
+          <value>CreatedInvoice_Number,System.String</value>
+          <value>RowNumber,System.Int64</value>
+          <value>TahvilGirandeKala,System.String</value>
+          <value>TahvilGirandeKala_ShomareTamas,System.String</value>
+          <value>FinancialGroupName,System.String</value>
+        </Columns>
+        <CommandTimeout>30</CommandTimeout>
+        <Dictionary isRef="1" />
+        <Name>HavaleFactorForoosh</Name>
+        <NameInSource>MainDbConnection</NameInSource>
+        <Parameters isList="true" count="0" />
+        <SqlCommand>select StuffDef.Name, 
+	Unit.Title UnitName, 
+	SalesInvoiceItem.Quantity, 
+	SalesInvoice.InvoiceNumber, 
+	afw.GregorianToPersian(SalesInvoice.IssueDate) IssueDate, 
+	Person.FullName,
+	OrganizationUnit.Name OrganName,
+	StuffDef.Custom_CodeAnbar CodeAnbar, 
+	StuffDef.Custom_CodeHesabdari CodeHesabdari,
+	Person.Address1,
+	SalesInvoice.ToziheAnbardar,
+	CreatedInvoice.InvoiceNumber CreatedInvoice_Number,
+	SalesInvoiceItem.RowNumber,
+	SalesInvoice.TahvilGirandeKala,
+	SalesInvoice.TahvilGirandeKala_ShomareTamas,
+	FinancialGroup.Name FinancialGroupName
+from ps_SalesInvoices SalesInvoice-- cmn_MeasurementUnits Unit 
+	left join ps_SalesInvoiceItems SalesInvoiceItem on SalesInvoiceItem.SalesInvoice = SalesInvoice.ID 
+	inner join cmn_Stuffs Stuff on Stuff.ID = SalesInvoiceItem.Stuff
+	left join cmn_StuffDefs StuffDef on StuffDef.ID = Stuff.StuffDef	
+	left join cmn_MeasurementUnits Unit on Unit.ID = StuffDef.MainMeasurementUnit
+	left join cmn_PersonsView Person on SalesInvoice.Customer = Person.ID  
+	left join ps_SalesInvoices CreatedInvoice on CreatedInvoice.SourceProforma = SalesInvoice.ID 
+	left join cmn_FinancialGroups FinancialGroup on FinancialGroup.ID = SalesInvoice.FinancialGroup		
+	left join cmn_OrganizationInformations OrganizationUnit on OrganizationUnit.ID = SalesInvoice.OrganizationUnit
+where SalesInvoice.ID = '{InvoiceID}'</SqlCommand>
+      </HavaleFactorForoosh>
+      <date Ref="4" type="Stimulsoft.Report.Dictionary.StiSqlSource" isKey="true">
+        <Alias>date</Alias>
+        <Columns isList="true" count="1">
+          <value>DateNow,System.String</value>
+        </Columns>
+        <CommandTimeout>30</CommandTimeout>
+        <Dictionary isRef="1" />
+        <Name>date</Name>
+        <NameInSource>MainDbConnection</NameInSource>
+        <Parameters isList="true" count="0" />
+        <SqlCommand>select  substring(afw.GregorianToPersian(getdate()), 0, 11) DateNow</SqlCommand>
+      </date>
+    </DataSources>
+    <Relations isList="true" count="0" />
+    <Report isRef="0" />
+    <Variables isList="true" count="3">
+      <value>,InvoiceID,InvoiceID,,System.String,_x0038_D389BAD-BC89-4CCB-852C-E13488F31117,False,False,False,False</value>
+      <value>,FinancialGroupID,FinancialGroupID,,System.String,,False,False,False,False</value>
+      <value>,ReportTitle,ReportTitle,,System.String,,False,False,False,False</value>
+    </Variables>
+  </Dictionary>
+  <EngineVersion>EngineV2</EngineVersion>
+  <GlobalizationStrings isList="true" count="0" />
+  <MetaTags isList="true" count="0" />
+  <Pages isList="true" count="1">
+    <Page1 Ref="5" type="Page" isKey="true">
+      <Border>None;Black;2;Solid;False;4;Black</Border>
+      <Brush>Transparent</Brush>
+      <Components isList="true" count="9">
+        <PageFooterBand1 Ref="6" type="PageFooterBand" isKey="true">
+          <Brush>Transparent</Brush>
+          <ClientRectangle>0,6.12,7.49,4.1</ClientRectangle>
+          <Components isList="true" count="24">
+            <Text21 Ref="7" type="Text" isKey="true">
+              <Brush>White</Brush>
+              <ClientRectangle>6.6,0.18,0.8,0.2</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>A1Tahoma,10,Bold</Font>
+              <Guid>687e80d07ce7486c88e33624753223c6</Guid>
+              <HorAlignment>Right</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text21</Name>
+              <Page isRef="5" />
+              <Parent isRef="6" />
+              <Text>:تایید کننده</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text21>
+            <Text22 Ref="8" type="Text" isKey="true">
+              <Brush>White</Brush>
+              <ClientRectangle>4.2,0.18,0.9,0.2</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>A1Tahoma,10,Bold</Font>
+              <Guid>85f20cadd0544611897eeeeda413a8c0</Guid>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text22</Name>
+              <Page isRef="5" />
+              <Parent isRef="6" />
+              <Text>:مدیر فروش</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text22>
+            <Text23 Ref="9" type="Text" isKey="true">
+              <Brush>White</Brush>
+              <ClientRectangle>1.7,0.18,0.8,0.2</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>A1Tahoma,10,Bold</Font>
+              <Guid>e3ceaa9ae6d247579c05d4656ed0978d</Guid>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text23</Name>
+              <Page isRef="5" />
+              <Parent isRef="6" />
+              <Text>:حسابداری</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text23>
+            <Text24 Ref="10" type="Text" isKey="true">
+              <Brush>White</Brush>
+              <ClientRectangle>6.5,1.18,0.9,0.2</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>A1Tahoma,10,Bold</Font>
+              <Guid>5a794877f7504802970356ac88da2190</Guid>
+              <HorAlignment>Right</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text24</Name>
+              <Page isRef="5" />
+              <Parent isRef="6" />
+              <Text>:تحویل گیرنده</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text24>
+            <Text25 Ref="11" type="Text" isKey="true">
+              <Brush>White</Brush>
+              <ClientRectangle>3.5,1.18,0.5,0.2</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>A1Tahoma,10,Bold</Font>
+              <Guid>21e43ad7f9404b9b9dfbb9ac9acbb7b9</Guid>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text25</Name>
+              <Page isRef="5" />
+              <Parent isRef="6" />
+              <Text>:موبایل</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text25>
+            <Text26 Ref="12" type="Text" isKey="true">
+              <Brush>White</Brush>
+              <ClientRectangle>6.3,1.68,1.1,0.2</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>A1Tahoma,10,Bold</Font>
+              <Guid>d58cfedcfdfe4159acda7f43304af63e</Guid>
+              <HorAlignment>Right</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text26</Name>
+              <Page isRef="5" />
+              <Parent isRef="6" />
+              <Text>:توضیحات فروش</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text26>
+            <Text27 Ref="13" type="Text" isKey="true">
+              <Brush>White</Brush>
+              <ClientRectangle>6.6,2.58,0.8,0.2</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>A1Tahoma,10,Bold</Font>
+              <Guid>399abde4b88d4242a416cf9edbfbcf63</Guid>
+              <HorAlignment>Right</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text27</Name>
+              <Page isRef="5" />
+              <Parent isRef="6" />
+              <Text>:تایید اعتبار</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text27>
+            <Text35 Ref="14" type="Text" isKey="true">
+              <Brush>White</Brush>
+              <ClientRectangle>2.8,2.58,1.1,0.2</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>A1Tahoma,10,Bold</Font>
+              <Guid>57a35e9fc5dd4c148ac5895fb6dcd7e9</Guid>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text35</Name>
+              <Page isRef="5" />
+              <Parent isRef="6" />
+              <Text>:نحوه ارسال بار</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text35>
+            <Text43 Ref="15" type="Text" isKey="true">
+              <Brush>White</Brush>
+              <CanGrow>True</CanGrow>
+              <CanShrink>True</CanShrink>
+              <ClientRectangle>0.1,1.68,6.2,0.6</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>A1Tahoma,10,Bold</Font>
+              <Guid>b8e1f0921d404706915e9d308f25fbed</Guid>
+              <HorAlignment>Right</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text43</Name>
+              <Page isRef="5" />
+              <Parent isRef="6" />
+              <Text>{HavaleFactorForoosh.ToziheAnbardar}</Text>
+              <TextBrush>Black</TextBrush>
+              <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
+              <Type>Expression</Type>
+            </Text43>
+            <Text34 Ref="16" type="Text" isKey="true">
+              <Brush>White</Brush>
+              <ClientRectangle>4.1,1.18,2.4,0.2</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>A1Tahoma,8,Bold</Font>
+              <Guid>4cf5c4aab7d84f29abbb95047d0d93a2</Guid>
+              <HorAlignment>Right</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text34</Name>
+              <Page isRef="5" />
+              <Parent isRef="6" />
+              <Text>{HavaleFactorForoosh.TahvilGirandeKala}</Text>
+              <TextBrush>Black</TextBrush>
+              <VertAlignment>Center</VertAlignment>
+            </Text34>
+            <Text45 Ref="17" type="Text" isKey="true">
+              <Brush>White</Brush>
+              <ClientRectangle>0.2,1.18,3.3,0.2</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>A1Tahoma,8,Bold</Font>
+              <Guid>532cdbc5c53c45479fe0c81a50a4b822</Guid>
+              <HorAlignment>Right</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text45</Name>
+              <Page isRef="5" />
+              <Parent isRef="6" />
+              <Text>{HavaleFactorForoosh.TahvilGirandeKala_ShomareTamas}</Text>
+              <TextBrush>Black</TextBrush>
+              <VertAlignment>Center</VertAlignment>
+            </Text45>
+            <EndPointPrimitive1 Ref="18" type="Stimulsoft.Report.Components.StiEndPointPrimitive" isKey="true">
+              <ClientRectangle>7.49,4.08,0,0</ClientRectangle>
+              <Name>EndPointPrimitive1</Name>
+              <Page isRef="5" />
+              <Parent isRef="6" />
+              <ReferenceToGuid>29ce9f3e7a4a4391bc13a004cb495130</ReferenceToGuid>
+            </EndPointPrimitive1>
+            <EndPointPrimitive3 Ref="19" type="Stimulsoft.Report.Components.StiEndPointPrimitive" isKey="true">
+              <ClientRectangle>2.6,0.98,0,0</ClientRectangle>
+              <Name>EndPointPrimitive3</Name>
+              <Page isRef="5" />
+              <Parent isRef="6" />
+              <ReferenceToGuid>b45415a966524d69bf7f436569ba4a99</ReferenceToGuid>
+            </EndPointPrimitive3>
+            <StartPointPrimitive2 Ref="20" type="Stimulsoft.Report.Components.StiStartPointPrimitive" isKey="true">
+              <ClientRectangle>2.6,0.08,0,0</ClientRectangle>
+              <Name>StartPointPrimitive2</Name>
+              <Page isRef="5" />
+              <Parent isRef="6" />
+              <ReferenceToGuid>b45415a966524d69bf7f436569ba4a99</ReferenceToGuid>
+            </StartPointPrimitive2>
+            <StartPointPrimitive3 Ref="21" type="Stimulsoft.Report.Components.StiStartPointPrimitive" isKey="true">
+              <ClientRectangle>5.2,0.08,0,0</ClientRectangle>
+              <Name>StartPointPrimitive3</Name>
+              <Page isRef="5" />
+              <Parent isRef="6" />
+              <ReferenceToGuid>b813e4e999c446c397f67a3ba9c81511</ReferenceToGuid>
+            </StartPointPrimitive3>
+            <EndPointPrimitive2 Ref="22" type="Stimulsoft.Report.Components.StiEndPointPrimitive" isKey="true">
+              <ClientRectangle>5.2,0.98,0,0</ClientRectangle>
+              <Name>EndPointPrimitive2</Name>
+              <Page isRef="5" />
+              <Parent isRef="6" />
+              <ReferenceToGuid>b813e4e999c446c397f67a3ba9c81511</ReferenceToGuid>
+            </EndPointPrimitive2>
+            <StartPointPrimitive4 Ref="23" type="Stimulsoft.Report.Components.StiStartPointPrimitive" isKey="true">
+              <ClientRectangle>0,0.08,0,0</ClientRectangle>
+              <Name>StartPointPrimitive4</Name>
+              <Page isRef="5" />
+              <Parent isRef="6" />
+              <ReferenceToGuid>f5d252df032c42c9924130f43ef9b466</ReferenceToGuid>
+            </StartPointPrimitive4>
+            <EndPointPrimitive4 Ref="24" type="Stimulsoft.Report.Components.StiEndPointPrimitive" isKey="true">
+              <ClientRectangle>7.49,0.98,0,0</ClientRectangle>
+              <Name>EndPointPrimitive4</Name>
+              <Page isRef="5" />
+              <Parent isRef="6" />
+              <ReferenceToGuid>f5d252df032c42c9924130f43ef9b466</ReferenceToGuid>
+            </EndPointPrimitive4>
+            <StartPointPrimitive5 Ref="25" type="Stimulsoft.Report.Components.StiStartPointPrimitive" isKey="true">
+              <ClientRectangle>4.1,0.98,0,0</ClientRectangle>
+              <Name>StartPointPrimitive5</Name>
+              <Page isRef="5" />
+              <Parent isRef="6" />
+              <ReferenceToGuid>bf8a0ffbfe4848089b0354d880fc46b4</ReferenceToGuid>
+            </StartPointPrimitive5>
+            <EndPointPrimitive5 Ref="26" type="Stimulsoft.Report.Components.StiEndPointPrimitive" isKey="true">
+              <ClientRectangle>4.1,1.58,0,0</ClientRectangle>
+              <Name>EndPointPrimitive5</Name>
+              <Page isRef="5" />
+              <Parent isRef="6" />
+              <ReferenceToGuid>bf8a0ffbfe4848089b0354d880fc46b4</ReferenceToGuid>
+            </EndPointPrimitive5>
+            <HorizontalLinePrimitive2 Ref="27" type="HorizontalLinePrimitive" isKey="true">
+              <ClientRectangle>0,1.58,7.5,0.01</ClientRectangle>
+              <Color>Black</Color>
+              <EndCap Ref="28" type="Cap" isKey="true">
+                <Color>Black</Color>
+              </EndCap>
+              <Guid>f504b9eacb5146ca8c56a012f5facbc0</Guid>
+              <Name>HorizontalLinePrimitive2</Name>
+              <Page isRef="5" />
+              <Parent isRef="6" />
+              <StartCap Ref="29" type="Cap" isKey="true">
+                <Color>Black</Color>
+              </StartCap>
+            </HorizontalLinePrimitive2>
+            <HorizontalLinePrimitive1 Ref="30" type="HorizontalLinePrimitive" isKey="true">
+              <ClientRectangle>0,2.38,7.5,0.01</ClientRectangle>
+              <Color>Black</Color>
+              <EndCap Ref="31" type="Cap" isKey="true">
+                <Color>Black</Color>
+              </EndCap>
+              <Guid>8198539d675f43db88e532331de27795</Guid>
+              <Name>HorizontalLinePrimitive1</Name>
+              <Page isRef="5" />
+              <Parent isRef="6" />
+              <StartCap Ref="32" type="Cap" isKey="true">
+                <Color>Black</Color>
+              </StartCap>
+            </HorizontalLinePrimitive1>
+            <StartPointPrimitive6 Ref="33" type="Stimulsoft.Report.Components.StiStartPointPrimitive" isKey="true">
+              <ClientRectangle>4.1,2.38,0,0</ClientRectangle>
+              <Name>StartPointPrimitive6</Name>
+              <Page isRef="5" />
+              <Parent isRef="6" />
+              <ReferenceToGuid>342431c18f144c26a287cf2432e8148d</ReferenceToGuid>
+            </StartPointPrimitive6>
+            <EndPointPrimitive6 Ref="34" type="Stimulsoft.Report.Components.StiEndPointPrimitive" isKey="true">
+              <ClientRectangle>4.1,4.08,0,0</ClientRectangle>
+              <Name>EndPointPrimitive6</Name>
+              <Page isRef="5" />
+              <Parent isRef="6" />
+              <ReferenceToGuid>342431c18f144c26a287cf2432e8148d</ReferenceToGuid>
+            </EndPointPrimitive6>
+          </Components>
+          <Conditions isList="true" count="0" />
+          <Name>PageFooterBand1</Name>
+          <Page isRef="5" />
+          <Parent isRef="5" />
+        </PageFooterBand1>
+        <HeaderBand1 Ref="35" type="HeaderBand" isKey="true">
+          <Brush>Transparent</Brush>
+          <ClientRectangle>0,0.2,7.49,2.7</ClientRectangle>
+          <Components isList="true" count="24">
+            <Text1 Ref="36" type="Text" isKey="true">
+              <Brush>White</Brush>
+              <ClientRectangle>1.4,0.1,5,0.4</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>A1Tahoma,14,Bold</Font>
+              <Guid>5255fd88a0fb48efa223b9877c7ff4b4</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text1</Name>
+              <Page isRef="5" />
+              <Parent isRef="35" />
+              <Text>{HavaleFactorForoosh.OrganName}</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text1>
+            <Text2 Ref="37" type="Text" isKey="true">
+              <Brush>White</Brush>
+              <ClientRectangle>1.4,0.5,5,0.3</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>A1Tahoma,12,Bold</Font>
+              <Guid>8866dec5a1c74ccc85dc8b0a17a31edb</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text2</Name>
+              <Page isRef="5" />
+              <Parent isRef="35" />
+              <Text>{ReportTitle}</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text2>
+            <Text3 Ref="38" type="Text" isKey="true">
+              <Brush>White</Brush>
+              <ClientRectangle>6.3,0.9,1.1,0.2</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>A1Tahoma,10,Bold</Font>
+              <Guid>1fcd18469db249e18fcdc16529802155</Guid>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text3</Name>
+              <Page isRef="5" />
+              <Parent isRef="35" />
+              <Text>:تاریخ حواله</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text3>
+            <Text4 Ref="39" type="Text" isKey="true">
+              <Brush>White</Brush>
+              <ClientRectangle>6.09,1.2,1.3,0.2</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>A1Tahoma,10,Bold</Font>
+              <Guid>9c5f4705f7c44853b2cb1175cb931d01</Guid>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text4</Name>
+              <Page isRef="5" />
+              <Parent isRef="35" />
+              <Text>:شماره درخواست</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text4>
+            <Text5 Ref="40" type="Text" isKey="true">
+              <Brush>White</Brush>
+              <ClientRectangle>3.6,1.2,1.2,0.2</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>A1Tahoma,10,Bold</Font>
+              <Guid>a98308ef221149b5834f5e3526c3d6a8</Guid>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text5</Name>
+              <Page isRef="5" />
+              <Parent isRef="35" />
+              <Text>:نام مشتری</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text5>
+            <Text6 Ref="41" type="Text" isKey="true">
+              <Brush>White</Brush>
+              <ClientRectangle>6.1,1.8,1.1,0.2</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>A1Tahoma,10,Bold</Font>
+              <Guid>d71ac760762b44d4b25a805fcc867b97</Guid>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text6</Name>
+              <Page isRef="5" />
+              <Parent isRef="35" />
+              <Text>:آدرس مشتری</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text6>
+            <Text12 Ref="42" type="Text" isKey="true">
+              <Brush>White</Brush>
+              <ClientRectangle>5.1,0.9,1.2,0.2</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>B Mitra,11,Bold</Font>
+              <Guid>9dc51fe80c7141f89c31f08a11fe96ea</Guid>
+              <HorAlignment>Right</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text12</Name>
+              <Page isRef="5" />
+              <Parent isRef="35" />
+              <Text>{HavaleFactorForoosh.IssueDate}</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text12>
+            <Text13 Ref="43" type="Text" isKey="true">
+              <Brush>White</Brush>
+              <ClientRectangle>5.4,1.2,0.7,0.2</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>B Mitra,11,Bold</Font>
+              <Guid>9e413d3aef3b4d14b4b8e3d3805ffa73</Guid>
+              <HorAlignment>Right</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text13</Name>
+              <Page isRef="5" />
+              <Parent isRef="35" />
+              <Text>{HavaleFactorForoosh.InvoiceNumber}</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text13>
+            <Text14 Ref="44" type="Text" isKey="true">
+              <Brush>White</Brush>
+              <ClientRectangle>0,1.2,3.6,0.2</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>A1Tahoma,10,Bold</Font>
+              <Guid>e5cbe31df17d4c8599abee0857972bbc</Guid>
+              <HorAlignment>Right</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text14</Name>
+              <Page isRef="5" />
+              <Parent isRef="35" />
+              <Text>{HavaleFactorForoosh.FullName}</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>DataColumn</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text14>
+            <Text15 Ref="45" type="Text" isKey="true">
+              <Brush>White</Brush>
+              <CanGrow>True</CanGrow>
+              <ClientRectangle>0.2,1.8,5.9,0.5</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>A1Tahoma,9,Bold</Font>
+              <Guid>ba88c92dc4864a06b96424bda819a8fc</Guid>
+              <HorAlignment>Right</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text15</Name>
+              <Page isRef="5" />
+              <Parent isRef="35" />
+              <Text>{HavaleFactorForoosh.Address1}</Text>
+              <TextBrush>Black</TextBrush>
+              <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
+              <Type>Expression</Type>
+            </Text15>
+            <Text16 Ref="46" type="Text" isKey="true">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>[216:216:216]</Brush>
+              <ClientRectangle>6.5,2.4,0.6,0.3</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>A1Tahoma,10,Bold</Font>
+              <Guid>56792dc445e1424aa4b58ae438b59e99</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text16</Name>
+              <Page isRef="5" />
+              <Parent isRef="35" />
+              <Text>ردیف انبار</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text16>
+            <Text17 Ref="47" type="Text" isKey="true">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>[216:216:216]</Brush>
+              <ClientRectangle>5.4,2.4,1.1,0.3</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>A1Tahoma,10,Bold</Font>
+              <Guid>8259d29bd43346058466c152d19e839f</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text17</Name>
+              <Page isRef="5" />
+              <Parent isRef="35" />
+              <Text>کد حسابداری</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text17>
+            <Text18 Ref="48" type="Text" isKey="true">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>[216:216:216]</Brush>
+              <ClientRectangle>1.3,2.4,4.1,0.3</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>A1Tahoma,10,Bold</Font>
+              <Guid>c7f70f9b478a4f2387e9f3c999207cd5</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text18</Name>
+              <Page isRef="5" />
+              <Parent isRef="35" />
+              <Text>نام کالا</Text>
+              <TextBrush>Black</TextBrush>
+              <VertAlignment>Center</VertAlignment>
+            </Text18>
+            <Text19 Ref="49" type="Text" isKey="true">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>[216:216:216]</Brush>
+              <ClientRectangle>0.6,2.4,0.7,0.3</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>A1Tahoma,10,Bold</Font>
+              <Guid>180badaba96242a0aa394e8822a221cb</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text19</Name>
+              <Page isRef="5" />
+              <Parent isRef="35" />
+              <Text>واحد</Text>
+              <TextBrush>Black</TextBrush>
+              <VertAlignment>Center</VertAlignment>
+            </Text19>
+            <Text20 Ref="50" type="Text" isKey="true">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>[216:216:216]</Brush>
+              <ClientRectangle>0,2.4,0.6,0.3</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>A1Tahoma,10,Bold</Font>
+              <Guid>e309a08c5abc4faaa811c9bf261fa2bb</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text20</Name>
+              <Page isRef="5" />
+              <Parent isRef="35" />
+              <Text>تعداد</Text>
+              <TextBrush>Black</TextBrush>
+              <VertAlignment>Center</VertAlignment>
+            </Text20>
+            <Text39 Ref="51" type="Text" isKey="true">
+              <Brush>White</Brush>
+              <ClientRectangle>5.2,1.5,1.4,0.2</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>A1Tahoma,10,Bold</Font>
+              <Guid>e1631678af364de98a5f47938be36c00</Guid>
+              <HorAlignment>Right</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text39</Name>
+              <Page isRef="5" />
+              <Parent isRef="35" />
+              <Text>نوع : پیش فاکتور</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text39>
+            <Text40 Ref="52" type="Text" isKey="true">
+              <Brush>White</Brush>
+              <ClientRectangle>3.6,1.5,1.2,0.2</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>A1Tahoma,10,Bold</Font>
+              <Guid>bb064f5f3e72457dac0f35a2ef0a3f28</Guid>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text40</Name>
+              <Page isRef="5" />
+              <Parent isRef="35" />
+              <Text>:شماره فاکتور</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text40>
+            <Text41 Ref="53" type="Text" isKey="true">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>[216:216:216]</Brush>
+              <ClientRectangle>7.09,2.4,0.4,0.3</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>A1Tahoma,10,Bold</Font>
+              <Guid>3cf8caa842274979bb7bd3d61916a744</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text41</Name>
+              <Page isRef="5" />
+              <Parent isRef="35" />
+              <Text>ردیف</Text>
+              <TextBrush>Black</TextBrush>
+              <VertAlignment>Center</VertAlignment>
+            </Text41>
+            <Text44 Ref="54" type="Text" isKey="true">
+              <Brush>White</Brush>
+              <ClientRectangle>2.9,1.5,0.7,0.2</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>B Mitra,11,Bold</Font>
+              <HorAlignment>Right</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text44</Name>
+              <Page isRef="5" />
+              <Parent isRef="35" />
+              <Text>{HavaleFactorForoosh.CreatedInvoice_Number}</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text44>
+            <Text48 Ref="55" type="Text" isKey="true">
+              <Brush>Transparent</Brush>
+              <ClientRectangle>0,0.1,0.71,0.16</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>A1Tahoma,7,Bold</Font>
+              <Guid>a75252127b034b62994781c85cce014e</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text48</Name>
+              <Page isRef="5" />
+              <Parent isRef="35" />
+              <Text>{PageNumber} از {TotalPageCount}</Text>
+              <TextBrush>Black</TextBrush>
+              <TextOptions>,,RightToLeft=True,,,A=0</TextOptions>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text48>
+            <Text49 Ref="56" type="Text" isKey="true">
+              <Brush>Transparent</Brush>
+              <ClientRectangle>0.71,0.1,0.39,0.16</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>A1Tahoma,7,Bold</Font>
+              <Guid>d0ddbf4a7eb243c09813b802e2c849c1</Guid>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text49</Name>
+              <Page isRef="5" />
+              <Parent isRef="35" />
+              <Text>صفحه</Text>
+              <TextBrush>Black</TextBrush>
+              <TextOptions>,,RightToLeft=True,,,A=0</TextOptions>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text49>
+            <Text50 Ref="57" type="Text" isKey="true">
+              <Brush>White</Brush>
+              <ClientRectangle>0,0.26,0.71,0.16</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>A1Tahoma,7,Bold</Font>
+              <Guid>27146fef4fb84237a5e8810983c9b08c</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text50</Name>
+              <Page isRef="5" />
+              <Parent isRef="35" />
+              <Text>{date.DateNow}</Text>
+              <TextBrush>Black</TextBrush>
+              <VertAlignment>Center</VertAlignment>
+            </Text50>
+            <Text61 Ref="58" type="Text" isKey="true">
+              <Brush>Transparent</Brush>
+              <ClientRectangle>0.71,0.26,0.63,0.16</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>A1Tahoma,7,Bold</Font>
+              <Guid>a011e15a6fbd445e8037671c4cc225fc</Guid>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text61</Name>
+              <Page isRef="5" />
+              <Parent isRef="35" />
+              <Text>تاریخ گزارش</Text>
+              <TextBrush>Black</TextBrush>
+              <TextOptions>,,RightToLeft=True,,,A=0</TextOptions>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text61>
+            <StartPointPrimitive1 Ref="59" type="Stimulsoft.Report.Components.StiStartPointPrimitive" isKey="true">
+              <ClientRectangle>0,0,0,0</ClientRectangle>
+              <Name>StartPointPrimitive1</Name>
+              <Page isRef="5" />
+              <Parent isRef="35" />
+              <ReferenceToGuid>29ce9f3e7a4a4391bc13a004cb495130</ReferenceToGuid>
+            </StartPointPrimitive1>
+          </Components>
+          <Conditions isList="true" count="0" />
+          <Name>HeaderBand1</Name>
+          <Page isRef="5" />
+          <Parent isRef="5" />
+        </HeaderBand1>
+        <DataBand1 Ref="60" type="DataBand" isKey="true">
+          <Brush>Transparent</Brush>
+          <BusinessObjectGuid isNull="true" />
+          <ClientRectangle>0,3.3,7.49,0.4</ClientRectangle>
+          <Components isList="true" count="6">
+            <Text7 Ref="61" type="Text" isKey="true">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>White</Brush>
+              <ClientRectangle>6.5,0,0.6,0.4</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>B Mitra,11,Bold</Font>
+              <Guid>b07a534d7f7c41ad87ee4f824d105fd2</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text7</Name>
+              <Page isRef="5" />
+              <Parent isRef="60" />
+              <Text>{HavaleFactorForoosh.CodeAnbar}</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text7>
+            <Text8 Ref="62" type="Text" isKey="true">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>White</Brush>
+              <ClientRectangle>5.4,0,1.1,0.4</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>B Mitra,11,Bold</Font>
+              <Guid>a7bdf988fdc4452fb20d5763f4893224</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text8</Name>
+              <Page isRef="5" />
+              <Parent isRef="60" />
+              <Text>{HavaleFactorForoosh.CodeHesabdari}</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text8>
+            <Text9 Ref="63" type="Text" isKey="true">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>White</Brush>
+              <CanGrow>True</CanGrow>
+              <ClientRectangle>1.3,0,4.1,0.4</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Arial,12</Font>
+              <Guid>e35425e7163743738c26dca358cbbc6e</Guid>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text9</Name>
+              <Page isRef="5" />
+              <Parent isRef="60" />
+              <Text>{HavaleFactorForoosh.Name}</Text>
+              <TextBrush>Black</TextBrush>
+              <TextOptions>,,RightToLeft=True,,WordWrap=True,A=0</TextOptions>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text9>
+            <Text10 Ref="64" type="Text" isKey="true">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>White</Brush>
+              <ClientRectangle>0.6,0,0.7,0.4</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>A1Tahoma,10,Bold</Font>
+              <Guid>336e2afb37334623bcf86e6b98714d32</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text10</Name>
+              <Page isRef="5" />
+              <Parent isRef="60" />
+              <Text>{HavaleFactorForoosh.UnitName}</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text10>
+            <Text11 Ref="65" type="Text" isKey="true">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>White</Brush>
+              <ClientRectangle>0,0,0.6,0.4</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>B Mitra,11,Bold</Font>
+              <Guid>48bfb966facc4251b35e85b3b5284bf2</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text11</Name>
+              <Page isRef="5" />
+              <Parent isRef="60" />
+              <Text>{HavaleFactorForoosh.Quantity}</Text>
+              <TextBrush>Black</TextBrush>
+              <TextFormat Ref="66" type="NumberFormat" isKey="true">
+                <DecimalDigits>0</DecimalDigits>
+                <GroupSeparator>,</GroupSeparator>
+                <NegativePattern>1</NegativePattern>
+                <UseLocalSetting>False</UseLocalSetting>
+              </TextFormat>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text11>
+            <Text42 Ref="67" type="Text" isKey="true">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>White</Brush>
+              <ClientRectangle>7.09,0,0.4,0.4</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>B Mitra,11,Bold</Font>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text42</Name>
+              <Page isRef="5" />
+              <Parent isRef="60" />
+              <Text>{Line}</Text>
+              <TextBrush>Black</TextBrush>
+              <VertAlignment>Center</VertAlignment>
+            </Text42>
+          </Components>
+          <Conditions isList="true" count="0" />
+          <DataRelationName isNull="true" />
+          <DataSourceName>HavaleFactorForoosh</DataSourceName>
+          <Filters isList="true" count="0" />
+          <Name>DataBand1</Name>
+          <Page isRef="5" />
+          <Parent isRef="5" />
+          <Sort isList="true" count="2">
+            <value>ASC</value>
+            <value>RowNumber</value>
+          </Sort>
+        </DataBand1>
+        <RoundedRectanglePrimitive1 Ref="68" type="Stimulsoft.Report.Components.StiRoundedRectanglePrimitive" isKey="true">
+          <ClientRectangle>0,0.2,7.49,10</ClientRectangle>
+          <Color>Black</Color>
+          <Guid>29ce9f3e7a4a4391bc13a004cb495130</Guid>
+          <Name>RoundedRectanglePrimitive1</Name>
+          <Page isRef="5" />
+          <Parent isRef="5" />
+          <Round>0.2</Round>
+        </RoundedRectanglePrimitive1>
+        <VerticalLinePrimitive1 Ref="69" type="VerticalLinePrimitive" isKey="true">
+          <ClientRectangle>2.6,6.2,0.01,0.9</ClientRectangle>
+          <Color>Black</Color>
+          <EndCap Ref="70" type="Cap" isKey="true">
+            <Color>Black</Color>
+          </EndCap>
+          <Guid>b45415a966524d69bf7f436569ba4a99</Guid>
+          <Name>VerticalLinePrimitive1</Name>
+          <Page isRef="5" />
+          <Parent isRef="5" />
+          <StartCap Ref="71" type="Cap" isKey="true">
+            <Color>Black</Color>
+          </StartCap>
+        </VerticalLinePrimitive1>
+        <VerticalLinePrimitive2 Ref="72" type="VerticalLinePrimitive" isKey="true">
+          <ClientRectangle>5.2,6.2,0.01,0.9</ClientRectangle>
+          <Color>Black</Color>
+          <EndCap Ref="73" type="Cap" isKey="true">
+            <Color>Black</Color>
+          </EndCap>
+          <Guid>b813e4e999c446c397f67a3ba9c81511</Guid>
+          <Name>VerticalLinePrimitive2</Name>
+          <Page isRef="5" />
+          <Parent isRef="5" />
+          <StartCap Ref="74" type="Cap" isKey="true">
+            <Color>Black</Color>
+          </StartCap>
+        </VerticalLinePrimitive2>
+        <RectanglePrimitive2 Ref="75" type="RectanglePrimitive" isKey="true">
+          <ClientRectangle>0,6.2,7.49,0.9</ClientRectangle>
+          <Color>Black</Color>
+          <Guid>f5d252df032c42c9924130f43ef9b466</Guid>
+          <Name>RectanglePrimitive2</Name>
+          <Page isRef="5" />
+          <Parent isRef="5" />
+        </RectanglePrimitive2>
+        <VerticalLinePrimitive3 Ref="76" type="VerticalLinePrimitive" isKey="true">
+          <ClientRectangle>4.1,7.1,0.01,0.6</ClientRectangle>
+          <Color>Black</Color>
+          <EndCap Ref="77" type="Cap" isKey="true">
+            <Color>Black</Color>
+          </EndCap>
+          <Guid>bf8a0ffbfe4848089b0354d880fc46b4</Guid>
+          <Name>VerticalLinePrimitive3</Name>
+          <Page isRef="5" />
+          <Parent isRef="5" />
+          <StartCap Ref="78" type="Cap" isKey="true">
+            <Color>Black</Color>
+          </StartCap>
+        </VerticalLinePrimitive3>
+        <VerticalLinePrimitive4 Ref="79" type="VerticalLinePrimitive" isKey="true">
+          <ClientRectangle>4.1,8.5,0.01,1.7</ClientRectangle>
+          <Color>Black</Color>
+          <EndCap Ref="80" type="Cap" isKey="true">
+            <Color>Black</Color>
+          </EndCap>
+          <Guid>342431c18f144c26a287cf2432e8148d</Guid>
+          <Name>VerticalLinePrimitive4</Name>
+          <Page isRef="5" />
+          <Parent isRef="5" />
+          <StartCap Ref="81" type="Cap" isKey="true">
+            <Color>Black</Color>
+          </StartCap>
+        </VerticalLinePrimitive4>
+      </Components>
+      <Conditions isList="true" count="0" />
+      <Guid>60a365daacac4bdf88bff80a57741342</Guid>
+      <Margins>0.39,0.39,0.39,0.39</Margins>
+      <Name>Page1</Name>
+      <PageHeight>11</PageHeight>
+      <PageWidth>8.27</PageWidth>
+      <PaperSize>A4</PaperSize>
+      <Report isRef="0" />
+      <Watermark Ref="82" type="Stimulsoft.Report.Components.StiWatermark" isKey="true">
+        <Font>Arial,100</Font>
+        <TextBrush>[50:0:0:0]</TextBrush>
+      </Watermark>
+    </Page1>
+  </Pages>
+  <PrinterSettings Ref="83" type="Stimulsoft.Report.Print.StiPrinterSettings" isKey="true" />
+  <ReferencedAssemblies isList="true" count="8">
+    <value>System.Dll</value>
+    <value>System.Drawing.Dll</value>
+    <value>System.Windows.Forms.Dll</value>
+    <value>System.Data.Dll</value>
+    <value>System.Xml.Dll</value>
+    <value>Stimulsoft.Controls.Dll</value>
+    <value>Stimulsoft.Base.Dll</value>
+    <value>Stimulsoft.Report.Dll</value>
+  </ReferencedAssemblies>
+  <ReportAlias>Report</ReportAlias>
+  <ReportChanged>2/10/2018 3:30:43 PM</ReportChanged>
+  <ReportCreated>9/3/2016 12:24:57 AM</ReportCreated>
+  <ReportFile>E:\TarazNegar\AppFramework\TarazNegarAppFrameworkPlugin\Reports\ps\ps.HavaleFactorForoosh.mrt</ReportFile>
+  <ReportGuid>13045631033b4a15a3e3e09a24a8b2dc</ReportGuid>
+  <ReportName>Report</ReportName>
+  <ReportUnit>Inches</ReportUnit>
+  <ReportVersion>2016.1.0</ReportVersion>
+  <Script>using System;
+using System.Drawing;
+using System.Windows.Forms;
+using System.Data;
+using Stimulsoft.Controls;
+using Stimulsoft.Base.Drawing;
+using Stimulsoft.Report;
+using Stimulsoft.Report.Dialogs;
+using Stimulsoft.Report.Components;
+
+namespace Reports
+{
+    public class Report : Stimulsoft.Report.StiReport
+    {
+        public Report()        {
+            this.InitializeComponent();
+        }
+
+        #region StiReport Designer generated code - do not modify
+		#endregion StiReport Designer generated code - do not modify
+    }
+}
+</Script>
+  <ScriptLanguage>CSharp</ScriptLanguage>
+  <Styles isList="true" count="0" />
+</StiSerializer>

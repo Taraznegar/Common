@@ -1,0 +1,15 @@
+H:\RoyalMehr1\AppFramework\BaseErpAppFrameworkPlugin\obj\Debug\TarazNegarAppFrameworkPlugin.dll
+H:\RoyalMehr1\AppFramework\BaseErpAppFrameworkPlugin\bin\Debug\TarazNegarAppFrameworkPlugin.dll
+H:\RoyalMehr1\AppFramework\BaseErpAppFrameworkPlugin\bin\Debug\TarazNegarAppFrameworkPlugin.pdb
+H:\RoyalMehr1\AppFramework\BaseErpAppFrameworkPlugin\bin\Debug\AppFramework.AppServer.dll
+H:\RoyalMehr1\AppFramework\BaseErpAppFrameworkPlugin\bin\Debug\AppFramework.DataAccess.dll
+H:\RoyalMehr1\AppFramework\BaseErpAppFrameworkPlugin\bin\Debug\AppFramework.Server.Shared.dll
+H:\RoyalMehr1\AppFramework\BaseErpAppFrameworkPlugin\obj\Debug\TarazNegarAppFrameworkPlugin.pdb
+H:\RoyalMehr1\AppFramework\AppFrameworkBaseErpPlugin\bin\Debug\AppFrameworkBaseErpPlugin.dll
+H:\RoyalMehr1\AppFramework\AppFrameworkBaseErpPlugin\bin\Debug\AppFrameworkBaseErpPlugin.pdb
+H:\RoyalMehr1\AppFramework\AppFrameworkBaseErpPlugin\bin\Debug\AppFramework.AppServer.dll
+H:\RoyalMehr1\AppFramework\AppFrameworkBaseErpPlugin\bin\Debug\AppFramework.DataAccess.dll
+H:\RoyalMehr1\AppFramework\AppFrameworkBaseErpPlugin\bin\Debug\AppFramework.Server.Shared.dll
+H:\RoyalMehr1\AppFramework\AppFrameworkBaseErpPlugin\obj\Debug\AppFrameworkBaseErpPlugin.csprojResolveAssemblyReference.cache
+H:\RoyalMehr1\AppFramework\AppFrameworkBaseErpPlugin\obj\Debug\AppFrameworkBaseErpPlugin.dll
+H:\RoyalMehr1\AppFramework\AppFrameworkBaseErpPlugin\obj\Debug\AppFrameworkBaseErpPlugin.pdb

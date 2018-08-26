@@ -1,0 +1,1322 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<StiSerializer version="1.02" type="Net" application="StiReport">
+  <Dictionary Ref="1" type="Dictionary" isKey="true">
+    <BusinessObjects isList="true" count="0" />
+    <Databases isList="true" count="1">
+      <SpringCon Ref="2" type="Stimulsoft.Report.Dictionary.StiSqlDatabase" isKey="true">
+        <Alias>SpringCon</Alias>
+        <ConnectionStringEncrypted>42DR60ZWQ+XpR6GETwThTtVS0S9hSNMJ4RmxvegNIQvfMJeDZUipOWlFecnxXLVn9nDZ6k8DGYxxTbCBdw11u4tW0aLnSvP4y0ntmU4FJUae1vdgSE9L2W1fZb1LPQ==</ConnectionStringEncrypted>
+        <Name>SpringCon</Name>
+      </SpringCon>
+    </Databases>
+    <DataSources isList="true" count="3">
+      <SpringDS Ref="3" type="Stimulsoft.Report.Dictionary.StiSqlSource" isKey="true">
+        <Alias>SpringDS</Alias>
+        <Columns isList="true" count="35">
+          <value>InvoiceNumber,System.String</value>
+          <value>FullName,System.String</value>
+          <value>ValidityDate,System.String</value>
+          <value>ValidityDays,System.Int64</value>
+          <value>DeliverDays,System.Int64</value>
+          <value>IssueDate,System.String</value>
+          <value>DeliverDate,System.String</value>
+          <value>MohlatPardakht,System.DateTime</value>
+          <value>Description,System.String</value>
+          <value>CustomPay,System.String</value>
+          <value>InstallMthd,System.String</value>
+          <value>DelyMthdTitle,System.String</value>
+          <value>LastNameCon,System.String</value>
+          <value>RowNumber,System.Int64</value>
+          <value>StuffOrServiceName,System.String</value>
+          <value>UnitPrice,System.Decimal</value>
+          <value>TotalPrice,System.Decimal</value>
+          <value>Discount,System.Decimal</value>
+          <value>UnitTitle,System.String</value>
+          <value>TotalPriceAfterDiscount,System.Decimal</value>
+          <value>TotalTaxAndToll,System.Decimal</value>
+          <value>TotalDiscount,System.Decimal</value>
+          <value>TelNumber1,System.String</value>
+          <value>TelNumber,System.String</value>
+          <value>Fax,System.String</value>
+          <value>Address1,System.String</value>
+          <value>PostalCode,System.String</value>
+          <value>Quantity,System.Decimal</value>
+          <value>TedadMahGaranti,System.Int64</value>
+          <value>FinalAmount,System.Decimal</value>
+          <value>Notes,System.String</value>
+          <value>EkhtelafPrice,System.String</value>
+          <value>DiscountPerecent,System.String</value>
+          <value>MatneMolahezatPishFactor,System.String</value>
+          <value>StateAndCityName,System.String</value>
+        </Columns>
+        <CommandTimeout>30</CommandTimeout>
+        <Dictionary isRef="1" />
+        <Name>SpringDS</Name>
+        <NameInSource>SpringCon</NameInSource>
+        <Parameters isList="true" count="0" />
+        <SqlCommand>
+select saleInvc.InvoiceNumber,
+	Person.FullName,
+	afw.GregorianToPersian(saleInvc.ValidityDate) ValidityDate,
+	saleInvc.ValidityDays,
+	saleInvc.DeliverDays,
+	afw.GregorianToPersian(saleInvc.IssueDate) IssueDate,
+	afw.GregorianToPersian(saleInvc.DeliverDate) DeliverDate, 
+	isnull(saleInvc.MohlatePardakht, '') MohlatPardakht, 
+	saleInvc.Description, 
+	isnull(CustomPay.Title, '') +' '+ isnull(saleInvc.CustompayMethodDesc,'')  CustomPay, 
+	isnull(InstallMthd.Title, '') +' '+ isnull(saleInvc.InstallMethodDesc,'')  InstallMthd, 
+	isnull(DelyMthd.Title, '') +' '+ isnull(saleInvc.DeliverMethodDesc,'')  DelyMthdTitle,
+	isnull(ConPersonGender.Title, '') + ' ' + isnull(ConPerSon.Name,'') + ' ' + isnull(ConPerSon.LastName,'')  LastNameCon,
+	InvcItm.RowNumber,
+	case when InvcItm.Stuff is null
+		then service.Name
+		else isnull(stuffs.CustomName,StuffDefs.Name) 
+	end StuffOrServiceName,
+	InvcItm.UnitPrice,
+	InvcItm.TotalPrice,
+	InvcItm.Discount,
+	Units.Title  UnitTitle,  
+	InvcItm.TotalPriceAfterDiscount, 
+	saleInvc.TotalTaxAndToll, 
+	saleInvc.TotalDiscount,
+	case
+		when States.StatePreNumber is null 
+			then case 
+				when Person.MobilePhoneNumber1 is null then Person.TelNumber1
+				else Person.TelNumber1 +N' و ' +Person.MobilePhoneNumber1
+			end
+		else case 
+				when Person.MobilePhoneNumber1 is null then States.StatePreNumber + Person.TelNumber1
+				else States.StatePreNumber + Person.TelNumber1 +N' و ' +Person.MobilePhoneNumber1
+			end
+		end TelNumber1,
+	coalesce(States.StatePreNumber + Person.TelNumber1, '') + N' و ' + Person.MobilePhoneNumber1 TelNumber,
+	coalesce(States.StatePreNumber + Person.Fax, '') Fax,
+	Person.Address1, 
+	Person.PostalCode,
+	InvcItm.Quantity,
+	InvcItm.TedadMahGaranti,
+	saleInvc.FinalAmount,
+	StuffDefs.Notes as Notes,
+	case when EkhtelafPriceList.EkhtelafPrice = 0 then '' else cast(cast(EkhtelafPriceList.EkhtelafPrice as bigint) as varchar) end EkhtelafPrice,	
+	case when InvcItm.TotalPrice != 0
+		then case round((cast(InvcItm.Discount as float)/CAST( InvcItm.TotalPrice as float)) * 100, 2) 
+				when 0 then '-' 
+				else cast(round((cast(InvcItm.Discount as float)/CAST( InvcItm.TotalPrice as float)) * 100, 2 )as varchar(10)) 
+		end
+		else '-'
+	end DiscountPerecent,
+	Cofing.Proforma_MatneMolahezatPishFactor as MatneMolahezatPishFactor,
+	isnull(States.Name, '') + coalesce(' - ' + Cities.Name, '') StateAndCityName 
+from ps_SalesInvoices saleInvc 
+	inner join ps_SalesInvoiceItems InvcItm on saleInvc.ID = InvcItm.SalesInvoice 
+	left join cmn_Stuffs stuffs on InvcItm.Stuff = stuffs.ID 
+	inner join cmn_PersonsView Person on saleInvc.Customer = Person.ID 	
+	left join afw_OptionSetItems PersonGender on PersonGender.ID = Person.Gender
+	left join ps_InvoiceCustomPayMethods CustomPay on saleInvc.CustompayMethod = CustomPay.ID 
+	left join ps_InvoiceInstallMethods InstallMthd on saleInvc.InstallMethod = InstallMthd.ID 
+	left join ps_InvoiceDeliveryMethods DelyMthd on saleInvc.DeliverMethod = DelyMthd.ID 
+	left join cmn_PersonConnectedPersons PerConPerson on saleInvc.ConnectedPerson = PerConPerson.ID
+	left join cmn_Persons ConPerson on ConPerson.ID = PerConPerson.ConnectedPerson
+	left join afw_OptionSetItems ConPersonGender on ConPersonGender.ID = ConPerson.Gender
+	inner join cmn_MeasurementUnits Units on InvcItm.MeasurementUnit = Units.ID 
+	left join cmn_States States on States.ID = Person.State 
+	left join cmn_Cities Cities on Cities.ID = Person.City 
+	left join cmn_StuffDefs StuffDefs on stuffs.StuffDef = StuffDefs.ID and Units.ID = StuffDefs.MainMeasurementUnit  
+	left join cmn_Services service on InvcItm.Service = service.ID and Units.ID = service.MeasurementUnit
+	left join cmn_FinancialGroups Cofing on 
+		(saleInvc.OrganizationUnit = Cofing.OrganizationUnit and 
+		saleInvc.FinancialDocType = Cofing.FinancialDocType and 
+		saleInvc.FinancialYear = Cofing.FinancialYear)
+	left join (		
+select	InvoiceItem.SalesInvoice, InvoiceItem.Stuff, InvoiceItem.Service, 
+	case 
+				when InvoiceItem.Stuff is not null then 
+					case when isnull(PriceListStuffItem.UnitPrice, 0) = 0 then 0
+						else (InvoiceItem.UnitPrice * InvoiceItem.Quantity) - ((isnull(PriceListStuffItem.UnitPrice, 0) * InvoiceItem.Quantity)) 
+					end
+				when InvoiceItem.Service is not null then 
+					case when isnull(PriceListServiceItem.UnitPrice, 0) = 0 then 0
+						else (InvoiceItem.UnitPrice * InvoiceItem.Quantity) - ((isnull(PriceListServiceItem.UnitPrice, 0) * InvoiceItem.Quantity)) 
+					end			
+			 end EkhtelafPrice
+		from ps_SalesInvoiceItems InvoiceItem 
+			left join cmn_Services Service on Service.ID = InvoiceItem.Service
+			left join cmn_Stuffs Stuf on Stuf.ID = InvoiceItem.Stuff
+			inner join cmn_StuffDefs StuffDef on StuffDef.ID = Stuf.StuffDef
+			left outer join ps_PriceLists PriceList 
+			left join ps_PriceListStuffItems PriceListStuffItem on PriceListStuffItem.PriceList = PriceList.ID
+			left join ps_PriceListServiceItems PriceListServiceItem on PriceListServiceItem.PriceList = PriceList.ID			
+				on 
+				(PriceListStuffItem.StuffDef = StuffDef.ID or PriceListServiceItem.Service = Service.ID)
+				and (InvoiceItem.UnitPrice &lt;&gt; PriceListStuffItem.UnitPrice or InvoiceItem.UnitPrice &lt;&gt; PriceListServiceItem.UnitPrice)								
+				and PriceList.IsDefault = 1
+	) EkhtelafPriceList on InvcItm.SalesInvoice = EkhtelafPriceList.SalesInvoice and
+		(InvcItm.Stuff = EkhtelafPriceList.Stuff or InvcItm.Service = EkhtelafPriceList.Service)		
+where saleInvc.ID = '{InvoiceID}'
+order by  InvcItm.RowNumber</SqlCommand>
+      </SpringDS>
+      <EkhtelafPriceData Ref="4" type="Stimulsoft.Report.Dictionary.StiSqlSource" isKey="true">
+        <Alias>EkhtelafPriceData</Alias>
+        <Columns isList="true" count="29">
+          <value>InvoiceNumber,System.String</value>
+          <value>FullName,System.String</value>
+          <value>ValidityDate,System.String</value>
+          <value>ValidityDays,System.Int64</value>
+          <value>DeliverDays,System.Int64</value>
+          <value>IssueDate,System.String</value>
+          <value>DeliverDate,System.String</value>
+          <value>MohlatPardakht,System.DateTime</value>
+          <value>Description,System.String</value>
+          <value>CustomPay,System.String</value>
+          <value>InstallMthd,System.String</value>
+          <value>DelyMthdTitle,System.String</value>
+          <value>LastNameCon,System.String</value>
+          <value>RowNumber,System.Int64</value>
+          <value>StuffOrServiceName,System.String</value>
+          <value>UnitTitle,System.String</value>
+          <value>TotalPriceAfterDiscount,System.Decimal</value>
+          <value>TotalTaxAndToll,System.Decimal</value>
+          <value>TotalDiscount,System.Decimal</value>
+          <value>TelNumber1,System.String</value>
+          <value>Fax,System.String</value>
+          <value>Address1,System.String</value>
+          <value>PostalCode,System.String</value>
+          <value>Quantity,System.Decimal</value>
+          <value>TedadMahGaranti,System.Int64</value>
+          <value>FinalAmount,System.Decimal</value>
+          <value>StateAndCityName,System.String</value>
+          <value>EkhtelafPrice,System.Decimal</value>
+          <value>MatneMolahezatPishFactor,System.String</value>
+        </Columns>
+        <CommandTimeout>30</CommandTimeout>
+        <Dictionary isRef="1" />
+        <Name>EkhtelafPriceData</Name>
+        <NameInSource>SpringCon</NameInSource>
+        <Parameters isList="true" count="0" />
+        <SqlCommand>select saleInvc.InvoiceNumber,
+	Person.FullName,
+	afw.GregorianToPersian(saleInvc.ValidityDate) ValidityDate,
+	saleInvc.ValidityDays,
+	saleInvc.DeliverDays,
+	afw.GregorianToPersian(saleInvc.IssueDate) IssueDate,
+	afw.GregorianToPersian(saleInvc.DeliverDate) DeliverDate,
+	isnull(saleInvc.MohlatePardakht, '') MohlatPardakht,
+	saleInvc.Description,
+	isnull(CustomPay.Title, '') + ' ' + isnull(saleInvc.CustompayMethodDesc, '') CustomPay,
+	isnull(InstallMthd.Title, '') + ' ' + isnull(saleInvc.InstallMethodDesc, '') InstallMthd,
+	isnull(DelyMthd.Title, '') + ' ' + isnull(saleInvc.DeliverMethodDesc, '') DelyMthdTitle,
+	isnull(ConPersonGender.Title, '') + ' ' + isnull(ConPerSon.Name,'') + ' ' + isnull(ConPerSon.LastName, '') LastNameCon,
+	InvcItm.RowNumber,
+	case when InvcItm.Stuff is null
+		then service.Name
+		else isnull(stuffs.CustomName,StuffDefs.Name) 
+	end StuffOrServiceName,
+	Units.Title  UnitTitle, 
+	InvcItm.TotalPriceAfterDiscount, 
+	saleInvc.TotalTaxAndToll, 
+	saleInvc.TotalDiscount,
+	coalesce(States.StatePreNumber + Person.TelNumber1, '') TelNumber1,
+	coalesce(States.StatePreNumber + Person.Fax, '') Fax,
+	Person.Address1, 
+	Person.PostalCode,
+	InvcItm.Quantity,
+	InvcItm.TedadMahGaranti,
+	saleInvc.FinalAmount,
+	EkhtelafPriceList.EkhtelafPrice EkhtelafPrice,
+	isnull(States.Name, '') + coalesce(' - ' + Cities.Name, '') StateAndCityName ,
+	Cofing.Proforma_MatneMolahezatPishFactor as MatneMolahezatPishFactor
+from ps_SalesInvoices saleInvc 
+	inner join ps_SalesInvoiceItems InvcItm on saleInvc.ID = InvcItm.SalesInvoice 
+	left join cmn_Stuffs stuffs on InvcItm.Stuff = stuffs.ID 
+	inner join cmn_PersonsView Person on saleInvc.Customer = Person.ID 
+	left join afw_OptionSetItems PersonGender on PersonGender.ID = Person.Gender
+	left join ps_InvoiceCustomPayMethods CustomPay on saleInvc.CustompayMethod = CustomPay.ID 
+	left join ps_InvoiceInstallMethods InstallMthd on saleInvc.InstallMethod = InstallMthd.ID 
+	left join ps_InvoiceDeliveryMethods DelyMthd on saleInvc.DeliverMethod = DelyMthd.ID 
+	left join cmn_PersonConnectedPersons PerConPerson on saleInvc.ConnectedPerson = PerConPerson.ID
+	left join cmn_Persons ConPerson on ConPerson.ID = PerConPerson.ConnectedPerson
+	left join afw_OptionSetItems ConPersonGender on ConPersonGender.ID = ConPerson.Gender
+	inner join cmn_MeasurementUnits Units on InvcItm.MeasurementUnit = Units.ID 
+	left join cmn_StuffDefs StuffDefs on stuffs.StuffDef = StuffDefs.ID and Units.ID = StuffDefs.MainMeasurementUnit 
+	left join cmn_Services service on InvcItm.Service = service.ID and Units.ID = service.MeasurementUnit
+	left join cmn_States States on States.ID = Person.State 
+	left join cmn_Cities Cities on Cities.ID = Person.City 
+left join (		select	InvoiceItem.SalesInvoice, InvoiceItem.Stuff, InvoiceItem.Service, 
+	case 
+				when InvoiceItem.Stuff is not null then 
+					case when isnull(PriceListStuffItem.UnitPrice, 0) = 0 then 0
+						else (InvoiceItem.UnitPrice * InvoiceItem.Quantity) - ((isnull(PriceListStuffItem.UnitPrice, 0) * InvoiceItem.Quantity)) 
+					end
+				when InvoiceItem.Service is not null then 
+					case when isnull(PriceListServiceItem.UnitPrice, 0) = 0 then 0
+						else (InvoiceItem.UnitPrice * InvoiceItem.Quantity) - ((isnull(PriceListServiceItem.UnitPrice, 0) * InvoiceItem.Quantity)) 
+					end			
+			 end EkhtelafPrice
+		from cmn_Stuffs Stuf
+			inner join cmn_StuffDefs StuffDef on StuffDef.ID = Stuf.StuffDef
+			cross join cmn_Services Service
+			inner join ps_SalesInvoiceItems InvoiceItem on InvoiceItem.Stuff = Stuf.ID or InvoiceItem.Service = Service.ID
+			left outer join ps_PriceLists PriceList 
+			left join ps_PriceListStuffItems PriceListStuffItem on PriceListStuffItem.PriceList = PriceList.ID
+			left join ps_PriceListServiceItems PriceListServiceItem on PriceListServiceItem.PriceList = PriceList.ID			
+				on 
+				(PriceListStuffItem.StuffDef = StuffDef.ID or PriceListServiceItem.Service = Service.ID)
+				and InvoiceItem.UnitPrice &lt;&gt; PriceListStuffItem.UnitPrice
+				and PriceList.IsDefault = 1
+	) EkhtelafPriceList on InvcItm.SalesInvoice = EkhtelafPriceList.SalesInvoice and
+		(InvcItm.Stuff = EkhtelafPriceList.Stuff or InvcItm.Service = EkhtelafPriceList.Service)
+	left join cmn_FinancialGroups Cofing on 
+		(saleInvc.OrganizationUnit = Cofing.OrganizationUnit and 
+		saleInvc.FinancialDocType = Cofing.FinancialDocType and 
+		saleInvc.FinancialYear = Cofing.FinancialYear)
+where saleInvc.ID = '{InvoiceID}'
+group by saleInvc.InvoiceNumber,
+	Person.FullName,
+	afw.GregorianToPersian(saleInvc.ValidityDate),
+	saleInvc.ValidityDays,
+	saleInvc.DeliverDays,
+	afw.GregorianToPersian(saleInvc.IssueDate),
+	afw.GregorianToPersian(saleInvc.DeliverDate), 
+	isnull(saleInvc.MohlatePardakht, ''), 
+	saleInvc.Description, 
+	isnull(CustomPay.Title, '') + ' ' + isnull(saleInvc.CustompayMethodDesc, ''), 
+	isnull(InstallMthd.Title, '') + ' ' + isnull(saleInvc.InstallMethodDesc, ''), 
+	isnull(DelyMthd.Title, '') + ' ' + isnull(saleInvc.DeliverMethodDesc, ''),
+	isnull(ConPersonGender.Title, '') + ' ' + isnull(ConPerSon.Name,'') + ' ' + isnull(ConPerSon.LastName, ''),
+	InvcItm.RowNumber,
+	case when InvcItm.Stuff is null
+		then service.Name
+		else isnull(stuffs.CustomName,StuffDefs.Name) 
+	end,
+	Units.Title,
+	InvcItm.TotalPriceAfterDiscount, 
+	saleInvc.TotalTaxAndToll, 
+	saleInvc.TotalDiscount,
+	coalesce(States.StatePreNumber + Person.TelNumber1, ''),
+	coalesce(States.StatePreNumber + Person.Fax, ''),
+	Person.Address1, 
+	Person.PostalCode,
+	InvcItm.Quantity,
+	InvcItm.TedadMahGaranti,
+	saleInvc.FinalAmount,
+	Cofing.Proforma_MatneMolahezatPishFactor,
+	EkhtelafPriceList.EkhtelafPrice,
+	isnull(States.Name, '') + coalesce(' - ' + Cities.Name, '')
+order by InvcItm.RowNumber
+
+</SqlCommand>
+      </EkhtelafPriceData>
+      <TotalData Ref="5" type="Stimulsoft.Report.Dictionary.StiSqlSource" isKey="true">
+        <Alias>TotalData</Alias>
+        <Columns isList="true" count="4">
+          <value>TotalPriceSum,System.Decimal</value>
+          <value>FinalAmount,System.Decimal</value>
+          <value>DiscountSum,System.Decimal</value>
+          <value>TotalDiscount,System.Decimal</value>
+        </Columns>
+        <CommandTimeout>30</CommandTimeout>
+        <Dictionary isRef="1" />
+        <Name>TotalData</Name>
+        <NameInSource>SpringCon</NameInSource>
+        <Parameters isList="true" count="0" />
+        <SqlCommand>select 
+	sum(InvcItm.TotalPrice) TotalPriceSum, 
+	SalesInvoice.FinalAmount, 
+	sum(InvcItm.Discount)+ SalesInvoice.GeneralDiscount DiscountSum,
+	sum(InvcItm.TotalPrice) - sum(InvcItm.Discount) - SalesInvoice.GeneralDiscount TotalDiscount
+from ps_SalesInvoiceItems InvcItm 
+	inner join ps_SalesInvoices SalesInvoice on InvcItm.SalesInvoice = SalesInvoice.ID
+where SalesInvoice.ID = '{InvoiceID}' 
+group by SalesInvoice.FinalAmount, SalesInvoice.TotalTaxAndToll , SalesInvoice.GeneralDiscount</SqlCommand>
+      </TotalData>
+    </DataSources>
+    <Relations isList="true" count="0" />
+    <Report isRef="0" />
+    <Variables isList="true" count="11">
+      <value>,InvoiceNumber,InvoiceNumber,,System.String,_x0027_6_x0027_,False,False,False,False</value>
+      <value>,InvoiceTitle,InvoiceTitle,,System.String,پیش_x0020_فاکتور_x0020_فروش,False,False,False,False</value>
+      <value>,OrgLogoImagePath,OrgLogoImagePath,,System.String,C:_x005C_Users_x005C_Public_x005C_Pictures_x005C_Sample_x0020_Pictures_x005C_Chrysanthemum.JPG,False,False,False,False</value>
+      <value>,OrganizationName,OrganizationName,,System.String,,False,False,False,False</value>
+      <value>,OrganizationAddress,OrganizationAddress,,System.String,,False,False,False,False</value>
+      <value>,FinalAmountWords,FinalAmountWords,,System.String,شصت_x0020_و_x0020_سه_x0020_میلیون_x0020_و_x0020_سیصد_x0020_و_x0020_بیست_x0020_و_x0020_سه_x0020_هزار_x0020_ریال,False,False,False,False</value>
+      <value>,InvoiceID,InvoiceID,,System.String,bfb2e21b-092c-48ab-ade8-edeaa28da39a,False,False,False,False</value>
+      <value>,OrganizationWebSite,OrganizationWebSite,,System.String,,False,False,False,False</value>
+      <value>,OrganizationParentName,OrganizationParentName,,System.String,شرکت_x0020_رویال_x0020_مهر_x0020_رایانه,False,False,False,False</value>
+      <value>,HeaderTextColumn1,HeaderTextColumn1,,System.String,تست:_x0020_سمینار_x0020_تصویر_x0020_برداری_x0020_زنان_x000D__x000A_تست_x0020_2:_x0020_یبت_x000D__x000A_متناصضهمثعصلضه_x000D__x000A_نیاهمعیغاهصزرسش_x000D__x000A_تنسیلانشیضلیاسلس_x000D__x000A_منایبمراهسییسشب,False,False,False,False</value>
+      <value>,HeaderTextColumn2,HeaderTextColumn2,,System.String,,False,False,False,False</value>
+    </Variables>
+  </Dictionary>
+  <EngineVersion>EngineV1</EngineVersion>
+  <GlobalizationStrings isList="true" count="0" />
+  <MetaTags isList="true" count="0" />
+  <Pages isList="true" count="1">
+    <Page1 Ref="6" type="Page" isKey="true">
+      <Border>None;Black;2;Solid;False;4;Black</Border>
+      <Brush>Transparent</Brush>
+      <Components isList="true" count="14">
+        <PageHeaderBand1 Ref="7" type="PageHeaderBand" isKey="true">
+          <Brush>Transparent</Brush>
+          <CanGrow>False</CanGrow>
+          <ClientRectangle>0,0.4,19,4.8</ClientRectangle>
+          <Components isList="true" count="3">
+            <Text3 Ref="8" type="Text" isKey="true">
+              <Brush>Transparent</Brush>
+              <ClientRectangle>5.2,2.8,9.2,1.4</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>B Titr,22,Bold</Font>
+              <Guid>8a22e787b23d4a9eb52211deb5f5424d</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text3</Name>
+              <Page isRef="6" />
+              <Parent isRef="7" />
+              <Text>{InvoiceTitle}</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text3>
+            <Text8 Ref="9" type="Text" isKey="true">
+              <Border>None;Silver;1;Solid;False;4;Black</Border>
+              <Brush>Transparent</Brush>
+              <ClientRectangle>0,2,2.4,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>B Mitra,12,Bold</Font>
+              <Guid>9a45bcf3f30f4e2aba5985dd31686bf7</Guid>
+              <HorAlignment>Right</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text8</Name>
+              <Page isRef="6" />
+              <Parent isRef="7" />
+              <Text>{SpringDS.IssueDate}</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>DataColumn</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text8>
+            <Text1 Ref="10" type="Text" isKey="true">
+              <Brush>Transparent</Brush>
+              <ClientRectangle>0,2.8,2.4,0.6</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>B Mitra,12,Bold</Font>
+              <Guid>cd2986c373aa450284a42f2aee06bf7b</Guid>
+              <HorAlignment>Right</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text1</Name>
+              <Page isRef="6" />
+              <Parent isRef="7" />
+              <Text>{SpringDS.InvoiceNumber}</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>DataColumn</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text1>
+          </Components>
+          <Conditions isList="true" count="0" />
+          <Name>PageHeaderBand1</Name>
+          <Page isRef="6" />
+          <Parent isRef="6" />
+        </PageHeaderBand1>
+        <Text42 Ref="11" type="Text" isKey="true">
+          <Brush>Transparent</Brush>
+          <ClientRectangle>-4.6,21.8,2.8,0.6</ClientRectangle>
+          <Conditions isList="true" count="0" />
+          <Font>B Nazanin,10,Bold</Font>
+          <Margins>0,0,0,0</Margins>
+          <Name>Text42</Name>
+          <Page isRef="6" />
+          <Parent isRef="6" />
+          <Text>{Sum(EkhtelafPriceData.EkhtelafPrice)}</Text>
+          <TextBrush>Black</TextBrush>
+          <TextFormat Ref="12" type="NumberFormat" isKey="true">
+            <DecimalDigits>0</DecimalDigits>
+            <GroupSeparator>,</GroupSeparator>
+            <NegativePattern>1</NegativePattern>
+            <UseLocalSetting>False</UseLocalSetting>
+          </TextFormat>
+          <Type>Expression</Type>
+          <VertAlignment>Center</VertAlignment>
+        </Text42>
+        <HeaderBand1 Ref="13" type="HeaderBand" isKey="true">
+          <Brush>Transparent</Brush>
+          <CanShrink>True</CanShrink>
+          <ClientRectangle>0,6,19,4.8</ClientRectangle>
+          <Components isList="true" count="9">
+            <Text11 Ref="14" type="Text" isKey="true">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>[216:216:216]</Brush>
+              <ClientRectangle>17.8,4.2,1.2,0.6</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>B Mitra,12,Bold</Font>
+              <Guid>270e4a776e8141c08b58bbdf6f4867b6</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text11</Name>
+              <Page isRef="6" />
+              <Parent isRef="13" />
+              <Text>ردیف</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text11>
+            <Text21 Ref="15" type="Text" isKey="true">
+              <Border>Top, Right, Bottom;Black;1;Solid;False;4;Black</Border>
+              <Brush>[216:216:216]</Brush>
+              <ClientRectangle>9.2,4.2,8.6,0.6</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>B Mitra,12,Bold</Font>
+              <Guid>137848a9524a493889aa9569de1384d3</Guid>
+              <HorAlignment>Right</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text21</Name>
+              <Page isRef="6" />
+              <Parent isRef="13" />
+              <Text>   عنوان</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text21>
+            <Text23 Ref="16" type="Text" isKey="true">
+              <Border>Top, Right, Bottom;Black;1;Solid;False;4;Black</Border>
+              <Brush>[216:216:216]</Brush>
+              <ClientRectangle>4.2,4.2,3.8,0.6</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>B Mitra,12,Bold</Font>
+              <Guid>7068c34256a04801beb8aaa7031705fe</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text23</Name>
+              <Page isRef="6" />
+              <Parent isRef="13" />
+              <Text>قیمت واحد</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text23>
+            <Text33 Ref="17" type="Text" isKey="true">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>[216:216:216]</Brush>
+              <ClientRectangle>0.4,4.2,3.8,0.6</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>B Mitra,12,Bold</Font>
+              <Guid>d625e1b865d14727ab699aa52500fa51</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text33</Name>
+              <Page isRef="6" />
+              <Parent isRef="13" />
+              <Text>قیمت کل</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text33>
+            <Text71 Ref="18" type="Text" isKey="true">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>[216:216:216]</Brush>
+              <ClientRectangle>8,4.2,1.2,0.6</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>B Mitra,12,Bold</Font>
+              <Guid>e7accc710a9040c6a21475390c2d04e0</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text71</Name>
+              <Page isRef="6" />
+              <Parent isRef="13" />
+              <Text>تعداد</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text71>
+            <Text5 Ref="19" type="Text" isKey="true">
+              <Brush>Transparent</Brush>
+              <CanBreak>True</CanBreak>
+              <CanGrow>True</CanGrow>
+              <CanShrink>True</CanShrink>
+              <ClientRectangle>9.8,0,9.2,3.6</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>B Mitra,14</Font>
+              <GrowToHeight>True</GrowToHeight>
+              <Guid>6c7593dc62734baf8edef51e394a4f6c</Guid>
+              <HorAlignment>Right</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text5</Name>
+              <Page isRef="6" />
+              <Parent isRef="13" />
+              <Text>مشتری: {SpringDS.FullName}
+{HeaderTextColumn1}</Text>
+              <TextBrush>Black</TextBrush>
+              <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
+              <Type>Expression</Type>
+            </Text5>
+            <Text6 Ref="20" type="Text" isKey="true">
+              <Brush>Transparent</Brush>
+              <CanBreak>True</CanBreak>
+              <CanGrow>True</CanGrow>
+              <CanShrink>True</CanShrink>
+              <ClientRectangle>0.4,0,9.2,3.6</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>B Mitra,14</Font>
+              <GrowToHeight>True</GrowToHeight>
+              <Guid>9797cebdabb9426da7590d3ae6c66b19</Guid>
+              <HorAlignment>Right</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text6</Name>
+              <Page isRef="6" />
+              <Parent isRef="13" />
+              <Text>نماینده: {SpringDS.LastNameCon}
+{IIF(HeaderTextColumn2 == "","تلفن: "+SpringDS.TelNumber1,HeaderTextColumn2+ "\n" + "تلفن: "+SpringDS.TelNumber1)}
+آدرس: {SpringDS.StateAndCityName}
+{SpringDS.Address1}</Text>
+              <TextBrush>Black</TextBrush>
+              <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
+              <Type>Expression</Type>
+            </Text6>
+            <StartPointPrimitive6 Ref="21" type="Stimulsoft.Report.Components.StiStartPointPrimitive" isKey="true">
+              <ClientRectangle>0.4,-0.4,0,0</ClientRectangle>
+              <Name>StartPointPrimitive6</Name>
+              <Page isRef="6" />
+              <Parent isRef="13" />
+              <ReferenceToGuid>78470946b7e443e5bcc334f20d781aa2</ReferenceToGuid>
+            </StartPointPrimitive6>
+            <StartPointPrimitive14 Ref="22" type="Stimulsoft.Report.Components.StiStartPointPrimitive" isKey="true">
+              <ClientRectangle>19,-0.4,0,0</ClientRectangle>
+              <Name>StartPointPrimitive14</Name>
+              <Page isRef="6" />
+              <Parent isRef="13" />
+              <ReferenceToGuid>8e7d4f2d40be4d9594c6b974e1132417</ReferenceToGuid>
+            </StartPointPrimitive14>
+          </Components>
+          <Conditions isList="true" count="0" />
+          <Guid>ec34e1f095194e70bdebf2ab4b8d2005</Guid>
+          <Name>HeaderBand1</Name>
+          <Page isRef="6" />
+          <Parent isRef="6" />
+        </HeaderBand1>
+        <DatamadreseDS Ref="23" type="DataBand" isKey="true">
+          <Brush>Transparent</Brush>
+          <BusinessObjectGuid isNull="true" />
+          <ClientRectangle>0,11.6,19,1</ClientRectangle>
+          <Components isList="true" count="22">
+            <Text13 Ref="24" type="Text" isKey="true">
+              <Brush>Transparent</Brush>
+              <CanGrow>True</CanGrow>
+              <ClientRectangle>8,0.1,1.2,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>B Mitra,12,Bold</Font>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text13</Name>
+              <Page isRef="6" />
+              <Parent isRef="23" />
+              <Text>{SpringDS.Quantity}</Text>
+              <TextBrush>Black</TextBrush>
+              <TextFormat Ref="25" type="NumberFormat" isKey="true">
+                <DecimalDigits>0</DecimalDigits>
+                <GroupSeparator>,</GroupSeparator>
+                <NegativePattern>1</NegativePattern>
+                <UseLocalSetting>False</UseLocalSetting>
+              </TextFormat>
+              <Type>DataColumn</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text13>
+            <Text14 Ref="26" type="Text" isKey="true">
+              <Brush>Transparent</Brush>
+              <CanGrow>True</CanGrow>
+              <ClientRectangle>4.2,0.1,3.8,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>B Mitra,12,Bold</Font>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text14</Name>
+              <Page isRef="6" />
+              <Parent isRef="23" />
+              <Text>{SpringDS.UnitPrice}</Text>
+              <TextBrush>Black</TextBrush>
+              <TextFormat Ref="27" type="NumberFormat" isKey="true">
+                <DecimalDigits>0</DecimalDigits>
+                <GroupSeparator>,</GroupSeparator>
+                <NegativePattern>1</NegativePattern>
+                <UseLocalSetting>False</UseLocalSetting>
+              </TextFormat>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text14>
+            <Text15 Ref="28" type="Text" isKey="true">
+              <Brush>Transparent</Brush>
+              <CanGrow>True</CanGrow>
+              <ClientRectangle>0.4,0.1,3.8,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>B Mitra,12,Bold</Font>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text15</Name>
+              <Page isRef="6" />
+              <Parent isRef="23" />
+              <Text>{SpringDS.TotalPrice}</Text>
+              <TextBrush>Black</TextBrush>
+              <TextFormat Ref="29" type="NumberFormat" isKey="true">
+                <DecimalDigits>0</DecimalDigits>
+                <GroupSeparator>,</GroupSeparator>
+                <NegativePattern>3</NegativePattern>
+                <UseLocalSetting>False</UseLocalSetting>
+              </TextFormat>
+              <Type>DataColumn</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text15>
+            <Text9 Ref="30" type="Text" isKey="true">
+              <Brush>Transparent</Brush>
+              <CanGrow>True</CanGrow>
+              <ClientRectangle>17.8,0.1,1.2,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>B Mitra,12,Bold</Font>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text9</Name>
+              <Page isRef="6" />
+              <Parent isRef="23" />
+              <Text>{SpringDS.RowNumber}</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>DataColumn</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text9>
+            <Text22 Ref="31" type="Text" isKey="true">
+              <Brush>Transparent</Brush>
+              <CanGrow>True</CanGrow>
+              <CanShrink>True</CanShrink>
+              <ClientRectangle>9.26,0.1,8.4,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>B Mitra,12,Bold</Font>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text22</Name>
+              <Page isRef="6" />
+              <Parent isRef="23" />
+              <Text>{SpringDS.StuffOrServiceName}</Text>
+              <TextBrush>Black</TextBrush>
+              <TextOptions>,,RightToLeft=True,,WordWrap=True,A=0</TextOptions>
+              <Type>DataColumn</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text22>
+            <StartPointPrimitive7 Ref="32" type="Stimulsoft.Report.Components.StiStartPointPrimitive" isKey="true">
+              <ClientRectangle>19,0,0,0</ClientRectangle>
+              <Name>StartPointPrimitive7</Name>
+              <Page isRef="6" />
+              <Parent isRef="23" />
+              <ReferenceToGuid>ddee85871a07403bb92882f0f9961182</ReferenceToGuid>
+            </StartPointPrimitive7>
+            <EndPointPrimitive7 Ref="33" type="Stimulsoft.Report.Components.StiEndPointPrimitive" isKey="true">
+              <ClientRectangle>19,1,0,0</ClientRectangle>
+              <Name>EndPointPrimitive7</Name>
+              <Page isRef="6" />
+              <Parent isRef="23" />
+              <ReferenceToGuid>ddee85871a07403bb92882f0f9961182</ReferenceToGuid>
+            </EndPointPrimitive7>
+            <StartPointPrimitive8 Ref="34" type="Stimulsoft.Report.Components.StiStartPointPrimitive" isKey="true">
+              <ClientRectangle>17.8,0,0,0</ClientRectangle>
+              <Name>StartPointPrimitive8</Name>
+              <Page isRef="6" />
+              <Parent isRef="23" />
+              <ReferenceToGuid>479e7c287d134cb5b22b97e4c9053da6</ReferenceToGuid>
+            </StartPointPrimitive8>
+            <EndPointPrimitive8 Ref="35" type="Stimulsoft.Report.Components.StiEndPointPrimitive" isKey="true">
+              <ClientRectangle>17.8,1,0,0</ClientRectangle>
+              <Name>EndPointPrimitive8</Name>
+              <Page isRef="6" />
+              <Parent isRef="23" />
+              <ReferenceToGuid>479e7c287d134cb5b22b97e4c9053da6</ReferenceToGuid>
+            </EndPointPrimitive8>
+            <StartPointPrimitive9 Ref="36" type="Stimulsoft.Report.Components.StiStartPointPrimitive" isKey="true">
+              <ClientRectangle>8,0,0,0</ClientRectangle>
+              <Name>StartPointPrimitive9</Name>
+              <Page isRef="6" />
+              <Parent isRef="23" />
+              <ReferenceToGuid>851ee3bc4bd64713b38e6ac8f56d2669</ReferenceToGuid>
+            </StartPointPrimitive9>
+            <EndPointPrimitive9 Ref="37" type="Stimulsoft.Report.Components.StiEndPointPrimitive" isKey="true">
+              <ClientRectangle>8,1,0,0</ClientRectangle>
+              <Name>EndPointPrimitive9</Name>
+              <Page isRef="6" />
+              <Parent isRef="23" />
+              <ReferenceToGuid>851ee3bc4bd64713b38e6ac8f56d2669</ReferenceToGuid>
+            </EndPointPrimitive9>
+            <StartPointPrimitive10 Ref="38" type="Stimulsoft.Report.Components.StiStartPointPrimitive" isKey="true">
+              <ClientRectangle>0.4,0,0,0</ClientRectangle>
+              <Name>StartPointPrimitive10</Name>
+              <Page isRef="6" />
+              <Parent isRef="23" />
+              <ReferenceToGuid>b345aef51ba2425b8246c769557ecf0f</ReferenceToGuid>
+            </StartPointPrimitive10>
+            <EndPointPrimitive10 Ref="39" type="Stimulsoft.Report.Components.StiEndPointPrimitive" isKey="true">
+              <ClientRectangle>0.4,1,0,0</ClientRectangle>
+              <Name>EndPointPrimitive10</Name>
+              <Page isRef="6" />
+              <Parent isRef="23" />
+              <ReferenceToGuid>b345aef51ba2425b8246c769557ecf0f</ReferenceToGuid>
+            </EndPointPrimitive10>
+            <StartPointPrimitive11 Ref="40" type="Stimulsoft.Report.Components.StiStartPointPrimitive" isKey="true">
+              <ClientRectangle>4.2,0,0,0</ClientRectangle>
+              <Name>StartPointPrimitive11</Name>
+              <Page isRef="6" />
+              <Parent isRef="23" />
+              <ReferenceToGuid>0579cc5d423c4144b47db80e375d1baf</ReferenceToGuid>
+            </StartPointPrimitive11>
+            <EndPointPrimitive11 Ref="41" type="Stimulsoft.Report.Components.StiEndPointPrimitive" isKey="true">
+              <ClientRectangle>4.2,1,0,0</ClientRectangle>
+              <Name>EndPointPrimitive11</Name>
+              <Page isRef="6" />
+              <Parent isRef="23" />
+              <ReferenceToGuid>0579cc5d423c4144b47db80e375d1baf</ReferenceToGuid>
+            </EndPointPrimitive11>
+            <HorizontalLinePrimitive7 Ref="42" type="HorizontalLinePrimitive" isKey="true">
+              <ClientRectangle>0.4,1,18.6,0.0254</ClientRectangle>
+              <Color>Black</Color>
+              <EndCap Ref="43" type="Cap" isKey="true">
+                <Color>Black</Color>
+              </EndCap>
+              <Guid>115ea1c7628a493781cb5a098755bd20</Guid>
+              <Name>HorizontalLinePrimitive7</Name>
+              <Page isRef="6" />
+              <Parent isRef="23" />
+              <StartCap Ref="44" type="Cap" isKey="true">
+                <Color>Black</Color>
+              </StartCap>
+            </HorizontalLinePrimitive7>
+            <StartPointPrimitive13 Ref="45" type="Stimulsoft.Report.Components.StiStartPointPrimitive" isKey="true">
+              <ClientRectangle>9.2,0,0,0</ClientRectangle>
+              <Name>StartPointPrimitive13</Name>
+              <Page isRef="6" />
+              <Parent isRef="23" />
+              <ReferenceToGuid>2db264d7351f458b804db41d88c4213c</ReferenceToGuid>
+            </StartPointPrimitive13>
+            <EndPointPrimitive13 Ref="46" type="Stimulsoft.Report.Components.StiEndPointPrimitive" isKey="true">
+              <ClientRectangle>9.2,1,0,0</ClientRectangle>
+              <Name>EndPointPrimitive13</Name>
+              <Page isRef="6" />
+              <Parent isRef="23" />
+              <ReferenceToGuid>2db264d7351f458b804db41d88c4213c</ReferenceToGuid>
+            </EndPointPrimitive13>
+            <StartPointPrimitive15 Ref="47" type="Stimulsoft.Report.Components.StiStartPointPrimitive" isKey="true">
+              <ClientRectangle>9.2,0,0,0</ClientRectangle>
+              <Name>StartPointPrimitive15</Name>
+              <Page isRef="6" />
+              <Parent isRef="23" />
+              <ReferenceToGuid>a018d74ad0d44efa956ebc952850e86d</ReferenceToGuid>
+            </StartPointPrimitive15>
+            <EndPointPrimitive15 Ref="48" type="Stimulsoft.Report.Components.StiEndPointPrimitive" isKey="true">
+              <ClientRectangle>9.2,1,0,0</ClientRectangle>
+              <Name>EndPointPrimitive15</Name>
+              <Page isRef="6" />
+              <Parent isRef="23" />
+              <ReferenceToGuid>a018d74ad0d44efa956ebc952850e86d</ReferenceToGuid>
+            </EndPointPrimitive15>
+            <EndPointPrimitive6 Ref="49" type="Stimulsoft.Report.Components.StiEndPointPrimitive" isKey="true">
+              <ClientRectangle>0.4,-0.4,0,0</ClientRectangle>
+              <Name>EndPointPrimitive6</Name>
+              <Page isRef="6" />
+              <Parent isRef="23" />
+              <ReferenceToGuid>78470946b7e443e5bcc334f20d781aa2</ReferenceToGuid>
+            </EndPointPrimitive6>
+            <EndPointPrimitive14 Ref="50" type="Stimulsoft.Report.Components.StiEndPointPrimitive" isKey="true">
+              <ClientRectangle>19,-0.4,0,0</ClientRectangle>
+              <Name>EndPointPrimitive14</Name>
+              <Page isRef="6" />
+              <Parent isRef="23" />
+              <ReferenceToGuid>8e7d4f2d40be4d9594c6b974e1132417</ReferenceToGuid>
+            </EndPointPrimitive14>
+          </Components>
+          <Conditions isList="true" count="0" />
+          <DataRelationName isNull="true" />
+          <DataSourceName>SpringDS</DataSourceName>
+          <Filters isList="true" count="0" />
+          <KeepFooterTogether>False</KeepFooterTogether>
+          <Name>DatamadreseDS</Name>
+          <Page isRef="6" />
+          <Parent isRef="6" />
+          <Sort isList="true" count="0" />
+        </DatamadreseDS>
+        <FooterBand1 Ref="51" type="FooterBand" isKey="true">
+          <Brush>Transparent</Brush>
+          <ClientRectangle>0,13.4,19,9.6</ClientRectangle>
+          <Components isList="true" count="18">
+            <Text31 Ref="52" type="Text" isKey="true">
+              <Brush>Transparent</Brush>
+              <ClientRectangle>17.2,0.2,1.6,0.6</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>B Mitra,12,Bold</Font>
+              <Guid>734849d8cb9b452ab258a0980a1c8639</Guid>
+              <HorAlignment>Right</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text31</Name>
+              <Page isRef="6" />
+              <Parent isRef="51" />
+              <Text>ملاحظات:</Text>
+              <TextBrush>Black</TextBrush>
+              <TextOptions>,,RightToLeft=True,,,A=0</TextOptions>
+              <Type>Expression</Type>
+            </Text31>
+            <Text51 Ref="53" type="Text" isKey="true">
+              <Border>Left, Right, Bottom;Black;1;Solid;False;4;Black</Border>
+              <Brush>[216:216:216]</Brush>
+              <ClientRectangle>0.4,0.6,3.8,0.6</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>B Mitra,12,Bold</Font>
+              <Guid>6a9b4038336b4759859148af15fa734b</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text51</Name>
+              <Page isRef="6" />
+              <Parent isRef="51" />
+              <Text>{TotalData.DiscountSum}</Text>
+              <TextBrush>Black</TextBrush>
+              <TextFormat Ref="54" type="NumberFormat" isKey="true">
+                <DecimalDigits>0</DecimalDigits>
+                <GroupSeparator>,</GroupSeparator>
+                <NegativePattern>3</NegativePattern>
+                <UseLocalSetting>False</UseLocalSetting>
+              </TextFormat>
+              <TextOptions>,,RightToLeft=True,,,A=0</TextOptions>
+              <Type>DataColumn</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text51>
+            <Text17 Ref="55" type="Text" isKey="true">
+              <Border>Top, Right, Bottom;Black;1;Solid;False;4;Black</Border>
+              <Brush>[216:216:216]</Brush>
+              <ClientRectangle>4.2,0,3.8,0.6</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>B Mitra,12,Bold</Font>
+              <Guid>af210857a9da4d028f9cbb0ea7b17ab9</Guid>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text17</Name>
+              <Page isRef="6" />
+              <Parent isRef="51" />
+              <Text>جمع فاکتور: </Text>
+              <TextBrush>Black</TextBrush>
+              <TextOptions>,,RightToLeft=True,,,A=0</TextOptions>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text17>
+            <Text25 Ref="56" type="Text" isKey="true">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>[216:216:216]</Brush>
+              <ClientRectangle>0.4,0,3.8,0.6</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>B Mitra,12,Bold</Font>
+              <Guid>cfc3c706be3244019b6bc20f7e34edb5</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text25</Name>
+              <Page isRef="6" />
+              <Parent isRef="51" />
+              <Text>{TotalData.TotalPriceSum}</Text>
+              <TextBrush>Black</TextBrush>
+              <TextFormat Ref="57" type="NumberFormat" isKey="true">
+                <DecimalDigits>0</DecimalDigits>
+                <GroupSeparator>,</GroupSeparator>
+                <NegativePattern>3</NegativePattern>
+                <UseLocalSetting>False</UseLocalSetting>
+              </TextFormat>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text25>
+            <Text2 Ref="58" type="Text" isKey="true">
+              <Brush>Transparent</Brush>
+              <CanGrow>True</CanGrow>
+              <CanShrink>True</CanShrink>
+              <ClientRectangle>8.4,0.2,8.8,1.6</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>B Mitra,12,Bold</Font>
+              <Guid>943bdc59922b427084138355518422d8</Guid>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text2</Name>
+              <Page isRef="6" />
+              <Parent isRef="51" />
+              <Text>{SpringDS.Description}</Text>
+              <TextBrush>Black</TextBrush>
+              <TextOptions>,,RightToLeft=True,,WordWrap=True,A=0</TextOptions>
+              <Type>DataColumn</Type>
+            </Text2>
+            <Text16 Ref="59" type="Text" isKey="true">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>[216:216:216]</Brush>
+              <ClientRectangle>4.2,0.6,3.8,0.6</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>B Mitra,12,Bold</Font>
+              <Guid>7b5890787bfc4ee4868c1afc0bdb9161</Guid>
+              <HorAlignment>Right</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text16</Name>
+              <Page isRef="6" />
+              <Parent isRef="51" />
+              <Text>:تخفیف</Text>
+              <TextBrush>Black</TextBrush>
+              <VertAlignment>Center</VertAlignment>
+            </Text16>
+            <Text18 Ref="60" type="Text" isKey="true">
+              <Brush>Transparent</Brush>
+              <ClientRectangle>0.6,2,16,0.6</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>B Mitra,12,Bold</Font>
+              <Guid>1dc8db9ac5854e8d9c64f0e6d927c0c1</Guid>
+              <HorAlignment>Right</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text18</Name>
+              <Page isRef="6" />
+              <Parent isRef="51" />
+              <Text>{FinalAmountWords}</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text18>
+            <Text48 Ref="61" type="Text" isKey="true">
+              <Brush>Transparent</Brush>
+              <ClientRectangle>16.4,2,2.4,0.6</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>B Mitra,12,Bold</Font>
+              <Guid>8bd4ba348b294297b5f2be9794c09649</Guid>
+              <HorAlignment>Right</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text48</Name>
+              <Page isRef="6" />
+              <Parent isRef="51" />
+              <Text>:جمع به حروف</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text48>
+            <Text72 Ref="62" type="Text" isKey="true">
+              <Border>Top, Right, Bottom;Black;1;Solid;False;4;Black</Border>
+              <Brush>[216:216:216]</Brush>
+              <ClientRectangle>4.2,1.2,3.8,0.6</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>B Mitra,12,Bold</Font>
+              <Guid>a7bb79fed4b240deb49e3acf13c7e236</Guid>
+              <HorAlignment>Right</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text72</Name>
+              <Page isRef="6" />
+              <Parent isRef="51" />
+              <Text>:مبلغ پس از تخفیف</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text72>
+            <Text73 Ref="63" type="Text" isKey="true">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>[216:216:216]</Brush>
+              <ClientRectangle>0.4,1.2,3.8,0.6</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>B Mitra,12,Bold</Font>
+              <Guid>5a95ba7fb5dd40b1ad883dab4928e066</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text73</Name>
+              <Page isRef="6" />
+              <Parent isRef="51" />
+              <Text>{TotalData.TotalDiscount}</Text>
+              <TextBrush>Black</TextBrush>
+              <TextFormat Ref="64" type="NumberFormat" isKey="true">
+                <DecimalDigits>0</DecimalDigits>
+                <GroupSeparator>,</GroupSeparator>
+                <NegativePattern>3</NegativePattern>
+                <UseLocalSetting>False</UseLocalSetting>
+              </TextFormat>
+              <TextOptions>,,RightToLeft=True,,,A=0</TextOptions>
+              <Type>DataColumn</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text73>
+            <Text69 Ref="65" type="Text" isKey="true">
+              <Border>None;Black;2;Solid;False;4;Black</Border>
+              <Brush>Transparent</Brush>
+              <CanBreak>True</CanBreak>
+              <CanGrow>True</CanGrow>
+              <CanShrink>True</CanShrink>
+              <ClientRectangle>0.4,3.2,18.6,3.6</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>B Mitra,12,Bold</Font>
+              <GrowToHeight>True</GrowToHeight>
+              <Guid>2899286a64134770a0710fb7695ddc04</Guid>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text69</Name>
+              <Page isRef="6" />
+              <Parent isRef="51" />
+              <Text>{EkhtelafPriceData.MatneMolahezatPishFactor}</Text>
+              <TextBrush>Black</TextBrush>
+              <TextOptions>,,RightToLeft=True,,WordWrap=True,A=0</TextOptions>
+              <Type>Expression</Type>
+            </Text69>
+            <Text4 Ref="66" type="Text" isKey="true">
+              <Border>None;Black;2;Solid;False;4;Black</Border>
+              <Brush>Transparent</Brush>
+              <CanBreak>True</CanBreak>
+              <CanGrow>True</CanGrow>
+              <CanShrink>True</CanShrink>
+              <ClientRectangle>3.6,7.4,3.8,1</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>B Traffic,14,Bold</Font>
+              <GrowToHeight>True</GrowToHeight>
+              <Guid>70747cdacbf84157b57349c1833bdb42</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text4</Name>
+              <Page isRef="6" />
+              <Parent isRef="51" />
+              <Text>رضا کاظمی لقمانی</Text>
+              <TextBrush>Black</TextBrush>
+              <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
+              <Type>Expression</Type>
+            </Text4>
+            <Text7 Ref="67" type="Text" isKey="true">
+              <Border>None;Black;2;Solid;False;4;Black</Border>
+              <Brush>Transparent</Brush>
+              <CanBreak>True</CanBreak>
+              <CanGrow>True</CanGrow>
+              <CanShrink>True</CanShrink>
+              <ClientRectangle>0.4,8.4,10.4,1</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>B Traffic,14,Bold</Font>
+              <GrowToHeight>True</GrowToHeight>
+              <Guid>c0b6f74a0e754e5386fd3f43a0df7b57</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text7</Name>
+              <Page isRef="6" />
+              <Parent isRef="51" />
+              <Text>مدیریت مرکز همایش های بین المللی هتل بزرگ ارم</Text>
+              <TextBrush>Black</TextBrush>
+              <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
+              <Type>Expression</Type>
+            </Text7>
+            <HorizontalLinePrimitive9 Ref="68" type="HorizontalLinePrimitive" isKey="true">
+              <ClientRectangle>0.4,2.8,18.6,0.0254</ClientRectangle>
+              <Color>Black</Color>
+              <EndCap Ref="69" type="Cap" isKey="true">
+                <Color>Black</Color>
+              </EndCap>
+              <Guid>e096b3aa26f740848fb77e676e004e12</Guid>
+              <Name>HorizontalLinePrimitive9</Name>
+              <Page isRef="6" />
+              <Parent isRef="51" />
+              <StartCap Ref="70" type="Cap" isKey="true">
+                <Color>Black</Color>
+              </StartCap>
+            </HorizontalLinePrimitive9>
+            <StartPointPrimitive2 Ref="71" type="Stimulsoft.Report.Components.StiStartPointPrimitive" isKey="true">
+              <ClientRectangle>19,0,0,0</ClientRectangle>
+              <Name>StartPointPrimitive2</Name>
+              <Page isRef="6" />
+              <Parent isRef="51" />
+              <ReferenceToGuid>ef6000e4f48348318f3e26bd66cc7414</ReferenceToGuid>
+            </StartPointPrimitive2>
+            <EndPointPrimitive2 Ref="72" type="Stimulsoft.Report.Components.StiEndPointPrimitive" isKey="true">
+              <ClientRectangle>19,2.8,0,0</ClientRectangle>
+              <Name>EndPointPrimitive2</Name>
+              <Page isRef="6" />
+              <Parent isRef="51" />
+              <ReferenceToGuid>ef6000e4f48348318f3e26bd66cc7414</ReferenceToGuid>
+            </EndPointPrimitive2>
+            <StartPointPrimitive4 Ref="73" type="Stimulsoft.Report.Components.StiStartPointPrimitive" isKey="true">
+              <ClientRectangle>0.4,1.2,0,0</ClientRectangle>
+              <Name>StartPointPrimitive4</Name>
+              <Page isRef="6" />
+              <Parent isRef="51" />
+              <ReferenceToGuid>e5991d79ab3f43fe88a0dfda9c6daf18</ReferenceToGuid>
+            </StartPointPrimitive4>
+            <EndPointPrimitive4 Ref="74" type="Stimulsoft.Report.Components.StiEndPointPrimitive" isKey="true">
+              <ClientRectangle>0.4,2.8,0,0</ClientRectangle>
+              <Name>EndPointPrimitive4</Name>
+              <Page isRef="6" />
+              <Parent isRef="51" />
+              <ReferenceToGuid>e5991d79ab3f43fe88a0dfda9c6daf18</ReferenceToGuid>
+            </EndPointPrimitive4>
+          </Components>
+          <Conditions isList="true" count="0" />
+          <Name>FooterBand1</Name>
+          <Page isRef="6" />
+          <Parent isRef="6" />
+          <PrintOn>OnlyLastPage</PrintOn>
+        </FooterBand1>
+        <VerticalLinePrimitive7 Ref="75" type="VerticalLinePrimitive" isKey="true">
+          <ClientRectangle>19,11.6,0.0254,1</ClientRectangle>
+          <Color>Black</Color>
+          <EndCap Ref="76" type="Cap" isKey="true">
+            <Color>Black</Color>
+          </EndCap>
+          <Guid>ddee85871a07403bb92882f0f9961182</Guid>
+          <Name>VerticalLinePrimitive7</Name>
+          <Page isRef="6" />
+          <Parent isRef="6" />
+          <StartCap Ref="77" type="Cap" isKey="true">
+            <Color>Black</Color>
+          </StartCap>
+        </VerticalLinePrimitive7>
+        <VerticalLinePrimitive8 Ref="78" type="VerticalLinePrimitive" isKey="true">
+          <ClientRectangle>17.8,11.6,0.0254,1</ClientRectangle>
+          <Color>Black</Color>
+          <EndCap Ref="79" type="Cap" isKey="true">
+            <Color>Black</Color>
+          </EndCap>
+          <Guid>479e7c287d134cb5b22b97e4c9053da6</Guid>
+          <Name>VerticalLinePrimitive8</Name>
+          <Page isRef="6" />
+          <Parent isRef="6" />
+          <StartCap Ref="80" type="Cap" isKey="true">
+            <Color>Black</Color>
+          </StartCap>
+        </VerticalLinePrimitive8>
+        <VerticalLinePrimitive9 Ref="81" type="VerticalLinePrimitive" isKey="true">
+          <ClientRectangle>8,11.6,0.0254,1</ClientRectangle>
+          <Color>Black</Color>
+          <EndCap Ref="82" type="Cap" isKey="true">
+            <Color>Black</Color>
+          </EndCap>
+          <Guid>851ee3bc4bd64713b38e6ac8f56d2669</Guid>
+          <Name>VerticalLinePrimitive9</Name>
+          <Page isRef="6" />
+          <Parent isRef="6" />
+          <StartCap Ref="83" type="Cap" isKey="true">
+            <Color>Black</Color>
+          </StartCap>
+        </VerticalLinePrimitive9>
+        <VerticalLinePrimitive10 Ref="84" type="VerticalLinePrimitive" isKey="true">
+          <ClientRectangle>0.4,11.6,0.0254,1</ClientRectangle>
+          <Color>Black</Color>
+          <EndCap Ref="85" type="Cap" isKey="true">
+            <Color>Black</Color>
+          </EndCap>
+          <Guid>b345aef51ba2425b8246c769557ecf0f</Guid>
+          <Name>VerticalLinePrimitive10</Name>
+          <Page isRef="6" />
+          <Parent isRef="6" />
+          <StartCap Ref="86" type="Cap" isKey="true">
+            <Color>Black</Color>
+          </StartCap>
+        </VerticalLinePrimitive10>
+        <VerticalLinePrimitive11 Ref="87" type="VerticalLinePrimitive" isKey="true">
+          <ClientRectangle>4.2,11.6,0.0254,1</ClientRectangle>
+          <Color>Black</Color>
+          <EndCap Ref="88" type="Cap" isKey="true">
+            <Color>Black</Color>
+          </EndCap>
+          <Guid>0579cc5d423c4144b47db80e375d1baf</Guid>
+          <Name>VerticalLinePrimitive11</Name>
+          <Page isRef="6" />
+          <Parent isRef="6" />
+          <StartCap Ref="89" type="Cap" isKey="true">
+            <Color>Black</Color>
+          </StartCap>
+        </VerticalLinePrimitive11>
+        <VerticalLinePrimitive13 Ref="90" type="VerticalLinePrimitive" isKey="true">
+          <ClientRectangle>9.2,11.6,0.0254,1</ClientRectangle>
+          <Color>Black</Color>
+          <EndCap Ref="91" type="Cap" isKey="true">
+            <Color>Black</Color>
+          </EndCap>
+          <Guid>2db264d7351f458b804db41d88c4213c</Guid>
+          <Name>VerticalLinePrimitive13</Name>
+          <Page isRef="6" />
+          <Parent isRef="6" />
+          <StartCap Ref="92" type="Cap" isKey="true">
+            <Color>Black</Color>
+          </StartCap>
+        </VerticalLinePrimitive13>
+        <VerticalLinePrimitive15 Ref="93" type="VerticalLinePrimitive" isKey="true">
+          <ClientRectangle>9.2,11.6,0.0254,1</ClientRectangle>
+          <Color>Black</Color>
+          <EndCap Ref="94" type="Cap" isKey="true">
+            <Color>Black</Color>
+          </EndCap>
+          <Guid>a018d74ad0d44efa956ebc952850e86d</Guid>
+          <Name>VerticalLinePrimitive15</Name>
+          <Page isRef="6" />
+          <Parent isRef="6" />
+          <StartCap Ref="95" type="Cap" isKey="true">
+            <Color>Black</Color>
+          </StartCap>
+        </VerticalLinePrimitive15>
+        <VerticalLinePrimitive2 Ref="96" type="VerticalLinePrimitive" isKey="true">
+          <ClientRectangle>19,13.4,0.0254,2.8</ClientRectangle>
+          <Color>Black</Color>
+          <EndCap Ref="97" type="Cap" isKey="true">
+            <Color>Black</Color>
+          </EndCap>
+          <Guid>ef6000e4f48348318f3e26bd66cc7414</Guid>
+          <Name>VerticalLinePrimitive2</Name>
+          <Page isRef="6" />
+          <Parent isRef="6" />
+          <StartCap Ref="98" type="Cap" isKey="true">
+            <Color>Black</Color>
+          </StartCap>
+        </VerticalLinePrimitive2>
+        <VerticalLinePrimitive4 Ref="99" type="VerticalLinePrimitive" isKey="true">
+          <ClientRectangle>0.4,14.6,0.0254,1.6</ClientRectangle>
+          <Color>Black</Color>
+          <EndCap Ref="100" type="Cap" isKey="true">
+            <Color>Black</Color>
+          </EndCap>
+          <Guid>e5991d79ab3f43fe88a0dfda9c6daf18</Guid>
+          <Name>VerticalLinePrimitive4</Name>
+          <Page isRef="6" />
+          <Parent isRef="6" />
+          <StartCap Ref="101" type="Cap" isKey="true">
+            <Color>Black</Color>
+          </StartCap>
+        </VerticalLinePrimitive4>
+      </Components>
+      <Conditions isList="true" count="0" />
+      <Guid>d56a41683d73426aa9d89379b3a21ef2</Guid>
+      <Margins>1,1,1,1</Margins>
+      <Name>Page1</Name>
+      <PageHeight>29.7</PageHeight>
+      <PageWidth>21</PageWidth>
+      <PaperSize>A4</PaperSize>
+      <Report isRef="0" />
+      <Watermark Ref="102" type="Stimulsoft.Report.Components.StiWatermark" isKey="true">
+        <Font>Arial,100</Font>
+        <TextBrush>[50:0:0:0]</TextBrush>
+      </Watermark>
+    </Page1>
+  </Pages>
+  <PrinterSettings Ref="103" type="Stimulsoft.Report.Print.StiPrinterSettings" isKey="true" />
+  <ReferencedAssemblies isList="true" count="8">
+    <value>System.Dll</value>
+    <value>System.Drawing.Dll</value>
+    <value>System.Windows.Forms.Dll</value>
+    <value>System.Data.Dll</value>
+    <value>System.Xml.Dll</value>
+    <value>Stimulsoft.Controls.Dll</value>
+    <value>Stimulsoft.Base.Dll</value>
+    <value>Stimulsoft.Report.Dll</value>
+  </ReferencedAssemblies>
+  <ReportAlias>Report</ReportAlias>
+  <ReportChanged>2/13/2018 4:23:51 PM</ReportChanged>
+  <ReportCreated>11/5/2008 4:44:01 AM</ReportCreated>
+  <ReportFile>D:\TarazNegar\AppFramework\TarazNegarAppFrameworkPlugin\Reports\ps\ps.PersonalizationInvoiceReport.mrt</ReportFile>
+  <ReportGuid>1015cfdda7994d27b1038d01312a30ac</ReportGuid>
+  <ReportName>Report</ReportName>
+  <ReportUnit>Centimeters</ReportUnit>
+  <ReportVersion>2016.1.0</ReportVersion>
+  <Script>using System;
+using System.Drawing;
+using System.Windows.Forms;
+using System.Data;
+using Stimulsoft.Controls;
+using Stimulsoft.Base.Drawing;
+using Stimulsoft.Report;
+using Stimulsoft.Report.Dialogs;
+using Stimulsoft.Report.Components;
+
+namespace Reports
+{
+    
+    public class Report : Stimulsoft.Report.StiReport
+    {
+        
+        public Report()
+        {
+            this.InitializeComponent();
+        }
+        #region StiReport Designer generated code - do not modify
+		#endregion StiReport Designer generated code - do not modify
+    }
+}</Script>
+  <ScriptLanguage>CSharp</ScriptLanguage>
+  <Styles isList="true" count="0" />
+</StiSerializer>

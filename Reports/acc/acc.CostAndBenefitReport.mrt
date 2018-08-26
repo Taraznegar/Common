@@ -1,0 +1,475 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<StiSerializer version="1.02" type="Net" application="StiReport">
+  <Dictionary Ref="1" type="Dictionary" isKey="true">
+    <BusinessObjects isList="true" count="0" />
+    <Databases isList="true" count="1">
+      <Connection Ref="2" type="Stimulsoft.Report.Dictionary.StiSqlDatabase" isKey="true">
+        <Alias>Connection</Alias>
+        <ConnectionStringEncrypted>+fLBK14FMdXsWNXM8QSuP95adYLNTBnta0uhzGYENUbC8s8PSFlDjMtJYdjo2CU/wFb3SFYB851yaYSJYcSyY8dU+UtPaFFta1ysUGQ9qD/5bHGJSV+ToUVN2cxjXOBmhsT7L2cYW/3ME5zMSUzhG8JgnyjFQRnZQ0uhmedxtWLD7g==</ConnectionStringEncrypted>
+        <Name>Connection</Name>
+      </Connection>
+    </Databases>
+    <DataSources isList="true" count="2">
+      <ReportDataDS Ref="3" type="Stimulsoft.Report.Dictionary.StiSqlSource" isKey="true">
+        <Alias>ReportDataDS</Alias>
+        <Columns isList="true" count="7">
+          <value>AccountID,System.Guid</value>
+          <value>AccountCode,System.String</value>
+          <value>AccountName,System.String</value>
+          <value>DebtorAmount,System.Decimal</value>
+          <value>CreditorAmount,System.Decimal</value>
+          <value>RemainingDebtorAmount,System.Decimal</value>
+          <value>RemainingCreditorAmount,System.Decimal</value>
+        </Columns>
+        <CommandTimeout>30</CommandTimeout>
+        <Dictionary isRef="1" />
+        <Name>ReportDataDS</Name>
+        <NameInSource>Connection</NameInSource>
+        <Parameters isList="true" count="0" />
+        <SqlCommand>exec acc.GetCostAndBenefitReportData {FinancialYear}, {FromDate}, {ToDate}</SqlCommand>
+      </ReportDataDS>
+      <DateDS Ref="4" type="Stimulsoft.Report.Dictionary.StiSqlSource" isKey="true">
+        <Alias>DateDS</Alias>
+        <Columns isList="true" count="3">
+          <value>FromDate_Persian,System.String</value>
+          <value>ToDate_Persian,System.String</value>
+          <value>NowDate_Persian,System.String</value>
+        </Columns>
+        <CommandTimeout>30</CommandTimeout>
+        <Dictionary isRef="1" />
+        <Name>DateDS</Name>
+        <NameInSource>Connection</NameInSource>
+        <Parameters isList="true" count="0" />
+        <SqlCommand>select 
+	afw.GregorianToPersian({FromDate}) FromDate_Persian, 
+	afw.GregorianToPersian({ToDate}) ToDate_Persian,
+	substring(afw.GregorianToPersian(getdate()), 0, 11) NowDate_Persian</SqlCommand>
+      </DateDS>
+    </DataSources>
+    <Relations isList="true" count="0" />
+    <Report isRef="0" />
+    <Variables isList="true" count="3">
+      <value>,FromDate,FromDate,,System.String,null,False,False,False,False</value>
+      <value>,ToDate,ToDate,,System.String,null,False,False,False,False</value>
+      <value>,FinancialYear,FinancialYear,,System.String,_x0027_81a14478-ba8e-4015-ba7d-c8039b8c36b0_x0027_,False,False,False,False</value>
+    </Variables>
+  </Dictionary>
+  <EngineVersion>EngineV1</EngineVersion>
+  <GlobalizationStrings isList="true" count="0" />
+  <MetaTags isList="true" count="0" />
+  <Pages isList="true" count="1">
+    <Page1 Ref="5" type="Page" isKey="true">
+      <Border>None;Silver;2;Solid;False;4;Black</Border>
+      <Brush>Transparent</Brush>
+      <Components isList="true" count="3">
+        <Header11 Ref="6" type="HeaderBand" isKey="true">
+          <Brush>Transparent</Brush>
+          <ClientRectangle>0,0.4,20,4.4</ClientRectangle>
+          <Components isList="true" count="11">
+            <Text1 Ref="7" type="Text" isKey="true">
+              <Brush>Transparent</Brush>
+              <ClientRectangle>7.2,0.4,6,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Microsoft Sans Serif,20,Bold</Font>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text1</Name>
+              <Page isRef="5" />
+              <Parent isRef="6" />
+              <Text>گزارش سود و زیان</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text1>
+            <Text6 Ref="8" type="Text" isKey="true">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>[216:216:216]</Brush>
+              <ClientRectangle>3.8,3.4,3.8,1</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Microsoft Sans Serif,12,Bold</Font>
+              <Guid>644f01a6447e437c8f836834d2e199e6</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text6</Name>
+              <Page isRef="5" />
+              <Parent isRef="6" />
+              <Text>مانده بدهکار</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text6>
+            <Text18 Ref="9" type="Text" isKey="true">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>[216:216:216]</Brush>
+              <ClientRectangle>7.6,3.4,9.8,1</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Microsoft Sans Serif,12,Bold</Font>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text18</Name>
+              <Page isRef="5" />
+              <Parent isRef="6" />
+              <Text>حساب</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text18>
+            <Text20 Ref="10" type="Text" isKey="true">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>[216:216:216]</Brush>
+              <ClientRectangle>17.4,3.4,2.6,1</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Microsoft Sans Serif,12,Bold</Font>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text20</Name>
+              <Page isRef="5" />
+              <Parent isRef="6" />
+              <Text>کد حساب</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text20>
+            <Text8 Ref="11" type="Text" isKey="true">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>[216:216:216]</Brush>
+              <ClientRectangle>0,3.4,3.8,1</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Microsoft Sans Serif,12,Bold</Font>
+              <Guid>1c29da51b3044eb98cfc70707ef81489</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text8</Name>
+              <Page isRef="5" />
+              <Parent isRef="6" />
+              <Text>مانده بستانکار</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text8>
+            <Text21 Ref="12" type="Text" isKey="true">
+              <Brush>White</Brush>
+              <ClientRectangle>18.6,2.2,1.2,0.6</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Microsoft Sans Serif,10,Bold</Font>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text21</Name>
+              <Page isRef="5" />
+              <Parent isRef="6" />
+              <Text>: از تاریخ </Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text21>
+            <Text23 Ref="13" type="Text" isKey="true">
+              <Brush>White</Brush>
+              <ClientRectangle>14.8,2.2,1.2,0.6</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Microsoft Sans Serif,10,Bold</Font>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text23</Name>
+              <Page isRef="5" />
+              <Parent isRef="6" />
+              <Text>: تا تاریخ </Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text23>
+            <Text7 Ref="14" type="Text" isKey="true">
+              <Brush>White</Brush>
+              <ClientRectangle>16.4,2.2,2.2,0.6</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Microsoft Sans Serif,10,Bold</Font>
+              <HorAlignment>Right</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text7</Name>
+              <Page isRef="5" />
+              <Parent isRef="6" />
+              <Text>{DateDS.FromDate_Persian}</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text7>
+            <Text22 Ref="15" type="Text" isKey="true">
+              <Brush>White</Brush>
+              <ClientRectangle>12.2,2.2,2.6,0.6</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Microsoft Sans Serif,10,Bold</Font>
+              <HorAlignment>Right</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text22</Name>
+              <Page isRef="5" />
+              <Parent isRef="6" />
+              <Text>{DateDS.ToDate_Persian}</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text22>
+            <Text24 Ref="16" type="Text" isKey="true">
+              <Brush>White</Brush>
+              <ClientRectangle>0.2,2.2,2.4,0.6</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Microsoft Sans Serif,10,Bold</Font>
+              <HorAlignment>Right</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text24</Name>
+              <Page isRef="5" />
+              <Parent isRef="6" />
+              <Text>{DateDS.NowDate_Persian}</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text24>
+            <Text25 Ref="17" type="Text" isKey="true">
+              <Brush>White</Brush>
+              <ClientRectangle>2.6,2.2,2,0.6</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Microsoft Sans Serif,10,Bold</Font>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text25</Name>
+              <Page isRef="5" />
+              <Parent isRef="6" />
+              <Text>: تاریخ گزارش</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text25>
+          </Components>
+          <Conditions isList="true" count="0" />
+          <Name>Header11</Name>
+          <Page isRef="5" />
+          <Parent isRef="5" />
+          <PrintOn>OnlyFirstPage</PrintOn>
+          <PrintOnAllPages>False</PrintOnAllPages>
+        </Header11>
+        <DatamadreseDS Ref="18" type="DataBand" isKey="true">
+          <Brush>Transparent</Brush>
+          <ClientRectangle>0,5.6,20,1</ClientRectangle>
+          <Components isList="true" count="4">
+            <Text12 Ref="19" type="Text" isKey="true">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>White</Brush>
+              <ClientRectangle>3.8,0,3.8,1</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Microsoft Sans Serif,10,Bold</Font>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text12</Name>
+              <Page isRef="5" />
+              <Parent isRef="18" />
+              <Text>{ReportDataDS.RemainingDebtorAmount}</Text>
+              <TextBrush>Black</TextBrush>
+              <TextFormat Ref="20" type="NumberFormat" isKey="true">
+                <DecimalDigits>0</DecimalDigits>
+                <GroupSeparator>,</GroupSeparator>
+                <NegativePattern>1</NegativePattern>
+                <UseLocalSetting>False</UseLocalSetting>
+              </TextFormat>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text12>
+            <Text9 Ref="21" type="Text" isKey="true">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>White</Brush>
+              <ClientRectangle>0,0,3.8,1</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Microsoft Sans Serif,10,Bold</Font>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text9</Name>
+              <Page isRef="5" />
+              <Parent isRef="18" />
+              <Text>{ReportDataDS.RemainingCreditorAmount}</Text>
+              <TextBrush>Black</TextBrush>
+              <TextFormat Ref="22" type="NumberFormat" isKey="true">
+                <DecimalDigits>0</DecimalDigits>
+                <GroupSeparator>,</GroupSeparator>
+                <NegativePattern>1</NegativePattern>
+                <UseLocalSetting>False</UseLocalSetting>
+              </TextFormat>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text9>
+            <Text17 Ref="23" type="Text" isKey="true">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>White</Brush>
+              <ClientRectangle>7.6,0,9.8,1</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Microsoft Sans Serif,12,Bold</Font>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text17</Name>
+              <Page isRef="5" />
+              <Parent isRef="18" />
+              <Text>{ReportDataDS.AccountName}</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text17>
+            <Text3 Ref="24" type="Text" isKey="true">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>White</Brush>
+              <ClientRectangle>17.4,0,2.6,1</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Microsoft Sans Serif,12,Bold</Font>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text3</Name>
+              <Page isRef="5" />
+              <Parent isRef="18" />
+              <Text>{ReportDataDS.AccountCode}</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text3>
+          </Components>
+          <Conditions isList="true" count="0" />
+          <DataRelationName isNull="true" />
+          <DataSourceName>ReportDataDS</DataSourceName>
+          <Filters isList="true" count="0" />
+          <Name>DatamadreseDS</Name>
+          <Page isRef="5" />
+          <Parent isRef="5" />
+          <Sort isList="true" count="0" />
+        </DatamadreseDS>
+        <FooterBand1 Ref="25" type="FooterBand" isKey="true">
+          <Brush>Transparent</Brush>
+          <ClientRectangle>0,7.4,20,1.2</ClientRectangle>
+          <Components isList="true" count="3">
+            <Text13 Ref="26" type="Text" isKey="true">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>[216:216:216]</Brush>
+              <ClientRectangle>7.6,0,12.4,1</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Microsoft Sans Serif,10,Bold</Font>
+              <Guid>8a65f6d5ecc445369ae34e9ed192f7c2</Guid>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text13</Name>
+              <Page isRef="5" />
+              <Parent isRef="25" />
+              <Text> جمع کل </Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text13>
+            <Text16 Ref="27" type="Text" isKey="true">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>[216:216:216]</Brush>
+              <ClientRectangle>3.8,0,3.8,1</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Microsoft Sans Serif,10,Bold</Font>
+              <Guid>c978bcb2f4f54d799fd42db949223ea5</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text16</Name>
+              <Page isRef="5" />
+              <Parent isRef="25" />
+              <Text>{Sum(ReportDataDS.RemainingDebtorAmount)}</Text>
+              <TextBrush>Black</TextBrush>
+              <TextFormat Ref="28" type="NumberFormat" isKey="true">
+                <DecimalDigits>0</DecimalDigits>
+                <GroupSeparator>,</GroupSeparator>
+                <NegativePattern>1</NegativePattern>
+                <UseLocalSetting>False</UseLocalSetting>
+              </TextFormat>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text16>
+            <Text19 Ref="29" type="Text" isKey="true">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>[216:216:216]</Brush>
+              <ClientRectangle>0,0,3.8,1</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Microsoft Sans Serif,10,Bold</Font>
+              <Guid>d3f4c7c201854bf09dcfcae89e0dab57</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text19</Name>
+              <Page isRef="5" />
+              <Parent isRef="25" />
+              <Text>{Sum(ReportDataDS.RemainingCreditorAmount)}</Text>
+              <TextBrush>Black</TextBrush>
+              <TextFormat Ref="30" type="NumberFormat" isKey="true">
+                <DecimalDigits>0</DecimalDigits>
+                <GroupSeparator>,</GroupSeparator>
+                <NegativePattern>1</NegativePattern>
+                <UseLocalSetting>False</UseLocalSetting>
+              </TextFormat>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text19>
+          </Components>
+          <Conditions isList="true" count="0" />
+          <Name>FooterBand1</Name>
+          <Page isRef="5" />
+          <Parent isRef="5" />
+          <PrintOn>OnlyLastPage</PrintOn>
+        </FooterBand1>
+      </Components>
+      <Conditions isList="true" count="0" />
+      <Guid>d56a41683d73426aa9d89379b3a21ef2</Guid>
+      <LargeHeight>True</LargeHeight>
+      <Margins>0.5,0.5,1,1</Margins>
+      <Name>Page1</Name>
+      <PageHeight>29.7</PageHeight>
+      <PageWidth>21</PageWidth>
+      <PaperSize>A4</PaperSize>
+      <Report isRef="0" />
+      <UnlimitedHeight>True</UnlimitedHeight>
+      <UnlimitedWidth>False</UnlimitedWidth>
+      <Watermark Ref="31" type="Stimulsoft.Report.Components.StiWatermark" isKey="true">
+        <Font>Microsoft Sans Serif,6</Font>
+        <TextBrush>[50:0:0:0]</TextBrush>
+      </Watermark>
+    </Page1>
+  </Pages>
+  <PrinterSettings Ref="32" type="Stimulsoft.Report.Print.StiPrinterSettings" isKey="true" />
+  <ReferencedAssemblies isList="true" count="8">
+    <value>System.Dll</value>
+    <value>System.Drawing.Dll</value>
+    <value>System.Windows.Forms.Dll</value>
+    <value>System.Data.Dll</value>
+    <value>System.Xml.Dll</value>
+    <value>Stimulsoft.Controls.Dll</value>
+    <value>Stimulsoft.Base.Dll</value>
+    <value>Stimulsoft.Report.Dll</value>
+  </ReferencedAssemblies>
+  <ReportAlias>Report</ReportAlias>
+  <ReportChanged>12/11/2017 10:55:14 AM</ReportChanged>
+  <ReportCreated>11/5/2008 4:44:01 AM</ReportCreated>
+  <ReportFile>F:\TarazNegar\AppFramework\TarazNegarAppFrameworkPlugin\Reports\acc\acc.CostAndBenefitReport.mrt</ReportFile>
+  <ReportGuid>e4f346f928e145bf903e4d5be887ecfd</ReportGuid>
+  <ReportName>Report</ReportName>
+  <ReportUnit>Centimeters</ReportUnit>
+  <ReportVersion>2016.1.0</ReportVersion>
+  <Script>using System;
+using System.Drawing;
+using System.Windows.Forms;
+using System.Data;
+using Stimulsoft.Controls;
+using Stimulsoft.Base.Drawing;
+using Stimulsoft.Report;
+using Stimulsoft.Report.Dialogs;
+using Stimulsoft.Report.Components;
+
+namespace Reports
+{
+    
+    public class Report : Stimulsoft.Report.StiReport
+    {
+		string temp1="";
+        
+        public Report()
+        {
+            this.InitializeComponent();
+        }
+        #region StiReport Designer generated code - do not modify
+		#endregion StiReport Designer generated code - do not modify
+    }
+}</Script>
+  <ScriptLanguage>CSharp</ScriptLanguage>
+  <Styles isList="true" count="0" />
+</StiSerializer>

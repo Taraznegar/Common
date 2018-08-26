@@ -1,0 +1,718 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<StiSerializer version="1.02" type="Net" application="StiReport">
+  <Dictionary Ref="1" type="Dictionary" isKey="true">
+    <BusinessObjects isList="true" count="0" />
+    <Databases isList="true" count="1">
+      <SpringCon Ref="2" type="Stimulsoft.Report.Dictionary.StiSqlDatabase" isKey="true">
+        <Alias>SpringCon</Alias>
+        <ConnectionStringEncrypted>5WRhAkxOu4ziWHGYYsT1E8PIza9GDqPxRlhN7MuE4X/C1tWMYQBzheFp7cxjXOJu+XBziWJ781FnR4TJ5RjhP8dq+y7SUXvpaVqhmGBMrD/VOmntTxhC3cxHeVhngPcv0VRpg0sD+pVDTNDJ6gAlZ994243mGFv97GnQnc8=</ConnectionStringEncrypted>
+        <Name>SpringCon</Name>
+      </SpringCon>
+    </Databases>
+    <DataSources isList="true" count="3">
+      <SaleInvoice Ref="3" type="Stimulsoft.Report.Dictionary.StiSqlSource" isKey="true">
+        <Alias>SaleInvoice</Alias>
+        <Columns isList="true" count="34">
+          <value>InvoiceNumber,System.String</value>
+          <value>RowNumber,System.Int64</value>
+          <value>Description,System.String</value>
+          <value>FullName,System.String</value>
+          <value>CodeEghtesadi,System.String</value>
+          <value>NationalID,System.String</value>
+          <value>State_Text,System.String</value>
+          <value>City_Text,System.String</value>
+          <value>CustomerCode,System.String</value>
+          <value>ValidityDate,System.String</value>
+          <value>IssueDate,System.String</value>
+          <value>DeliverDate,System.String</value>
+          <value>InstallMthd,System.String</value>
+          <value>DelyMthdTitle,System.String</value>
+          <value>LastNameCon,System.String</value>
+          <value>NameStuff,System.String</value>
+          <value>UnitPrice,System.Decimal</value>
+          <value>Discount,System.Decimal</value>
+          <value>TotalPrice,System.Decimal</value>
+          <value>UnitTitle,System.String</value>
+          <value>TotalPriceAfterDiscount,System.Decimal</value>
+          <value>TaxAndToll,System.Decimal</value>
+          <value>TotalTaxAndToll,System.Decimal</value>
+          <value>TotalDiscount,System.Decimal</value>
+          <value>TelNumber1,System.String</value>
+          <value>Fax,System.String</value>
+          <value>Address1,System.String</value>
+          <value>PostalCode,System.String</value>
+          <value>Quantity,System.Decimal</value>
+          <value>FinalAmount,System.Decimal</value>
+          <value>Notes,System.String</value>
+          <value>Custom_CodeAnbar,System.String</value>
+          <value>MatneMolahezatFactor,System.String</value>
+          <value>TotalPriceAfterTaxAndToll,System.Decimal</value>
+        </Columns>
+        <CommandTimeout>30</CommandTimeout>
+        <Dictionary isRef="1" />
+        <Name>SaleInvoice</Name>
+        <NameInSource>SpringCon</NameInSource>
+        <Parameters isList="true" count="0" />
+        <SqlCommand>select distinct saleInvc.InvoiceNumber, InvcItm.RowNumber, saleInvc.Description,
+	isnull(Person.Name, '') + ' ' + isnull(Person.LastName, '') FullName,
+	afw.GregorianToPersian(saleInvc.ValidityDate) ValidityDate,
+	afw.GregorianToPersian(saleInvc.IssueDate) IssueDate,
+	afw.GregorianToPersian(saleInvc.DeliverDate) DeliverDate,  
+	isnull(InstallMthd.Title, '') + ' ' + isnull(saleInvc.InstallMethodDesc, '') InstallMthd, 
+	isnull(DelyMthd.Title, '') + ' ' + isnull(saleInvc.DeliverMethodDesc, '') DelyMthdTitle,
+	isnull(ConPerSon.Name, '') + ' ' + isnull(ConPerSon.LastName, '') LastNameCon, 
+	case when InvcItm.Stuff is not null then isnull(stuffs.CustomName,StuffDefs.Name) else Service.Name end NameStuff, 
+	InvcItm.UnitPrice, InvcItm.Discount, InvcItm.TotalPrice,
+	Units.Title UnitTitle, InvcItm.TotalPriceAfterDiscount,	InvcItm.TaxAndToll, saleInvc.TotalTaxAndToll, 
+	saleInvc.TotalDiscount,	Person.TelNumber1, Person.Fax, Person.Address1, Person.PostalCode, InvcItm.Quantity, 
+	saleInvc.FinalAmount, StuffDefs.Notes, Cofing.Invoice_MatneMolahezatFactor MatneMolahezatFactor,
+	InvcItm.TotalPriceAfterDiscount + isnull(InvcItm.TaxAndToll, 0) TotalPriceAfterTaxAndToll
+from  ps_SalesInvoiceItems InvcItm
+	inner join ps_SalesInvoices saleInvc on saleInvc.ID = InvcItm.SalesInvoice 
+	left join cmn_Stuffs stuffs on InvcItm.Stuff = stuffs.ID 
+	left join cmn_Services Service on Service.ID = InvcItm.Service
+	left join cmn_Persons Person on saleInvc.Customer = Person.ID 
+	left join ps_InvoiceCustomPayMethods CustomPay on saleInvc.CustompayMethod = CustomPay.ID 
+	left join ps_InvoiceInstallMethods InstallMthd on saleInvc.InstallMethod = InstallMthd.ID 
+	left join ps_InvoiceDeliveryMethods DelyMthd on saleInvc.DeliverMethod = DelyMthd.ID 
+	left join cmn_Persons ConPerSon on saleInvc.ConnectedPerson = ConPerSon.ID 
+	left join cmn_MeasurementUnits Units on InvcItm.MeasurementUnit = Units.ID 
+	left join cmn_StuffDefs StuffDefs on stuffs.StuffDef = StuffDefs.ID and Units.ID = StuffDefs.MainMeasurementUnit 
+left join (select InvoiceItem.SalesInvoice, InvoiceItem.Stuff, InvoiceItem.UnitPrice - ISNULL(PriceStuffItem.UnitPrice, 0) EkhtelafPric
+			   from cmn_Stuffs Stuf
+				   left join cmn_StuffDefs StuffDef on Stuf.StuffDef = StuffDef.ID 
+				   left join ps_SalesInvoiceItems InvoiceItem on Stuf.ID = InvoiceItem.Stuff 
+				   left join ps_PriceLists PriceList
+				   inner join ps_PriceListStuffItems PriceStuffItem on PriceList.ID = PriceStuffItem.PriceList on StuffDef.ID = PriceStuffItem.StuffDef and 
+				       InvoiceItem.UnitPrice &lt;&gt; PriceStuffItem.UnitPrice) EkhtelafPriceList on InvcItm.Stuff = EkhtelafPriceList.Stuff and 
+                       InvcItm.SalesInvoice = EkhtelafPriceList.SalesInvoice 
+				   left join ps_Configs Cofing on 1 = 1
+where saleInvc.ID = '{InvoiceID}'
+order by  InvcItm.RowNumber</SqlCommand>
+      </SaleInvoice>
+      <EkhtelafGheimatData Ref="4" type="Stimulsoft.Report.Dictionary.StiSqlSource" isKey="true">
+        <Alias>EkhtelafGheimatData</Alias>
+        <Columns isList="true" count="1">
+          <value>EkhtelafGheimat,System.Decimal</value>
+        </Columns>
+        <CommandTimeout>30</CommandTimeout>
+        <Dictionary isRef="1" />
+        <Name>EkhtelafGheimatData</Name>
+        <NameInSource>SpringCon</NameInSource>
+        <Parameters isList="true" count="0" />
+        <SqlCommand>select sum((SalesInvoiceItem.UnitPrice - isnull(PriceListItem.UnitPrice, 0)) * 
+	SalesInvoiceItem.Quantity) EkhtelafGheimat
+from cmn_Stuffs Stuf 
+	inner join cmn_StuffDefs StufDef on Stuf.StuffDef = StufDef.ID 
+	inner join ps_SalesInvoiceItems SalesInvoiceItem on Stuf.ID = SalesInvoiceItem.Stuff 
+	left outer join ps_PriceLists PriceList
+	inner join ps_PriceListStuffItems PriceListItem 
+		on PriceList.ID = PriceListItem.PriceList 
+		on StufDef.ID = PriceListItem.StuffDef 
+		and SalesInvoiceItem.UnitPrice &lt;&gt; PriceListItem.UnitPrice
+where SalesInvoiceItem.SalesInvoice = '{InvoiceID}'</SqlCommand>
+      </EkhtelafGheimatData>
+      <orgInfo Ref="5" type="Stimulsoft.Report.Dictionary.StiSqlSource" isKey="true">
+        <Alias>orgInfo</Alias>
+        <Columns isList="true" count="18">
+          <value>ID,System.Guid</value>
+          <value>CreatorUser,System.Guid</value>
+          <value>CreationTime,System.DateTime</value>
+          <value>LastModifierUser,System.Guid</value>
+          <value>LastModifyTime,System.DateTime</value>
+          <value>OwnerUser,System.Guid</value>
+          <value>Name,System.String</value>
+          <value>Ostan,System.Guid</value>
+          <value>Shahrestan,System.Guid</value>
+          <value>Shahr,System.Guid</value>
+          <value>FullAddress,System.String</value>
+          <value>EconomicNumber,System.String</value>
+          <value>RegistrationNumber,System.String</value>
+          <value>PostCode,System.String</value>
+          <value>NationalNumber,System.String</value>
+          <value>LogoImage,System.Guid</value>
+          <value>PhoneNumber,System.String</value>
+          <value>Fax,System.String</value>
+        </Columns>
+        <CommandTimeout>30</CommandTimeout>
+        <Dictionary isRef="1" />
+        <Name>orgInfo</Name>
+        <NameInSource>SpringCon</NameInSource>
+        <Parameters isList="true" count="0" />
+        <SqlCommand>select * from cmn_OrganizationInformations
+where ID = '{OrganizationInformationID}'</SqlCommand>
+      </orgInfo>
+    </DataSources>
+    <Relations isList="true" count="0" />
+    <Variables isList="true" count="12">
+      <value>,InvoiceNumber,InvoiceNumber,,System.String,_x0027_6_x0027_,False,False,False,True</value>
+      <value>,PriceToWord,PriceToWord,,System.String,,False,False,False,True</value>
+      <value>,DesFactor,DesFactor,,System.String,,False,False,False,True</value>
+      <value>,InvoiceTitle,InvoiceTitle,,System.String,فاکتور_x0020_فروش,False,False,False,False</value>
+      <value>,OrgLogoImagePath,OrgLogoImagePath,,System.String,C:_x005C_Users_x005C_Public_x005C_Pictures_x005C_Sample_x0020_Pictures_x005C_Chrysanthemum.JPG,False,False,False,True</value>
+      <value>,typeRep,typeRep,,System.Int32,_x0031_,False,False,False,True</value>
+      <value>,OrganizationName,OrganizationName,,System.String,,False,False,False,True</value>
+      <value>,OrganizationAddress,OrganizationAddress,,System.String,,False,False,False,True</value>
+      <value>,khales,khales,,System.String,_x0031_,False,False,False,True</value>
+      <value>,FinalAmountWords,FinalAmountWords,,System.String,صد_x0020_تومان,False,False,False,False</value>
+      <value>,InvoiceID,InvoiceID,,System.String,_x0033_482C5D3-BD20-4A78-9028-FF45C9707789,False,False,False,False</value>
+      <value>,OrganizationInformationID,OrganizationInformationID,,System.String,_x0034_0157927-CBE2-4BBF-AF59-EC3FC1FB28FE,False,False,False,False</value>
+    </Variables>
+  </Dictionary>
+  <EngineVersion>EngineV1</EngineVersion>
+  <GlobalizationStrings isList="true" count="0" />
+  <MetaTags isList="true" count="0" />
+  <Pages isList="true" count="1">
+    <Page1 Ref="6" type="Page" isKey="true">
+      <Border>None;Black;2;Solid;False;4;Black</Border>
+      <Brush>Transparent</Brush>
+      <Components isList="true" count="4">
+        <PageHeaderBand1 Ref="7" type="PageHeaderBand" isKey="true">
+          <Brush>Transparent</Brush>
+          <ClientRectangle>0,0.5,27.7,2.6</ClientRectangle>
+          <Components isList="true" count="1">
+            <Text4 Ref="8" type="Text" isKey="true">
+              <Brush>White</Brush>
+              <ClientRectangle>4.2,0.19,2.2,0.6</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>B Mitra,10,Bold</Font>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text4</Name>
+              <Page isRef="6" />
+              <Parent isRef="7" />
+              <Text>{SaleInvoice.IssueDate}</Text>
+              <TextBrush>Black</TextBrush>
+              <VertAlignment>Center</VertAlignment>
+            </Text4>
+          </Components>
+          <Conditions isList="true" count="0" />
+          <Name>PageHeaderBand1</Name>
+          <Page isRef="6" />
+          <Parent isRef="6" />
+        </PageHeaderBand1>
+        <PageFooterBand1 Ref="9" type="PageFooterBand" isKey="true">
+          <Brush>Transparent</Brush>
+          <ClientRectangle>0,15.2,27.7,3.8</ClientRectangle>
+          <Components isList="true" count="6">
+            <Text16 Ref="10" type="Text" isKey="true">
+              <Brush>White</Brush>
+              <ClientRectangle>10.2,0.05,2.8,0.6</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>B Mitra,10,Bold</Font>
+              <Guid>551b7782254f4aa5b8fcb6f0666f8668</Guid>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text16</Name>
+              <Page isRef="6" />
+              <Parent isRef="9" />
+              <Text>{Sum(SaleInvoice.TotalPriceAfterDiscount)}</Text>
+              <TextBrush>Black</TextBrush>
+              <TextFormat Ref="11" type="NumberFormat" isKey="true">
+                <DecimalDigits>0</DecimalDigits>
+                <GroupSeparator>,</GroupSeparator>
+                <NegativePattern>1</NegativePattern>
+                <UseLocalSetting>False</UseLocalSetting>
+              </TextFormat>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text16>
+            <Text17 Ref="12" type="Text" isKey="true">
+              <Brush>White</Brush>
+              <ClientRectangle>5.2,0.11,2.8,0.6</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>B Mitra,10,Bold</Font>
+              <Guid>143d9f62403f490cbb85cbe0c173d5e3</Guid>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text17</Name>
+              <Page isRef="6" />
+              <Parent isRef="9" />
+              <Text>{Sum(SaleInvoice.TotalPriceAfterDiscount)}</Text>
+              <TextBrush>Black</TextBrush>
+              <TextFormat Ref="13" type="NumberFormat" isKey="true">
+                <DecimalDigits>0</DecimalDigits>
+                <GroupSeparator>,</GroupSeparator>
+                <NegativePattern>1</NegativePattern>
+                <UseLocalSetting>False</UseLocalSetting>
+              </TextFormat>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text17>
+            <Text18 Ref="14" type="Text" isKey="true">
+              <Brush>White</Brush>
+              <ClientRectangle>2.8,0.12,2.4,0.6</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>B Mitra,10,Bold</Font>
+              <Guid>c95b44e1de0a4ae68fce8dce4e8c7839</Guid>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text18</Name>
+              <Page isRef="6" />
+              <Parent isRef="9" />
+              <Text>{SaleInvoice.TotalTaxAndToll}</Text>
+              <TextBrush>Black</TextBrush>
+              <TextFormat Ref="15" type="NumberFormat" isKey="true">
+                <DecimalDigits>0</DecimalDigits>
+                <GroupSeparator>,</GroupSeparator>
+                <NegativePattern>1</NegativePattern>
+                <UseLocalSetting>False</UseLocalSetting>
+              </TextFormat>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text18>
+            <Text11 Ref="16" type="Text" isKey="true">
+              <Brush>White</Brush>
+              <ClientRectangle>6.8,1.6,20.4,0.6</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>B Mitra,10,Bold</Font>
+              <HorAlignment>Right</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text11</Name>
+              <Page isRef="6" />
+              <Parent isRef="9" />
+              <Text>{FinalAmountWords}</Text>
+              <TextBrush>Black</TextBrush>
+              <VertAlignment>Center</VertAlignment>
+            </Text11>
+            <Text3 Ref="17" type="Text" isKey="true">
+              <Brush>White</Brush>
+              <ClientRectangle>0,1.14,2.4,0.6</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>B Mitra,10,Bold</Font>
+              <Guid>317d75b32ff2439fa8712f086bbcf583</Guid>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text3</Name>
+              <Page isRef="6" />
+              <Parent isRef="9" />
+              <Text>{SaleInvoice.FinalAmount}</Text>
+              <TextBrush>Black</TextBrush>
+              <TextFormat Ref="18" type="NumberFormat" isKey="true">
+                <DecimalDigits>0</DecimalDigits>
+                <GroupSeparator>,</GroupSeparator>
+                <NegativePattern>1</NegativePattern>
+                <UseLocalSetting>False</UseLocalSetting>
+              </TextFormat>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text3>
+            <Text25 Ref="19" type="Text" isKey="true">
+              <Brush>White</Brush>
+              <ClientRectangle>0.04,0.08,2.8,0.6</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>B Mitra,10,Bold</Font>
+              <Guid>cfd3d3c9926e4a26951b7f1a764984cd</Guid>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text25</Name>
+              <Page isRef="6" />
+              <Parent isRef="9" />
+              <Text>{SaleInvoice.FinalAmount}</Text>
+              <TextBrush>Black</TextBrush>
+              <TextFormat Ref="20" type="NumberFormat" isKey="true">
+                <DecimalDigits>0</DecimalDigits>
+                <GroupSeparator>,</GroupSeparator>
+                <NegativePattern>1</NegativePattern>
+                <UseLocalSetting>False</UseLocalSetting>
+              </TextFormat>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text25>
+          </Components>
+          <Conditions isList="true" count="0" />
+          <Name>PageFooterBand1</Name>
+          <Page isRef="6" />
+          <Parent isRef="6" />
+        </PageFooterBand1>
+        <GroupHeader2 Ref="21" type="GroupHeaderBand" isKey="true">
+          <Brush>Transparent</Brush>
+          <ClientRectangle>0,4.1,27.7,5.5</ClientRectangle>
+          <Components isList="true" count="9">
+            <Text106 Ref="22" type="Text" isKey="true">
+              <Brush>White</Brush>
+              <ClientRectangle>6.1,2.4,4.4,0.6</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Times New Roman,9,Bold</Font>
+              <HorAlignment>Right</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text106</Name>
+              <Page isRef="6" />
+              <Parent isRef="21" />
+              <Text>{SaleInvoice.TelNumber1}</Text>
+              <TextBrush>Black</TextBrush>
+              <VertAlignment>Center</VertAlignment>
+            </Text106>
+            <Text107 Ref="23" type="Text" isKey="true">
+              <Brush>White</Brush>
+              <ClientRectangle>12.8,2.4,13.2,0.6</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>B Mitra,11,Bold</Font>
+              <HorAlignment>Right</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text107</Name>
+              <Page isRef="6" />
+              <Parent isRef="21" />
+              <Text>{SaleInvoice.Address1}</Text>
+              <TextBrush>Black</TextBrush>
+              <VertAlignment>Center</VertAlignment>
+            </Text107>
+            <Text108 Ref="24" type="Text" isKey="true">
+              <Brush>White</Brush>
+              <ClientRectangle>7,1.6,6,0.6</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>B Mitra,11,Bold</Font>
+              <HorAlignment>Right</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text108</Name>
+              <Page isRef="6" />
+              <Parent isRef="21" />
+              <Text>{SaleInvoice.PostalCode}</Text>
+              <TextBrush>Black</TextBrush>
+              <VertAlignment>Center</VertAlignment>
+            </Text108>
+            <Text109 Ref="25" type="Text" isKey="true">
+              <Brush>White</Brush>
+              <ClientRectangle>17.8,0.99,7,0.6</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>B Mitra,11,Bold</Font>
+              <HorAlignment>Right</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text109</Name>
+              <Page isRef="6" />
+              <Parent isRef="21" />
+              <Text>{SaleInvoice.FullName}</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text109>
+            <Text5 Ref="26" type="Text" isKey="true">
+              <Brush>White</Brush>
+              <ClientRectangle>17.6,1.62,2.2,0.6</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>B Mitra,11,Bold</Font>
+              <HorAlignment>Right</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text5</Name>
+              <Page isRef="6" />
+              <Parent isRef="21" />
+              <Text>{SaleInvoice.City_Text}</Text>
+              <TextBrush>Black</TextBrush>
+              <VertAlignment>Center</VertAlignment>
+            </Text5>
+            <Text7 Ref="27" type="Text" isKey="true">
+              <Brush>White</Brush>
+              <ClientRectangle>22.8,1.62,2.8,0.6</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>B Mitra,11,Bold</Font>
+              <HorAlignment>Right</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text7</Name>
+              <Page isRef="6" />
+              <Parent isRef="21" />
+              <Text>{SaleInvoice.State_Text}</Text>
+              <TextBrush>Black</TextBrush>
+              <VertAlignment>Center</VertAlignment>
+            </Text7>
+            <Text8 Ref="28" type="Text" isKey="true">
+              <Brush>White</Brush>
+              <ClientRectangle>11.2,1,2.8,0.6</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>B Mitra,11,Bold</Font>
+              <HorAlignment>Right</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text8</Name>
+              <Page isRef="6" />
+              <Parent isRef="21" />
+              <Text>{SaleInvoice.CodeEghtesadi}</Text>
+              <TextBrush>Black</TextBrush>
+              <VertAlignment>Center</VertAlignment>
+            </Text8>
+            <Text9 Ref="29" type="Text" isKey="true">
+              <Brush>White</Brush>
+              <ClientRectangle>0.4,1,2.8,0.6</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>B Mitra,10,Bold</Font>
+              <HorAlignment>Right</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text9</Name>
+              <Page isRef="6" />
+              <Parent isRef="21" />
+              <Text>{SaleInvoice.NationalID}</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text9>
+            <Text10 Ref="30" type="Text" isKey="true">
+              <Brush>White</Brush>
+              <ClientRectangle>2.6,2.4,2,0.6</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>B Mitra,11,Bold</Font>
+              <HorAlignment>Right</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text10</Name>
+              <Page isRef="6" />
+              <Parent isRef="21" />
+              <Text>{SaleInvoice.Fax}</Text>
+              <TextBrush>Black</TextBrush>
+              <VertAlignment>Center</VertAlignment>
+            </Text10>
+          </Components>
+          <Condition>{SaleInvoice.InvoiceNumber}</Condition>
+          <Conditions isList="true" count="0" />
+          <Name>GroupHeader2</Name>
+          <Page isRef="6" />
+          <Parent isRef="6" />
+          <PrintOnAllPages>True</PrintOnAllPages>
+          <SortDirection>None</SortDirection>
+          <StartNewPage>True</StartNewPage>
+        </GroupHeader2>
+        <DatamadreseDS Ref="31" type="DataBand" isKey="true">
+          <Brush>Transparent</Brush>
+          <BusinessObjectGuid isNull="true" />
+          <ClientRectangle>0,10.6,27.7,0.8</ClientRectangle>
+          <Components isList="true" count="10">
+            <Text22 Ref="32" type="Text" isKey="true">
+              <Brush>White</Brush>
+              <ClientRectangle>18.4,0,8,0.85</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Times New Roman,9,Bold</Font>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text22</Name>
+              <Page isRef="6" />
+              <Parent isRef="31" />
+              <Text>{SaleInvoice.NameStuff}</Text>
+              <TextBrush>Black</TextBrush>
+              <TextOptions>,,RightToLeft=True,,,A=0</TextOptions>
+              <VertAlignment>Center</VertAlignment>
+            </Text22>
+            <Text110 Ref="33" type="Text" isKey="true">
+              <Brush>White</Brush>
+              <ClientRectangle>13,0,2.2,0.85</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>B Mitra,10,Bold</Font>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text110</Name>
+              <Page isRef="6" />
+              <Parent isRef="31" />
+              <Text>{SaleInvoice.TotalPriceAfterDiscount / SaleInvoice.Quantity}</Text>
+              <TextBrush>Black</TextBrush>
+              <TextFormat Ref="34" type="NumberFormat" isKey="true">
+                <DecimalDigits>0</DecimalDigits>
+                <GroupSeparator>,</GroupSeparator>
+                <NegativePattern>1</NegativePattern>
+                <UseLocalSetting>False</UseLocalSetting>
+              </TextFormat>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text110>
+            <Text6 Ref="35" type="Text" isKey="true">
+              <Brush>White</Brush>
+              <ClientRectangle>16.8,0,1.6,0.85</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>B Mitra,10,Bold</Font>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text6</Name>
+              <Page isRef="6" />
+              <Parent isRef="31" />
+              <Text>{SaleInvoice.Quantity}</Text>
+              <TextBrush>Black</TextBrush>
+              <TextFormat Ref="36" type="NumberFormat" isKey="true">
+                <DecimalDigits>0</DecimalDigits>
+                <GroupSeparator>,</GroupSeparator>
+                <NegativePattern>1</NegativePattern>
+                <UseLocalSetting>False</UseLocalSetting>
+              </TextFormat>
+              <VertAlignment>Center</VertAlignment>
+            </Text6>
+            <Text13 Ref="37" type="Text" isKey="true">
+              <Brush>White</Brush>
+              <ClientRectangle>8,0,2.2,0.85</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>B Mitra,10,Bold</Font>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text13</Name>
+              <Page isRef="6" />
+              <Parent isRef="31" />
+              <TextBrush>Black</TextBrush>
+              <TextFormat Ref="38" type="NumberFormat" isKey="true">
+                <DecimalDigits>0</DecimalDigits>
+                <GroupSeparator>,</GroupSeparator>
+                <NegativePattern>1</NegativePattern>
+                <UseLocalSetting>False</UseLocalSetting>
+              </TextFormat>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text13>
+            <Text14 Ref="39" type="Text" isKey="true">
+              <Brush>White</Brush>
+              <ClientRectangle>10.2,0,2.8,0.85</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>B Mitra,10,Bold</Font>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text14</Name>
+              <Page isRef="6" />
+              <Parent isRef="31" />
+              <Text>{SaleInvoice.TotalPriceAfterDiscount}</Text>
+              <TextBrush>Black</TextBrush>
+              <TextFormat Ref="40" type="NumberFormat" isKey="true">
+                <DecimalDigits>0</DecimalDigits>
+                <GroupSeparator>,</GroupSeparator>
+                <NegativePattern>1</NegativePattern>
+                <UseLocalSetting>False</UseLocalSetting>
+              </TextFormat>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text14>
+            <Text15 Ref="41" type="Text" isKey="true">
+              <Brush>White</Brush>
+              <ClientRectangle>5.2,0,2.8,0.85</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>B Mitra,10,Bold</Font>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text15</Name>
+              <Page isRef="6" />
+              <Parent isRef="31" />
+              <Text>{SaleInvoice.TotalPriceAfterDiscount}</Text>
+              <TextBrush>Black</TextBrush>
+              <TextFormat Ref="42" type="NumberFormat" isKey="true">
+                <DecimalDigits>0</DecimalDigits>
+                <GroupSeparator>,</GroupSeparator>
+                <NegativePattern>1</NegativePattern>
+                <UseLocalSetting>False</UseLocalSetting>
+              </TextFormat>
+              <VertAlignment>Center</VertAlignment>
+            </Text15>
+            <Text27 Ref="43" type="Text" isKey="true">
+              <Brush>White</Brush>
+              <ClientRectangle>2.8,0,2.4,0.85</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>B Mitra,10,Bold</Font>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text27</Name>
+              <Page isRef="6" />
+              <Parent isRef="31" />
+              <Text>{SaleInvoice.TaxAndToll}</Text>
+              <TextBrush>Black</TextBrush>
+              <TextFormat Ref="44" type="NumberFormat" isKey="true">
+                <DecimalDigits>0</DecimalDigits>
+                <GroupSeparator>,</GroupSeparator>
+                <NegativePattern>1</NegativePattern>
+                <UseLocalSetting>False</UseLocalSetting>
+              </TextFormat>
+              <VertAlignment>Center</VertAlignment>
+            </Text27>
+            <Text1 Ref="45" type="Text" isKey="true">
+              <Brush>White</Brush>
+              <ClientRectangle>15.2,0,1.6,0.85</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>B Mitra,10,Bold</Font>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text1</Name>
+              <Page isRef="6" />
+              <Parent isRef="31" />
+              <Text>{SaleInvoice.UnitTitle}</Text>
+              <TextBrush>Black</TextBrush>
+              <VertAlignment>Center</VertAlignment>
+            </Text1>
+            <Text12 Ref="46" type="Text" isKey="true">
+              <Brush>White</Brush>
+              <ClientRectangle>26.5,0,1.2,0.85</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Times New Roman,9,Bold</Font>
+              <HorAlignment>Right</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text12</Name>
+              <Page isRef="6" />
+              <Parent isRef="31" />
+              <Text>{SaleInvoice.Custom_CodeAnbar}</Text>
+              <TextBrush>Black</TextBrush>
+              <VertAlignment>Center</VertAlignment>
+            </Text12>
+            <Text31 Ref="47" type="Text" isKey="true">
+              <Brush>White</Brush>
+              <ClientRectangle>0,0,2.8,0.85</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>B Mitra,10,Bold</Font>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text31</Name>
+              <Page isRef="6" />
+              <Parent isRef="31" />
+              <Text>{SaleInvoice.TotalPriceAfterTaxAndToll}</Text>
+              <TextBrush>Black</TextBrush>
+              <TextFormat Ref="48" type="NumberFormat" isKey="true">
+                <DecimalDigits>0</DecimalDigits>
+                <GroupSeparator>,</GroupSeparator>
+                <NegativePattern>1</NegativePattern>
+                <UseLocalSetting>False</UseLocalSetting>
+              </TextFormat>
+              <VertAlignment>Center</VertAlignment>
+            </Text31>
+          </Components>
+          <Conditions isList="true" count="0" />
+          <DataRelationName isNull="true" />
+          <DataSourceName>SaleInvoice</DataSourceName>
+          <Filters isList="true" count="0" />
+          <Name>DatamadreseDS</Name>
+          <Page isRef="6" />
+          <Parent isRef="6" />
+          <Sort isList="true" count="0" />
+        </DatamadreseDS>
+      </Components>
+      <Conditions isList="true" count="0" />
+      <Guid>d56a41683d73426aa9d89379b3a21ef2</Guid>
+      <Margins>1,1,1,1</Margins>
+      <Name>Page1</Name>
+      <Orientation>Landscape</Orientation>
+      <PageHeight>21</PageHeight>
+      <PageWidth>29.7</PageWidth>
+      <PaperSize>A4</PaperSize>
+      <Watermark Ref="49" type="Stimulsoft.Report.Components.StiWatermark" isKey="true">
+        <Font>Arial,100</Font>
+        <TextBrush>[50:0:0:0]</TextBrush>
+      </Watermark>
+    </Page1>
+  </Pages>
+  <PrinterSettings Ref="50" type="Stimulsoft.Report.Print.StiPrinterSettings" isKey="true" />
+  <ReferencedAssemblies isList="true" count="8">
+    <value>System.Dll</value>
+    <value>System.Drawing.Dll</value>
+    <value>System.Windows.Forms.Dll</value>
+    <value>System.Data.Dll</value>
+    <value>System.Xml.Dll</value>
+    <value>Stimulsoft.Controls.Dll</value>
+    <value>Stimulsoft.Base.Dll</value>
+    <value>Stimulsoft.Report.Dll</value>
+  </ReferencedAssemblies>
+  <ReportAlias>Report</ReportAlias>
+  <ReportChanged>8/21/2018 9:03:49 AM</ReportChanged>
+  <ReportCreated>11/5/2008 4:44:01 AM</ReportCreated>
+  <ReportFile>\\172.16.2.18\d$\Taraznegar\MegaModavemApp_Web\Reports\ps.SalesInvoiceOfficialLandscape.mrt</ReportFile>
+  <ReportGuid>3dbf9495a52345dda2cf0428ab4bd3eb</ReportGuid>
+  <ReportName>Report</ReportName>
+  <ReportUnit>Centimeters</ReportUnit>
+  <ReportVersion>2016.1.0</ReportVersion>
+  <Script>using System;
+using System.Drawing;
+using System.Windows.Forms;
+using System.Data;
+using Stimulsoft.Controls;
+using Stimulsoft.Base.Drawing;
+using Stimulsoft.Report;
+using Stimulsoft.Report.Dialogs;
+using Stimulsoft.Report.Components;
+
+namespace Reports
+{
+    
+    public class Report : Stimulsoft.Report.StiReport
+    {
+        
+        public Report()
+        {
+            this.InitializeComponent();
+        }
+        #region StiReport Designer generated code - do not modify
+		#endregion StiReport Designer generated code - do not modify
+    }
+}</Script>
+  <ScriptLanguage>CSharp</ScriptLanguage>
+  <Styles isList="true" count="0" />
+</StiSerializer>

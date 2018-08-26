@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>TeleSharp</id>
+    <version>1.0.5</version>
+    <title>TeleSharp</title>
+    <authors>Felony</authors>
+    <owners>Felony</owners>
+    <licenseUrl>http://opensource.org/licenses/Apache-2.0</licenseUrl>
+    <projectUrl>https://github.com/Fel0ny/TeleSharp</projectUrl>
+    <iconUrl>http://s6.uplod.ir/i/00726/kiuh0kbul9gp.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>It support most of the features of Telegram Bot API including :
+
+      Get Bot information
+      Read received messages
+      Send text message
+      Forward message
+      Replay message
+      Send location
+      Send &amp; receive sticker
+      Send &amp; receive photo
+      Send &amp; receive video
+      Send &amp; receive audio
+      Send &amp; receive document
+      Set current status of bot like(Typing, Upload photo, Upload video and etc)</description>
+    <summary>C# implementation of Telegram bot API</summary>
+    <copyright>Copyright  2016</copyright>
+    <language>en-US</language>
+    <tags>telegram c# csharp bot telegrambot</tags>
+    <dependencies>
+      <group targetFramework=".NETFramework4.5">
+        <dependency id="RestSharp" version="105.2.3" />
+      </group>
+    </dependencies>
+  </metadata>
+</package>
