@@ -232,6 +232,7 @@ namespace AppFramework.AppServer.WarehouseManagement
             //پس فقط زمانی رزرو موجودی برای کالا چک می شود که عملیات مرتبط پیش فاکتور فروش باشد
             int? reservedStockInProformas = null;
             int? reservedStockInWarehouseInventoryReserveList = null;
+
             if (salesInvoiceID != null)
             {
                 var psConfig = dbHelper.FetchSingle("ps.Config", null, null);
@@ -239,7 +240,7 @@ namespace AppFramework.AppServer.WarehouseManagement
                     throw new AfwException("وضعیت کالای قابل فروش در تنظیمات سیستم خرید و فروش انتخاب نشده است.");
 
                 stuffStatusID = psConfig.GetFieldValue<Guid>("VaziateKalayeGhabeleForosh");
-                reservedStockInProformas = GetStuffReservedStockInProformas((Guid)stuffID, salesInvoiceID);
+                reservedStockInProformas = GetStuffReservedStockInProformas((Guid)stuffID);
                 reservedStockInWarehouseInventoryReserveList = GetWarehouseInventoryReserveQuantity((Guid)stuffID);
             }
 
@@ -265,7 +266,7 @@ namespace AppFramework.AppServer.WarehouseManagement
                 var stuffLocationName = stuffLocationID == null? ""
                     : " " + dbHelper.FetchSingleByID("cmn.StuffLocation", (Guid)stuffLocationID, null).GetFieldValue<string>("Name");
                 
-                throw new AfwException("مقدار '{0}' (سطر {1} حواله) بیشتر از موجودی قابل ارائه{2} ({3}) می باشد.", 
+                throw new AfwException("مقدار '{0}' بیشتر از موجودی قابل ارائه{2} ({3}) می باشد.", 
                     stuffTitle, rowNumber, stuffLocationName,  mojodiGhabeleEraee);
             }
         }
@@ -294,7 +295,7 @@ namespace AppFramework.AppServer.WarehouseManagement
             return dbHelper.AdoDbHelper.ExecuteScalar<int>(sqlQuery);
         }
 
-        public int? GetStuffReservedStockInProformas(Guid stuffID, Guid? excludedSalesInvoiceID)
+        public int? GetStuffReservedStockInProformas(Guid stuffID)
         {
             var dbHelper = CoreComponent.Instance.MainDbHelper;
 
@@ -310,10 +311,8 @@ namespace AppFramework.AppServer.WarehouseManagement
                     and ProformaItems.Stuff = '{0}'
                     and not exists(select 1 from ps_SalesInvoices CreatedInvoice where CreatedInvoice.SourceProforma = Proforma.ID 
 		                and CreatedInvoice.IsProforma = 0)
-                    and Proforma.ID <> '{1}'
                 group by ProformaItems.Stuff",
-                stuffID,
-                excludedSalesInvoiceID);
+                stuffID);
 
             return dbHelper.AdoDbHelper.ExecuteScalar<int?>(sqlQuery);
         }

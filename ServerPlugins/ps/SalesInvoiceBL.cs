@@ -120,18 +120,6 @@ namespace AppFramework.AppServer.PurchaseAndSales
                         }
                     }
 
-                    if (workflowStage != null
-                        && workflowStage.GetFieldValue<string>("LatinName") != "NotApproved")
-                    {
-                        if (entity.FieldExists("StuffAndServiceItems") && !InvoiceHasHavale(invoiceID))
-                        {
-                            wm.Instance.CheckStuffsStock(
-                                entity.GetFieldValue<EntityList>("StuffAndServiceItems").Entities,
-                                null, null, null,
-                                entity.GetFieldValue<Guid>("ID"));
-                        }
-                    }
-
                     if (sourceProformaID != null)
                     {
                         var sourceProforma = dbHelper.FetchSingleByID("ps.SalesInvoice", (Guid)sourceProformaID, null);
@@ -197,6 +185,82 @@ namespace AppFramework.AppServer.PurchaseAndSales
             }
         }
 
+        public override void AfterApplyChanges(EntityDbHelper dbHelper, Entity entity)
+        {
+            base.AfterApplyChanges(dbHelper, entity);
+
+            var invoiceID = entity.GetFieldValue<Guid>("ID");
+            var isProforma = entity.GetFieldValue<bool>("IsProforma");
+            var oldEntity = GetOldEntity(entity);
+            var currentWorkflowStageID = entity.GetFieldValue<Guid?>("WorkflowStage");
+
+            Entity workflowStage = null;
+            if (currentWorkflowStageID != null)
+            {
+                workflowStage = dbHelper.FetchSingleByID("cmn.WorkflowStage", (Guid)currentWorkflowStageID, null);
+            }
+
+            if (entity.ChangeStatus != EntityChangeTypes.Delete)
+            {
+                if (entity.FieldExists("StuffAndServiceItems") && entity.GetFieldValue<EntityList>("StuffAndServiceItems") != null)
+                {
+                    SaveItems(entity.GetFieldValue<EntityList>("StuffAndServiceItems"));
+                }
+
+                if (!HasItem(invoiceID))
+                    throw new AfwException("فاکتور آیتم ندارد .");
+
+                if (entity.FieldExists("PayPlanItems"))
+                {
+                    var payPlanItems = entity.GetFieldValue<EntityList>("PayPlanItems").Entities;
+                    SavePayPlanItems(payPlanItems);
+                }
+
+                var customerID = entity.GetFieldValue<Guid>("Customer");
+
+                if (isProforma)
+                {
+                    if (workflowStage != null
+                        && workflowStage.GetFieldValue<string>("LatinName") != "NotApproved")
+                    {
+                        if (entity.FieldExists("StuffAndServiceItems") && !InvoiceHasHavale(invoiceID))
+                        {
+                            wm.Instance.CheckStuffsStock(
+                                entity.GetFieldValue<EntityList>("StuffAndServiceItems").Entities,
+                                null, null, null,
+                                entity.GetFieldValue<Guid>("ID"));
+                        }
+                    }
+
+                    if (!cmn.Instance.PersonHasRole(customerID, "Customer"))
+                        cmn.Instance.AddRoleToPerson(customerID, "PotentialCustomer");
+                }
+                else
+                {
+                    cmn.Instance.AddRoleToPerson(customerID, "Customer");
+                    CreateSalesInvoiceAccDoc(entity);
+                }
+            }
+
+            //if (entity.ChangeStatus == EntityChangeTypes.Modify && isProforma)
+            //    ExecuteWorkflowSystemAction(entity, "CreateInvoice");
+
+            if (entity.ChangeStatus == EntityChangeTypes.Delete)
+                acc.Instance.DeleteAccDocMaster(entity.GetFieldValue<Guid?>("AccDoc"), "ps.SalesInvoice", invoiceID);
+
+            if (entity.ChangeStatus == EntityChangeTypes.Add)
+            {
+                if (currentWorkflowStageID != null)
+                    InsertWorkflowStageChangeLog(oldEntity, entity);
+            }
+
+            if (entity.ChangeStatus == EntityChangeTypes.Modify)
+            {
+                if (oldEntity.GetFieldValue<Guid?>("WorkflowStage") != currentWorkflowStageID)
+                    InsertWorkflowStageChangeLog(oldEntity, entity);
+            }
+        }
+
         private void InsertWorkflowStageChangeLog(Entity oldEntity, Entity entity)
         {
             var dbHelper = CoreComponent.Instance.MainDbHelper;
@@ -243,64 +307,6 @@ namespace AppFramework.AppServer.PurchaseAndSales
             }
 
             return true;
-        }
-
-        public override void AfterApplyChanges(EntityDbHelper dbHelper, Entity entity)
-        {
-            base.AfterApplyChanges(dbHelper, entity);
-
-            var invoiceID = entity.GetFieldValue<Guid>("ID");
-            var isProforma = entity.GetFieldValue<bool>("IsProforma");
-            var oldEntity = GetOldEntity(entity);
-            var workflowStageID = entity.GetFieldValue<Guid?>("WorkflowStage");
-
-            if (entity.ChangeStatus != EntityChangeTypes.Delete)
-            {
-                if (entity.FieldExists("StuffAndServiceItems") && entity.GetFieldValue<EntityList>("StuffAndServiceItems") != null)
-                {
-                    SaveItems(entity.GetFieldValue<EntityList>("StuffAndServiceItems"));
-                }
-
-                if (!HasItem(invoiceID))
-                    throw new AfwException("فاکتور آیتم ندارد .");
-
-                if (entity.FieldExists("PayPlanItems"))
-                {
-                    var payPlanItems = entity.GetFieldValue<EntityList>("PayPlanItems").Entities;
-                    SavePayPlanItems(payPlanItems);
-                }
-
-                var customerID = entity.GetFieldValue<Guid>("Customer");
-
-                if (isProforma)
-                {
-                    if (!cmn.Instance.PersonHasRole(customerID, "Customer"))
-                        cmn.Instance.AddRoleToPerson(customerID, "PotentialCustomer");
-                }
-                else
-                {
-                    cmn.Instance.AddRoleToPerson(customerID, "Customer");
-                    CreateSalesInvoiceAccDoc(entity);
-                }
-            }
-
-            //if (entity.ChangeStatus == EntityChangeTypes.Modify && isProforma)
-            //    ExecuteWorkflowSystemAction(entity, "CreateInvoice");
-
-            if (entity.ChangeStatus == EntityChangeTypes.Delete)
-                acc.Instance.DeleteAccDocMaster(entity.GetFieldValue<Guid?>("AccDoc"), "ps.SalesInvoice", invoiceID);
-
-            if (entity.ChangeStatus == EntityChangeTypes.Add)
-            {
-                if (workflowStageID != null)
-                    InsertWorkflowStageChangeLog(oldEntity, entity);
-            }
-
-            if (entity.ChangeStatus == EntityChangeTypes.Modify)
-            {
-                if (oldEntity.GetFieldValue<Guid?>("WorkflowStage") != workflowStageID)
-                    InsertWorkflowStageChangeLog(oldEntity, entity);
-            }
         }
 
         private void SaveItems(EntityList items)
