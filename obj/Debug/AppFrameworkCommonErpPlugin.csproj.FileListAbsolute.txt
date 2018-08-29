@@ -6,7 +6,6 @@ H:\RoyalMehr1\AppFramework\AppFrameworkCommonErpPlugin\bin\Debug\AppFramework.Se
 H:\RoyalMehr1\AppFramework\AppFrameworkCommonErpPlugin\obj\Debug\AppFrameworkCommonErpPlugin.csprojResolveAssemblyReference.cache
 H:\RoyalMehr1\AppFramework\AppFrameworkCommonErpPlugin\obj\Debug\AppFrameworkCommonErpPlugin.dll
 H:\RoyalMehr1\AppFramework\AppFrameworkCommonErpPlugin\obj\Debug\AppFrameworkCommonErpPlugin.pdb
-H:\Taraznegar\Projects\AppFrameworkCommonErpPlugin\obj\Debug\AppFrameworkCommonErpPlugin.csprojResolveAssemblyReference.cache
 H:\Taraznegar\Projects\AppFrameworkCommonErpPlugin\obj\Debug\AppFrameworkCommonErpPlugin.dll
 H:\Taraznegar\Projects\AppFrameworkCommonErpPlugin\bin\Debug\AppFrameworkCommonErpPlugin.dll
 H:\Taraznegar\Projects\AppFrameworkCommonErpPlugin\bin\Debug\AppFrameworkCommonErpPlugin.pdb
