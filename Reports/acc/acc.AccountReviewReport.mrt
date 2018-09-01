@@ -5,7 +5,7 @@
     <Databases isList="true" count="1">
       <MainDBConnection Ref="2" type="Stimulsoft.Report.Dictionary.StiSqlDatabase" isKey="true">
         <Alias>MainDBConnection</Alias>
-        <ConnectionStringEncrypted>+fLBK14FMdXsWNXM8QSuP95adYLNTBnta0uhzGYENUbC8s8PSFlDjMtJYdjo2CU/wFb3SFYB851yaYSJYcSyY8dU+UtPaFFta1ysUGQ9qD/5bHGJSV+ToUVN2cxjXOBmhsT7L2cYW/3ME5zMSUzhG8JgnyjFQRnZQ0uhmedxtWLD7g==</ConnectionStringEncrypted>
+        <ConnectionStringEncrypted>+VbNK14F+91sWKXs8QS3J95wc+PNfkmIRn2hzOpc46eNMPsJRVnT8HJFYYDDXCJ3xnT3iFZZAf1sWtHJTQgnD8RU94xPAzpZ7VE5zGjQoj+eePuJTV97WXRHhPxjBGIX2HDRy8l7g/15XXmN60ngN+DczyvGAKmJa1qcgU1M9ReGIHGhZw==</ConnectionStringEncrypted>
         <Name>MainDBConnection</Name>
       </MainDBConnection>
     </Databases>
@@ -331,7 +331,7 @@ where ID = isnull({ParentAccount}, ID)</SqlCommand>
             <Text30 Ref="21" type="Text" isKey="true">
               <Border>None;[242:242:242];1;Double;False;4;Black</Border>
               <Brush>Transparent</Brush>
-              <ClientRectangle>5.1,0.7,0.8,0.3</ClientRectangle>
+              <ClientRectangle>4.9,0.7,0.8,0.3</ClientRectangle>
               <Conditions isList="true" count="0" />
               <Font>B Roya,12</Font>
               <Guid>0df1a7639ea34c76bfd47764f4a27cce</Guid>
@@ -349,7 +349,7 @@ where ID = isnull({ParentAccount}, ID)</SqlCommand>
             <Text31 Ref="22" type="Text" isKey="true">
               <Border>None;[242:242:242];1;Double;False;4;Black</Border>
               <Brush>Transparent</Brush>
-              <ClientRectangle>6,0.7,0.8,0.3</ClientRectangle>
+              <ClientRectangle>5.8,0.7,0.8,0.3</ClientRectangle>
               <Conditions isList="true" count="0" />
               <Font>B Roya,12</Font>
               <Guid>34c7088eabc04a73bd0c46f9f1c838ad</Guid>
@@ -366,7 +366,7 @@ where ID = isnull({ParentAccount}, ID)</SqlCommand>
             <Text32 Ref="23" type="Text" isKey="true">
               <Border>None;[242:242:242];1;Double;False;4;Black</Border>
               <Brush>Transparent</Brush>
-              <ClientRectangle>7,0.7,0.7,0.3</ClientRectangle>
+              <ClientRectangle>6.8,0.7,0.7,0.3</ClientRectangle>
               <Conditions isList="true" count="0" />
               <Font>B Roya,12</Font>
               <Guid>59fbdde5531c4d8098d7e61c7a39e98f</Guid>
@@ -383,7 +383,7 @@ where ID = isnull({ParentAccount}, ID)</SqlCommand>
             <Text29 Ref="24" type="Text" isKey="true">
               <Border>None;[242:242:242];1;Double;False;4;Black</Border>
               <Brush>Transparent</Brush>
-              <ClientRectangle>3.2,0.7,1.8,0.3</ClientRectangle>
+              <ClientRectangle>3,0.7,1.8,0.3</ClientRectangle>
               <Conditions isList="true" count="0" />
               <Font>B Roya,12</Font>
               <Guid>23c254b2b63641e5861b5997440a8aee</Guid>
@@ -400,7 +400,7 @@ where ID = isnull({ParentAccount}, ID)</SqlCommand>
             <Text36 Ref="25" type="Text" isKey="true">
               <Border>None;[242:242:242];1;Double;False;4;Black</Border>
               <Brush>Transparent</Brush>
-              <ClientRectangle>2.4,0.7,0.6,0.3</ClientRectangle>
+              <ClientRectangle>2.2,0.7,0.6,0.3</ClientRectangle>
               <Conditions isList="true" count="0" />
               <Font>B Roya,12</Font>
               <Guid>568a7e9b2e3a479e9e17baf2fb0b9b98</Guid>
@@ -418,7 +418,7 @@ where ID = isnull({ParentAccount}, ID)</SqlCommand>
             <Text37 Ref="26" type="Text" isKey="true">
               <Border>None;[242:242:242];1;Double;False;4;Black</Border>
               <Brush>Transparent</Brush>
-              <ClientRectangle>0.4,0.7,2,0.3</ClientRectangle>
+              <ClientRectangle>0.2,0.7,2,0.3</ClientRectangle>
               <Conditions isList="true" count="0" />
               <Font>B Roya,12</Font>
               <Guid>156499b8dd754759bd0f4c36a71c609f</Guid>
@@ -434,7 +434,7 @@ where ID = isnull({ParentAccount}, ID)</SqlCommand>
             </Text37>
             <Text3 Ref="27" type="Text" isKey="true">
               <Brush>Transparent</Brush>
-              <ClientRectangle>5.9,0.1,0.2,0.3</ClientRectangle>
+              <ClientRectangle>5.7,0.1,0.2,0.3</ClientRectangle>
               <Conditions isList="true" count="0" />
               <Font>B Roya,12</Font>
               <Guid>65c00980f0a94970a15e19e5abce65f6</Guid>
@@ -452,7 +452,7 @@ where ID = isnull({ParentAccount}, ID)</SqlCommand>
             </Text3>
             <Text4 Ref="28" type="Text" isKey="true">
               <Brush>Transparent</Brush>
-              <ClientRectangle>4.9,0.1,0.9,0.3</ClientRectangle>
+              <ClientRectangle>4.7,0.1,0.9,0.3</ClientRectangle>
               <Conditions isList="true" count="0" />
               <Font>B Roya,12</Font>
               <Guid>724908d06f7b4da1b27ef44464477046</Guid>
@@ -469,7 +469,7 @@ where ID = isnull({ParentAccount}, ID)</SqlCommand>
             </Text4>
             <Text1 Ref="29" type="Text" isKey="true">
               <Brush>Transparent</Brush>
-              <ClientRectangle>6.2,0.1,0.9,0.3</ClientRectangle>
+              <ClientRectangle>6,0.1,0.9,0.3</ClientRectangle>
               <Conditions isList="true" count="0" />
               <Font>B Roya,12</Font>
               <Guid>528f9248ef274cf98013496bfa4033fc</Guid>
@@ -486,7 +486,7 @@ where ID = isnull({ParentAccount}, ID)</SqlCommand>
             </Text1>
             <Text2 Ref="30" type="Text" isKey="true">
               <Brush>Transparent</Brush>
-              <ClientRectangle>7.2,0.1,0.5,0.3</ClientRectangle>
+              <ClientRectangle>7,0.1,0.5,0.3</ClientRectangle>
               <Conditions isList="true" count="0" />
               <Font>B Roya,12</Font>
               <Guid>459525aae4da4e2a84fd59f989946f3e</Guid>
@@ -502,7 +502,7 @@ where ID = isnull({ParentAccount}, ID)</SqlCommand>
             </Text2>
             <Text38 Ref="31" type="Text" isKey="true">
               <Brush>Transparent</Brush>
-              <ClientRectangle>5.9,0.4,0.2,0.3</ClientRectangle>
+              <ClientRectangle>5.7,0.4,0.2,0.3</ClientRectangle>
               <Conditions isList="true" count="0" />
               <Font>B Roya,12</Font>
               <Guid>7e90c13d5166428ea1aa4a32f88230d2</Guid>
@@ -520,7 +520,7 @@ where ID = isnull({ParentAccount}, ID)</SqlCommand>
             </Text38>
             <Text39 Ref="32" type="Text" isKey="true">
               <Brush>Transparent</Brush>
-              <ClientRectangle>5,0.4,0.8,0.3</ClientRectangle>
+              <ClientRectangle>4.8,0.4,0.8,0.3</ClientRectangle>
               <Conditions isList="true" count="0" />
               <Font>B Roya,12</Font>
               <Guid>91480448f0944c09a7973f4fe0def271</Guid>
@@ -537,7 +537,7 @@ where ID = isnull({ParentAccount}, ID)</SqlCommand>
             </Text39>
             <Text40 Ref="33" type="Text" isKey="true">
               <Brush>Transparent</Brush>
-              <ClientRectangle>6.2,0.4,0.5,0.3</ClientRectangle>
+              <ClientRectangle>6,0.4,0.5,0.3</ClientRectangle>
               <Conditions isList="true" count="0" />
               <Font>B Roya,12</Font>
               <Guid>292ac8fd111a436a9bea77f35322ecae</Guid>
@@ -554,7 +554,7 @@ where ID = isnull({ParentAccount}, ID)</SqlCommand>
             </Text40>
             <Text41 Ref="34" type="Text" isKey="true">
               <Brush>Transparent</Brush>
-              <ClientRectangle>6.8,0.4,0.9,0.3</ClientRectangle>
+              <ClientRectangle>6.6,0.4,0.9,0.3</ClientRectangle>
               <Conditions isList="true" count="0" />
               <Font>B Roya,12</Font>
               <Guid>51464afcdb7e42579654858664f3f07f</Guid>
@@ -571,7 +571,7 @@ where ID = isnull({ParentAccount}, ID)</SqlCommand>
             <Text24 Ref="35" type="Text" isKey="true">
               <Border>None;[242:242:242];1;Double;False;4;Black</Border>
               <Brush>Transparent</Brush>
-              <ClientRectangle>3.2,1,4.5,0.3</ClientRectangle>
+              <ClientRectangle>3,1,4.5,0.3</ClientRectangle>
               <Conditions isList="true" count="0" />
               <Font>B Roya,12</Font>
               <Guid>16fa477fdefe47f8826c087a19fb25ed</Guid>
@@ -588,7 +588,7 @@ where ID = isnull({ParentAccount}, ID)</SqlCommand>
             <Text42 Ref="36" type="Text" isKey="true">
               <Border>None;[242:242:242];1;Double;False;4;Black</Border>
               <Brush>Transparent</Brush>
-              <ClientRectangle>2.2,1,0.8,0.3</ClientRectangle>
+              <ClientRectangle>2,1,0.8,0.3</ClientRectangle>
               <Conditions isList="true" count="0" />
               <Font>B Roya,12</Font>
               <Guid>82dd2bbc05144283b438f83fcdd792b8</Guid>
@@ -606,7 +606,7 @@ where ID = isnull({ParentAccount}, ID)</SqlCommand>
             <Text43 Ref="37" type="Text" isKey="true">
               <Border>None;[242:242:242];1;Double;False;4;Black</Border>
               <Brush>Transparent</Brush>
-              <ClientRectangle>0.4,1,1.8,0.3</ClientRectangle>
+              <ClientRectangle>0.2,1,1.8,0.3</ClientRectangle>
               <Conditions isList="true" count="0" />
               <Font>B Roya,12</Font>
               <Guid>853662d41ea946459b6835231598ca34</Guid>
@@ -634,7 +634,7 @@ where ID = isnull({ParentAccount}, ID)</SqlCommand>
             <Text5 Ref="39" type="Text" isKey="true">
               <Border>All;Black;1;Solid;False;4;Black</Border>
               <Brush>[242:242:242]</Brush>
-              <ClientRectangle>7.1,0,0.61,0.4</ClientRectangle>
+              <ClientRectangle>6.5,0,1.21,0.4</ClientRectangle>
               <Conditions isList="true" count="0" />
               <Font>B Roya,12</Font>
               <HorAlignment>Center</HorAlignment>
@@ -650,7 +650,7 @@ where ID = isnull({ParentAccount}, ID)</SqlCommand>
             <Text6 Ref="40" type="Text" isKey="true">
               <Border>All;Black;1;Solid;False;4;Black</Border>
               <Brush>[242:242:242]</Brush>
-              <ClientRectangle>5.1,0,2,0.4</ClientRectangle>
+              <ClientRectangle>4.2,0,2.3,0.4</ClientRectangle>
               <Conditions isList="true" count="0" />
               <Font>B Roya,12</Font>
               <HorAlignment>Center</HorAlignment>
@@ -666,7 +666,7 @@ where ID = isnull({ParentAccount}, ID)</SqlCommand>
             <Text7 Ref="41" type="Text" isKey="true">
               <Border>All;Black;1;Solid;False;4;Black</Border>
               <Brush>[242:242:242]</Brush>
-              <ClientRectangle>3.8,0,1.3,0.4</ClientRectangle>
+              <ClientRectangle>3.1,0,1.1,0.4</ClientRectangle>
               <Conditions isList="true" count="0" />
               <Font>B Roya,12</Font>
               <HorAlignment>Center</HorAlignment>
@@ -682,7 +682,7 @@ where ID = isnull({ParentAccount}, ID)</SqlCommand>
             <Text8 Ref="42" type="Text" isKey="true">
               <Border>All;Black;1;Solid;False;4;Black</Border>
               <Brush>[242:242:242]</Brush>
-              <ClientRectangle>2.4,0,1.4,0.4</ClientRectangle>
+              <ClientRectangle>2,0,1.1,0.4</ClientRectangle>
               <Conditions isList="true" count="0" />
               <Font>B Roya,12</Font>
               <HorAlignment>Center</HorAlignment>
@@ -698,7 +698,7 @@ where ID = isnull({ParentAccount}, ID)</SqlCommand>
             <Text9 Ref="43" type="Text" isKey="true">
               <Border>All;Black;1;Solid;False;4;Black</Border>
               <Brush>[242:242:242]</Brush>
-              <ClientRectangle>1.2,0,1.2,0.4</ClientRectangle>
+              <ClientRectangle>1,0,1,0.4</ClientRectangle>
               <Conditions isList="true" count="0" />
               <Font>B Roya,12</Font>
               <HorAlignment>Center</HorAlignment>
@@ -714,7 +714,7 @@ where ID = isnull({ParentAccount}, ID)</SqlCommand>
             <Text10 Ref="44" type="Text" isKey="true">
               <Border>All;Black;1;Solid;False;4;Black</Border>
               <Brush>[242:242:242]</Brush>
-              <ClientRectangle>0,0,1.2,0.4</ClientRectangle>
+              <ClientRectangle>0,0,1,0.4</ClientRectangle>
               <Conditions isList="true" count="0" />
               <Font>B Roya,12</Font>
               <HorAlignment>Center</HorAlignment>
@@ -736,14 +736,15 @@ where ID = isnull({ParentAccount}, ID)</SqlCommand>
         <DataBand1 Ref="45" type="DataBand" isKey="true">
           <Brush>Transparent</Brush>
           <BusinessObjectGuid isNull="true" />
-          <ClientRectangle>0,4.5,7.72,0.3</ClientRectangle>
+          <ClientRectangle>0,4.5,7.72,0.4</ClientRectangle>
           <Components isList="true" count="6">
             <Text11 Ref="46" type="Text" isKey="true">
               <Border>All;Black;1;Solid;False;4;Black</Border>
               <Brush>Transparent</Brush>
-              <ClientRectangle>7.1,0,0.61,0.3</ClientRectangle>
+              <ClientRectangle>6.5,0,1.21,0.4</ClientRectangle>
               <Conditions isList="true" count="0" />
-              <Font>B Roya,12</Font>
+              <Font>B Roya,10</Font>
+              <GrowToHeight>True</GrowToHeight>
               <HorAlignment>Center</HorAlignment>
               <Margins>0,0,0,0</Margins>
               <Name>Text11</Name>
@@ -751,15 +752,19 @@ where ID = isnull({ParentAccount}, ID)</SqlCommand>
               <Parent isRef="45" />
               <Text>{AccountReviewDataDS.Code}</Text>
               <TextBrush>Black</TextBrush>
+              <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
               <Type>DataColumn</Type>
               <VertAlignment>Center</VertAlignment>
             </Text11>
             <Text12 Ref="47" type="Text" isKey="true">
               <Border>All;Black;1;Solid;False;4;Black</Border>
               <Brush>Transparent</Brush>
-              <ClientRectangle>5.1,0,2,0.3</ClientRectangle>
+              <CanGrow>True</CanGrow>
+              <CanShrink>True</CanShrink>
+              <ClientRectangle>4.2,0,2.3,0.4</ClientRectangle>
               <Conditions isList="true" count="0" />
-              <Font>B Roya,12</Font>
+              <Font>B Roya,11</Font>
+              <GrowToHeight>True</GrowToHeight>
               <HorAlignment>Right</HorAlignment>
               <Margins>0,0,0,0</Margins>
               <Name>Text12</Name>
@@ -767,15 +772,17 @@ where ID = isnull({ParentAccount}, ID)</SqlCommand>
               <Parent isRef="45" />
               <Text>{AccountReviewDataDS.Name}</Text>
               <TextBrush>Black</TextBrush>
+              <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
               <Type>Expression</Type>
               <VertAlignment>Center</VertAlignment>
             </Text12>
             <Text13 Ref="48" type="Text" isKey="true">
               <Border>All;Black;1;Solid;False;4;Black</Border>
               <Brush>Transparent</Brush>
-              <ClientRectangle>3.8,0,1.3,0.3</ClientRectangle>
+              <ClientRectangle>3.1,0,1.1,0.4</ClientRectangle>
               <Conditions isList="true" count="0" />
-              <Font>B Roya,12</Font>
+              <Font>B Roya,11</Font>
+              <GrowToHeight>True</GrowToHeight>
               <HorAlignment>Right</HorAlignment>
               <Margins>0,0,0,0</Margins>
               <Name>Text13</Name>
@@ -795,9 +802,10 @@ where ID = isnull({ParentAccount}, ID)</SqlCommand>
             <Text14 Ref="50" type="Text" isKey="true">
               <Border>All;Black;1;Solid;False;4;Black</Border>
               <Brush>Transparent</Brush>
-              <ClientRectangle>2.4,0,1.4,0.3</ClientRectangle>
+              <ClientRectangle>2,0,1.1,0.4</ClientRectangle>
               <Conditions isList="true" count="0" />
-              <Font>B Roya,12</Font>
+              <Font>B Roya,11</Font>
+              <GrowToHeight>True</GrowToHeight>
               <HorAlignment>Right</HorAlignment>
               <Margins>0,0,0,0</Margins>
               <Name>Text14</Name>
@@ -817,9 +825,10 @@ where ID = isnull({ParentAccount}, ID)</SqlCommand>
             <Text15 Ref="52" type="Text" isKey="true">
               <Border>All;Black;1;Solid;False;4;Black</Border>
               <Brush>Transparent</Brush>
-              <ClientRectangle>1.2,0,1.2,0.3</ClientRectangle>
+              <ClientRectangle>1,0,1,0.4</ClientRectangle>
               <Conditions isList="true" count="0" />
-              <Font>B Roya,12</Font>
+              <Font>B Roya,11</Font>
+              <GrowToHeight>True</GrowToHeight>
               <HorAlignment>Right</HorAlignment>
               <Margins>0,0,0,0</Margins>
               <Name>Text15</Name>
@@ -839,9 +848,10 @@ where ID = isnull({ParentAccount}, ID)</SqlCommand>
             <Text16 Ref="54" type="Text" isKey="true">
               <Border>All;Black;1;Solid;False;4;Black</Border>
               <Brush>Transparent</Brush>
-              <ClientRectangle>0,0,1.2,0.3</ClientRectangle>
+              <ClientRectangle>0,0,1,0.4</ClientRectangle>
               <Conditions isList="true" count="0" />
-              <Font>B Roya,12</Font>
+              <Font>B Roya,11</Font>
+              <GrowToHeight>True</GrowToHeight>
               <HorAlignment>Right</HorAlignment>
               <Margins>0,0,0,0</Margins>
               <Name>Text16</Name>
@@ -870,7 +880,7 @@ where ID = isnull({ParentAccount}, ID)</SqlCommand>
         </DataBand1>
         <FooterBand1 Ref="56" type="FooterBand" isKey="true">
           <Brush>WhiteSmoke</Brush>
-          <ClientRectangle>0,5.2,7.72,0.3</ClientRectangle>
+          <ClientRectangle>0,5.3,7.72,0.3</ClientRectangle>
           <Components isList="true" count="5">
             <Text19 Ref="57" type="Text" isKey="true">
               <Border>All;Black;1;Solid;False;4;Black</Border>
@@ -890,9 +900,9 @@ where ID = isnull({ParentAccount}, ID)</SqlCommand>
             <Text20 Ref="58" type="Text" isKey="true">
               <Border>All;Black;1;Solid;False;4;Black</Border>
               <Brush>[242:242:242]</Brush>
-              <ClientRectangle>3.8,0,1.3,0.3</ClientRectangle>
+              <ClientRectangle>3.4,0,1.2,0.3</ClientRectangle>
               <Conditions isList="true" count="0" />
-              <Font>B Roya,12</Font>
+              <Font>B Roya,11</Font>
               <HorAlignment>Right</HorAlignment>
               <Margins>0,0,0,0</Margins>
               <Name>Text20</Name>
@@ -912,9 +922,9 @@ where ID = isnull({ParentAccount}, ID)</SqlCommand>
             <Text21 Ref="60" type="Text" isKey="true">
               <Border>All;Black;1;Solid;False;4;Black</Border>
               <Brush>[242:242:242]</Brush>
-              <ClientRectangle>2.4,0,1.4,0.3</ClientRectangle>
+              <ClientRectangle>2.2,0,1.2,0.3</ClientRectangle>
               <Conditions isList="true" count="0" />
-              <Font>B Roya,12</Font>
+              <Font>B Roya,11</Font>
               <HorAlignment>Right</HorAlignment>
               <Margins>0,0,0,0</Margins>
               <Name>Text21</Name>
@@ -934,9 +944,9 @@ where ID = isnull({ParentAccount}, ID)</SqlCommand>
             <Text22 Ref="62" type="Text" isKey="true">
               <Border>All;Black;1;Solid;False;4;Black</Border>
               <Brush>[242:242:242]</Brush>
-              <ClientRectangle>1.2,0,1.2,0.3</ClientRectangle>
+              <ClientRectangle>1.1,0,1.1,0.3</ClientRectangle>
               <Conditions isList="true" count="0" />
-              <Font>B Roya,12</Font>
+              <Font>B Roya,11</Font>
               <HorAlignment>Right</HorAlignment>
               <Margins>0,0,0,0</Margins>
               <Name>Text22</Name>
@@ -956,9 +966,9 @@ where ID = isnull({ParentAccount}, ID)</SqlCommand>
             <Text23 Ref="64" type="Text" isKey="true">
               <Border>All;Black;1;Solid;False;4;Black</Border>
               <Brush>[242:242:242]</Brush>
-              <ClientRectangle>0,0,1.2,0.3</ClientRectangle>
+              <ClientRectangle>0,0,1.1,0.3</ClientRectangle>
               <Conditions isList="true" count="0" />
-              <Font>B Roya,12</Font>
+              <Font>B Roya,11</Font>
               <HorAlignment>Right</HorAlignment>
               <Margins>0,0,0,0</Margins>
               <Name>Text23</Name>
@@ -1009,10 +1019,10 @@ where ID = isnull({ParentAccount}, ID)</SqlCommand>
     <value>Stimulsoft.Report.Dll</value>
   </ReferencedAssemblies>
   <ReportAlias>Report</ReportAlias>
-  <ReportChanged>8/6/2018 6:44:42 PM</ReportChanged>
+  <ReportChanged>8/29/2018 6:41:48 PM</ReportChanged>
   <ReportCreated>5/8/2017 5:05:49 PM</ReportCreated>
-  <ReportFile>H:\RoyalMehr1\AppFramework\TarazNegarAppFrameworkPlugin\Reports\acc\acc.AccountReviewReport.mrt</ReportFile>
-  <ReportGuid>95af7386de1046c696b41856ffd51ab7</ReportGuid>
+  <ReportFile>D:\Temp\1\acc.AccountReviewReport.mrt</ReportFile>
+  <ReportGuid>e7187f2b66de4a54b7294204174396af</ReportGuid>
   <ReportName>Report</ReportName>
   <ReportUnit>Inches</ReportUnit>
   <ReportVersion>2016.1.0</ReportVersion>
